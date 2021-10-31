@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
+   <children>
+      <GridPane fx:id="board2048" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <AnchorPane layoutY="18.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Label fx:id="lblScore" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="14.0" text="Score" textFill="#e0dcd5">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="307.0" layoutY="18.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <Label fx:id="lblBestScore" alignment="CENTER" layoutX="10.0" layoutY="45.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="33.0" layoutY="14.0" text="Best" textFill="#e0dcd5">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="74.0" fitWidth="180.0" layoutX="113.0" layoutY="512.0" onMouseClicked="#onClickMainButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@texture/word_chalkboard.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="113.0" layoutY="518.0" text="메인으로" textFill="WHITE" />
+   </children>
+</AnchorPane>
