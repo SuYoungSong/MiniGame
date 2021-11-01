@@ -29,10 +29,40 @@ public class WordChainGameController {
     @FXML private Label lbMessage;
     @FXML private Label lbPrevWord;
     @FXML private Label lbScore;
-
-
     private final int minLetterCnt = 2;
-
+    
+     String computerWord(){
+    	try {
+			String findWord;
+			int randomNum;
+			URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=임");
+			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			findWord = (br.readLine());
+			// 단어 전처리 과정
+			findWord = findWord.substring(findWord.indexOf("(")+1, findWord.indexOf(")"));
+			String[] wordBox = findWord.split(",");
+			for(int i=1 ; i<wordBox.length ; i++) {
+				wordBox[i] = wordBox[i].substring(wordBox[i].indexOf("|")+2,wordBox[i].length()-1);
+			}
+			if(wordBox[0].equals("''")) {
+				return null; // 컴퓨터가 입력할 단어가 없어서 패배
+			}else {
+				for(int i = 1; i<wordBox.length;i++) {
+					randomNum = (int) Math.floor(Math.random()* wordBox.length);
+					if (!wordList.contains(wordBox[randomNum])){
+						return wordBox[randomNum];
+					}
+				}
+				return null;  // 컴퓨터가 입력할 단어가 없어서 패배
+			}
+	    } catch (Exception e){
+	      e.printStackTrace();
+	    } 
+    	return null;    // 컴퓨터가 입력할 단어가 없어서 패배
+    }
+    
     boolean isWord(String word){
         try {
             URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=" + word);
@@ -49,6 +79,7 @@ public class WordChainGameController {
         }
         return false;
     }
+    
 //  boolean isWord(String word){
 //  try {
 //      //시간 남으면 key 따로 분리할 예정
@@ -67,6 +98,7 @@ public class WordChainGameController {
 //  }
 //  return false;
 //}
+    
     void setLastWord(String word){
         lastWord = word.charAt(word.length() - 1);
         System.out.println("lastWord = " + lastWord);
@@ -82,7 +114,7 @@ public class WordChainGameController {
 
     @FXML
     void onPressEnter(KeyEvent e) {
-        System.out.println("score = " + score);
+//        System.out.println("score = " + score);
         if( e.getCode() == KeyCode.ENTER ) {
             String word = inputWord.getText();
             System.out.println("size >> " + word.length());
