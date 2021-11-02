@@ -8,6 +8,13 @@
 <br>
 
 # ■ 개발 목록
+## ~21/11/2
+- 2048 페이지 제작<br>
+- 2048 처음 시작 할 경우 랜덤한 위치에 [2|4]오게 구현 ( 2가 나올 확률 70% 설정 )<br>
+- 2048 내부 로직 구현(GUI이미지 연동X)<br>
+<img src="https://media.discordapp.net/attachments/349833160592457728/905099975883620423/1111111.JPG" width="100" height="250">
+<img src="https://cdn.discordapp.com/attachments/349833160592457728/905099986193231942/12121.JPG" width="100" height="150"><br>
+
 ## ~21/11/1
 - 임시 메인페이지 제작<br>
 - 오목게임 제작<br>

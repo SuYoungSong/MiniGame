@@ -32,13 +32,14 @@ public class Play2048Controller {
     private int[][] board = new int[boardSize][boardSize];
     Stack stackTile = new Stack();
     Label temp;
+    private boolean doubleSumProtection = false;
     private int randomCoord, randomNewTileText;
     
     //배열로 관리하는 보드 초기화
     void initArrayBoard() {
     	for(int i = 0 ; i<boardSize ; i++ ) {
     		for(int k = 0 ; k<boardSize ; k++) {
-    			board[i][k] = 0;
+    			board[k][i] = 0;
     		}
     	}
     }
@@ -49,36 +50,131 @@ public class Play2048Controller {
     	boardZeroCheckY.clear();
     	for(int i = 0 ; i<boardSize ; i++ ) {
     		for(int k = 0 ; k<boardSize ; k++) {
-    			if(board[i][k]==0) {
+    			if(board[k][i]==0) {
     				boardZeroCheckX.add(k);
     				boardZeroCheckY.add(i);
     			}
     		}
     	}	
     }
-    
+//    내가 생각한 2048 로직															| (0,0) | (1,0) | (2,0) | (3,0) |
+//    1. 해당 방향으로 최대한 타일을 밀기											| (0,1) | (1,1) | (2,1) | (3,1) |
+//    2. 해당 방향으로 근접한 위치에 같은 수가 있는경우 합치기						| (0,2) | (1,2) | (2,2) | (3,2) |
+//    3. 새로운 타일을 생성															| (0,3) | (1,3) | (2,3) | (3,3) |
     @FXML
     // 키보드 입력이 있는 경우
     void onPressKey(KeyEvent e) {
        	if( e.getCode() == KeyCode.UP) {
-    		System.out.println("UP");
-    		newTileAdd();
+       		for(int g = 0 ; g<board.length ; g++) {
+	       		// 1.  해당 방향으로 최대한 타일을 밀기
+	       		for(int i = 0 ; i<board.length ; i++) {
+	       			for(int k = 0 ; k<board.length-1 ; k++) {
+	       				if(board[i][k] == 0) {
+	       					board[i][k] = board[i][k+1];
+	       					board[i][k+1] = 0;
+	       				}
+	       			}	
+	       		}
+       		}
+       		// 2. 해당 방향 부근에 인접한 숫자가 같은 숫자일경우 합친다.
+       		for(int i = 0 ; i<board.length ; i++) {
+       			for(int k = board.length-1 ; k>0 ; k--) {
+       				if((board[i][k]==board[i][k-1])&&(!doubleSumProtection)&&(board[i][k]!=0)) {
+       					board[i][k-1] *= 2;
+       					board[i][k] = 0;
+       					doubleSumProtection = true;
+       				}
+       			}
+       			doubleSumProtection = false;
+       		}
+       		// 3번 새로운 타일을 생성
+       		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.DOWN) {
-    		System.out.println("DOWN");
+    		for(int g = 0 ; g<board.length ; g++) {
+	       		// 1.  해당 방향으로 최대한 타일을 밀기
+	       		for(int i = 0 ; i<board.length ; i++) {
+	       			for(int k = board.length-1 ; k>0 ; k--) {
+	       				if(board[i][k] == 0) {
+	       					board[i][k] = board[i][k-1];
+	       					board[i][k-1] = 0;
+	       				}
+	       			}	
+	       		}
+       		}
+       		// 2. 해당 방향 부근에 인접한 숫자가 같은 숫자일경우 합친다.
+       		for(int i = 0 ; i<board.length ; i++) {
+       			for(int k = 0 ; k<board.length-1 ; k++) {
+       				if((board[i][k]==board[i][k+1])&&(!doubleSumProtection)&&(board[i][k]!=0)) {
+       					board[i][k+1] *= 2;
+       					board[i][k] = 0;
+       					doubleSumProtection = true;
+       				}
+       			}
+       			doubleSumProtection = false;
+       		}
+       		// 3번 새로운 타일을 생성
+       		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.LEFT) {
-    		System.out.println("LEFT");
+    		for(int g = 0 ; g<board.length ; g++) {
+	       		// 1.  해당 방향으로 최대한 타일을 밀기
+	       		for(int i = 0 ; i<board.length ; i++) {
+	       			for(int k = 0 ; k<board.length-1 ; k++) {
+	       				if(board[k][i] == 0) {
+	       					board[k][i] = board[k+1][i];
+	       					board[k+1][i] = 0;
+	       				}
+	       			}	
+	       		}
+       		}
+       		// 2. 해당 방향 부근에 인접한 숫자가 같은 숫자일경우 합친다.
+       		for(int i = 0 ; i<board.length ; i++) {
+       			for(int k = board.length-1 ; k>0 ; k--) {
+       				if((board[k][i]==board[k-1][i])&&(!doubleSumProtection)&&(board[k][i]!=0)) {
+       					board[k-1][i] *= 2;
+       					board[k][i] = 0;
+       					doubleSumProtection = true;
+       				}
+       			}
+       			doubleSumProtection = false;
+       		}
+       		// 3번 새로운 타일을 생성
+    		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.RIGHT) {
-    		System.out.println("RIGHT");
+    		for(int g = 0 ; g<board.length ; g++) {
+	       		// 1.  해당 방향으로 최대한 타일을 밀기
+	       		for(int i = 0 ; i<board.length ; i++) {
+	       			for(int k = board.length-1 ; k>0 ; k--) {
+	       				if(board[k][i] == 0) {
+	       					board[k][i] = board[k-1][i];
+	       					board[k-1][i] = 0;
+	       				}
+	       			}	
+	       		}
+       		}
+       		// 2. 해당 방향 부근에 인접한 숫자가 같은 숫자일경우 합친다.
+       		for(int i = 0 ; i<board.length ; i++) {
+       			for(int k = 0 ; k<board.length-1 ; k++) {
+       				if((board[k][i]==board[k+1][i])&&(!doubleSumProtection)&&(board[k][i]!=0)) {
+       					board[k+1][i] *= 2;
+       					board[k][i] = 0;
+       					doubleSumProtection = true;
+       				}
+       			}
+       			doubleSumProtection = false;
+       		}
+       		// 3번 새로운 타일을 생성
+    		newTileAdd();
     	}	
     }
     
+    // 보드 상태 프린트(배열을 이용)
     void boardPrint() {
     	for(int i = 0 ; i<4 ; i++) {
 			for(int k =0;k<4;k++) {
-				System.out.print(board[i][k]);
+				System.out.print(board[k][i]);
 			}
 			System.out.println("");
 		}
@@ -105,7 +201,6 @@ public class Play2048Controller {
     void newTileAdd() {
     	boardZeroCheck();
     	if(boardZeroCheckX.size()>0) {
-    		System.out.println("추가");
     		randomCoord = (int)Math.floor(Math.random() * boardZeroCheckX.size());
     		randomNewTileText = (int)Math.floor(Math.random() * 100);
     		randomNewTileText = ( randomNewTileText < 70 ) ?2 : 4;
@@ -114,12 +209,13 @@ public class Play2048Controller {
     		setColor(temp);
     		temp.setPrefSize(89, 89);
     		temp.setAlignment(Pos.CENTER);
-    		board2048.add(temp, boardZeroCheckY.get(randomCoord), boardZeroCheckX.get(randomCoord));
-    		board[boardZeroCheckX.get(randomCoord)][boardZeroCheckY.get(randomCoord)] = randomNewTileText;
+    		board2048.add(temp, boardZeroCheckX.get(randomCoord), boardZeroCheckY.get(randomCoord));
+    		board[boardZeroCheckX.get(randomCoord)][boardZeroCheckY.get(randomCoord)] = randomNewTileText; 
+    		System.out.println(boardZeroCheckX.get(randomCoord) +","+boardZeroCheckY.get(randomCoord)+"에 "+randomNewTileText+"추가");
     		board2048.setGridLinesVisible(true);
     		boardPrint();
     	}
-}
+    }
     
     // 보드 초기화
     void initBoard() {
@@ -127,6 +223,7 @@ public class Play2048Controller {
     		board2048.getChildren().remove(stackTile.pop());
     	}
     	initArrayBoard();
+    	// 초기에는 타일 2개 생성
     	newTileAdd();
     	newTileAdd();
     }
@@ -141,9 +238,8 @@ public class Play2048Controller {
         stage.setScene(scene);
         stage.show();
 	}
-	
 	public void initialize() {
 		initBoard();
 		board2048.setFocusTraversable(true);
-}
+	}
 }
