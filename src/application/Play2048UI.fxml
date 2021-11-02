@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
+<AnchorPane prefHeight="600.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
    <children>
-      <GridPane fx:id="board2048" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
+      <GridPane fx:id="board2048" alignment="CENTER" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />

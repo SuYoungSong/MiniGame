@@ -35,7 +35,7 @@ public class WordChainGameController {
     	try {
 			String findWord;
 			int randomNum;
-			URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=임");
+			URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=");
 			HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
