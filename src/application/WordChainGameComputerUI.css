@@ -1,0 +1,10 @@
+#lbPrevWord{
+    -fx-font-size: 45px;
+    -fx-color:green;
+}
+#txtField:focused{
+    -fx-focus-color : green;
+}
+#btn:focused{
+    -fx-focus-color : green;
+}

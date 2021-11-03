@@ -25,15 +25,15 @@ public class Play2048Controller {
     @FXML	private GridPane board2048;
     @FXML   private Label lblScore;
     @FXML   private Label lblBestScore;
-    private byte boardSize = 4;
-    ArrayList<Integer> boardZeroCheckX = new ArrayList<Integer>();
-    ArrayList<Integer> boardZeroCheckY = new ArrayList<Integer>();
+    private Label temp;
     private Stage stage;
+    private ArrayList<Integer> boardZeroCheckX = new ArrayList<Integer>();
+    private ArrayList<Integer> boardZeroCheckY = new ArrayList<Integer>();
+    private Stack stackTile = new Stack();
+    private byte boardSize = 4;
     private int[][] board = new int[boardSize][boardSize];
-    Stack stackTile = new Stack();
-    Label temp;
+    private byte randomCoord, randomNewTileText;
     private boolean doubleSumProtection = false;
-    private int randomCoord, randomNewTileText;
     
     //배열로 관리하는 보드 초기화
     void initArrayBoard() {
@@ -43,8 +43,17 @@ public class Play2048Controller {
     		}
     	}
     }
-    
-    // 새로운 타일을 화면에 추가할때 타일이 없는 곳을 찾아서 ArrayList에 넣어준다.
+    // 보드 상태 프린트
+    void boardPrint() {
+    	for(int i = 0 ; i<4 ; i++) {
+			for(int k =0;k<4;k++) {
+				System.out.print(board[k][i]+" ");
+			}
+			System.out.println("");
+		}
+    	System.out.println("");
+    }
+    // 새로운 타일을 화면에 추가할때 타일이 없는 곳을 찾아서 좌표값을 ArrayList에 넣어준다.
     void boardZeroCheck(){
     	boardZeroCheckX.clear();
     	boardZeroCheckY.clear();
@@ -65,8 +74,8 @@ public class Play2048Controller {
     // 키보드 입력이 있는 경우
     void onPressKey(KeyEvent e) {
        	if( e.getCode() == KeyCode.UP) {
+       		// 1.  해당 방향으로 최대한 타일을 밀기
        		for(int g = 0 ; g<board.length ; g++) {
-	       		// 1.  해당 방향으로 최대한 타일을 밀기
 	       		for(int i = 0 ; i<board.length ; i++) {
 	       			for(int k = 0 ; k<board.length-1 ; k++) {
 	       				if(board[i][k] == 0) {
@@ -91,8 +100,8 @@ public class Play2048Controller {
        		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.DOWN) {
+    		// 1.  해당 방향으로 최대한 타일을 밀기
     		for(int g = 0 ; g<board.length ; g++) {
-	       		// 1.  해당 방향으로 최대한 타일을 밀기
 	       		for(int i = 0 ; i<board.length ; i++) {
 	       			for(int k = board.length-1 ; k>0 ; k--) {
 	       				if(board[i][k] == 0) {
@@ -117,8 +126,8 @@ public class Play2048Controller {
        		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.LEFT) {
+    		// 1.  해당 방향으로 최대한 타일을 밀기
     		for(int g = 0 ; g<board.length ; g++) {
-	       		// 1.  해당 방향으로 최대한 타일을 밀기
 	       		for(int i = 0 ; i<board.length ; i++) {
 	       			for(int k = 0 ; k<board.length-1 ; k++) {
 	       				if(board[k][i] == 0) {
@@ -143,8 +152,8 @@ public class Play2048Controller {
     		newTileAdd();
     	}
     	if( e.getCode() == KeyCode.RIGHT) {
+    		// 1.  해당 방향으로 최대한 타일을 밀기
     		for(int g = 0 ; g<board.length ; g++) {
-	       		// 1.  해당 방향으로 최대한 타일을 밀기
 	       		for(int i = 0 ; i<board.length ; i++) {
 	       			for(int k = board.length-1 ; k>0 ; k--) {
 	       				if(board[k][i] == 0) {
@@ -169,20 +178,10 @@ public class Play2048Controller {
     		newTileAdd();
     	}	
     }
-    
-    // 보드 상태 프린트(배열을 이용)
-    void boardPrint() {
-    	for(int i = 0 ; i<4 ; i++) {
-			for(int k =0;k<4;k++) {
-				System.out.print(board[k][i]);
-			}
-			System.out.println("");
-		}
-    	System.out.println("");
-    }
-    
-    // 숫자에 따른 색 변경
-    void setColor(Label tile) {
+    // 타일 설정
+    void tileSetting(Label tile) {
+    	tile.setPrefSize(89, 89);
+		tile.setAlignment(Pos.CENTER);
     	if(tile.getText().equals("2"))				tile.setStyle("-fx-background-color:#D5CEC4; -fx-text-fill:#6D675D;-fx-alignment: center;-fx-font-size:30;"); //2
     	if(tile.getText().equals("4"))				tile.setStyle("-fx-background-color:#D2CAB5; -fx-text-fill:#6A645B;-fx-alignment: center;-fx-font-size:30;"); //4
     	if(tile.getText().equals("8"))				tile.setStyle("-fx-background-color:#D1A272; -fx-text-fill:#E4DFBB;-fx-alignment: center;-fx-font-size:30;"); //8
@@ -196,38 +195,41 @@ public class Play2048Controller {
     	if(tile.getText().equals("2048"))			tile.setStyle("-fx-background-color:#D7C647; -fx-text-fill:#E2D8BA;-fx-alignment: center;-fx-font-size:30;"); //2048
     	if(Integer.parseInt(tile.getText())>=4096)	tile.setStyle("-fx-background-color:#37332E; -fx-text-fill:#C0BEBA;"); //4096
     }
-    
     // 타일 추가하기
     void newTileAdd() {
     	boardZeroCheck();
+    	// 빈공간이 있을경우 빈 공간들 중에 랜덤으로 타일을 추가
     	if(boardZeroCheckX.size()>0) {
-    		randomCoord = (int)Math.floor(Math.random() * boardZeroCheckX.size());
-    		randomNewTileText = (int)Math.floor(Math.random() * 100);
-    		randomNewTileText = ( randomNewTileText < 70 ) ?2 : 4;
+    		randomCoord = (byte)Math.floor(Math.random() * boardZeroCheckX.size());
+    		randomNewTileText = (byte)Math.floor(Math.random() * 100);
+    		randomNewTileText = (byte) (( randomNewTileText < 70 ) ?2 : 4); 				// 2가 나올 확률 설정
+    		
     		stackTile.push(new Label(String.valueOf(randomNewTileText)));
+    		
     		temp = (Label) stackTile.peek();
-    		setColor(temp);
-    		temp.setPrefSize(89, 89);
-    		temp.setAlignment(Pos.CENTER);
+    		tileSetting(temp);
     		board2048.add(temp, boardZeroCheckX.get(randomCoord), boardZeroCheckY.get(randomCoord));
     		board[boardZeroCheckX.get(randomCoord)][boardZeroCheckY.get(randomCoord)] = randomNewTileText; 
     		System.out.println(boardZeroCheckX.get(randomCoord) +","+boardZeroCheckY.get(randomCoord)+"에 "+randomNewTileText+"추가");
-    		board2048.setGridLinesVisible(true);
     		boardPrint();
     	}
     }
-    
     // 보드 초기화
     void initBoard() {
-    	while(!stackTile.isEmpty()) {
-    		board2048.getChildren().remove(stackTile.pop());
-    	}
+    	Node gridLine = board2048.getChildren().get(0);
+    	board2048.getChildren().clear();
+    	board2048.getChildren().add(0,gridLine);		// 클리어 시키는경우 다시 선 긋기
+    	
+//    	while(!stackTile.isEmpty()) {
+//    		board2048.getChildren().remove(stackTile.pop());
+//    	}
+    	
     	initArrayBoard();
     	// 초기에는 타일 2개 생성
     	newTileAdd();
     	newTileAdd();
     }
-    
+    // 메인화면으로 돌아가는 버튼
 	@FXML
 	void onClickMainButton(MouseEvent e) throws IOException {
 		Node node = (Node)(e.getTarget());
@@ -240,6 +242,7 @@ public class Play2048Controller {
 	}
 	public void initialize() {
 		initBoard();
-		board2048.setFocusTraversable(true);
+		board2048.setFocusTraversable(true); 
+		
 	}
 }

@@ -45,5 +45,14 @@ public class MainController {
         stage.setScene(scene);
         stage.show();
     }
-
+    @FXML
+    void onClickWorkChainGameComputerButton(ActionEvent e) throws IOException {
+        Node node = (Node)(e.getSource());
+        stage = (Stage)(node.getScene().getWindow());
+        Parent root = FXMLLoader.load(getClass().getResource("WordChainGameComputerUI.fxml"));
+        Scene scene = new Scene(root);
+        stage.setTitle("끝말잇기 컴퓨터대전");
+        stage.setScene(scene);
+        stage.show();
+    }
 }
