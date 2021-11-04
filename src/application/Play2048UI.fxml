@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
+<AnchorPane prefHeight="515.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
    <children>
       <GridPane fx:id="board2048" alignment="CENTER" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
         <columnConstraints>
@@ -29,7 +29,7 @@
             <Insets />
          </opaqueInsets>
       </GridPane>
-      <AnchorPane layoutY="18.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane layoutX="65.0" layoutY="26.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="26.0">
          <children>
             <Label fx:id="lblScore" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                <font>
@@ -43,7 +43,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="307.0" layoutY="18.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane layoutX="196.0" layoutY="26.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="26.0">
          <children>
             <Label fx:id="lblBestScore" alignment="CENTER" layoutX="10.0" layoutY="45.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
                <font>
@@ -57,11 +57,10 @@
             </Label>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="74.0" fitWidth="180.0" layoutX="113.0" layoutY="512.0" onMouseClicked="#onClickMainButton" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="54.0" onMouseClicked="#onClickMainButton" pickOnBounds="true">
          <image>
             <Image url="@texture/word_chalkboard.png" />
          </image>
       </ImageView>
-      <Label layoutX="113.0" layoutY="518.0" text="메인으로" textFill="WHITE" />
    </children>
 </AnchorPane>
