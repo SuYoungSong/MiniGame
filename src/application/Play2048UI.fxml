@@ -59,7 +59,7 @@
       </AnchorPane>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="54.0" onMouseClicked="#onClickMainButton" pickOnBounds="true">
          <image>
-            <Image url="@texture/word_chalkboard.png" />
+            <Image url="@texture/arrow.png" />
          </image>
       </ImageView>
    </children>
