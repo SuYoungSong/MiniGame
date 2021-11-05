@@ -1,6 +1,5 @@
 package application;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,11 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -140,7 +139,18 @@ public class WordChainGameController {
     }
 
     @FXML
-    void onClickMainButton(ActionEvent e) throws IOException {
+    void onHoverEnter(MouseEvent e) {
+        Node source = (Node)e.getSource();
+        source.setStyle("-fx-cursor:hand;");
+    }
+    @FXML
+    void onHoverExit(MouseEvent e) {
+        Node source = (Node)e.getSource();
+        source.setStyle("-fx-cursor:default;");
+    }
+
+    @FXML
+    void onClickMainButton(MouseEvent e) throws IOException {
         Node node = (Node)(e.getSource());
         stage = (Stage)(node.getScene().getWindow());
         Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));

@@ -150,7 +150,6 @@ public class WordChainGameComputerController implements Initializable {
     }
     @FXML
     void onPressEnter(KeyEvent e) {
-        scrollContainer.setVvalue(1D);
         if( e.getCode() == KeyCode.ENTER ) {
             String word = inputWord.getText();
             if(word.length() < minLetterCnt) {

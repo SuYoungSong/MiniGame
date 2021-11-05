@@ -486,9 +486,19 @@ public class Play2048Controller {
 		stage.setTitle("미니게임");
 		stage.setScene(scene);
 		stage.show();
-
-
 	}
+
+	@FXML
+	void onHoverEnter(MouseEvent e) {
+		Node source = (Node)e.getSource();
+		source.setStyle("-fx-cursor:hand;");
+	}
+	@FXML
+	void onHoverExit(MouseEvent e) {
+		Node source = (Node)e.getSource();
+		source.setStyle("-fx-cursor:default;");
+	}
+
 	public void initialize() {
 		initBoard();
 		board2048.setFocusTraversable(true);

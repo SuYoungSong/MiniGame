@@ -46,11 +46,6 @@ public class MainController {
         stage.show();
     }
 
-
-
-
-
-
     @FXML
     void onClickWorkChainGameComputerButton(ActionEvent e) throws IOException {
         Node node = (Node)(e.getSource());

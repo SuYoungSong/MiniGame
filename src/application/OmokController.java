@@ -2,10 +2,15 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.ResourceBundle;
+import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +34,7 @@ public class OmokController implements Initializable{
 	@FXML private Label turnText;
 	@FXML private Label lbLimitTime;
 	@FXML private GridPane omokBoard;
+	@FXML private ProgressBar progressBarTimeLimited;
 	private Stage stage;
 
 	private final int boardSize = 15;
@@ -107,35 +114,40 @@ public class OmokController implements Initializable{
 			turnText.setText("백돌의 차례입니다");
 		}
 	}
-
+	int asdf = 10000;
 	TimerTask timerTask;
 	Timer timer = new Timer("boardTimer");
 	public TimerTask createTask() {
 		limitTime = 10;
+		asdf = 10000;
 		return new TimerTask() {
 			@Override
 			public void run() {
-				setLimitTime(limitTime);
-				limitTime--;
-				if(limitTime <= 0) {
-					cancel();
-					Platform.runLater(()->{
-//char swapStoneType = (stoneType == 'B') ? 'W' : 'B';
-						//onShowResetModal(swapStoneType, 't');
-						onShowResetModal(stoneType, 't');
-
+				asdf = asdf-1;
+				progressBarTimeLimited.progressProperty().set(asdf*0.0001);
+					setLimitTime(limitTime);
+					if(asdf%1000 == 0) {
+					limitTime--;
+					}
+					if(limitTime <= 0) {
+						cancel();
+						Platform.runLater(()->{
+							setLimitTime(limitTime);
+//							progressBarTimeLimited.progressProperty().set(0);
+							//char swapStoneType = (stoneType == 'B') ? 'W' : 'B';
+							//onShowResetModal(swapStoneType, 't');
+							onShowResetModal(stoneType, 't');
 					});
 				}
 			}
 		};
 	}
-
 	void runTimer() {
 		if(timerTask != null) {
 			timerTask.cancel();
 		}
 		timerTask = createTask();
-		timer.scheduleAtFixedRate(timerTask, 0, 1000);
+		timer.scheduleAtFixedRate(timerTask, 0, 1);
 	}
 
 	void setLimitTime(int seconds) {
@@ -192,7 +204,7 @@ public class OmokController implements Initializable{
 			if( (compareData[0]==(roomData[0][0]))&&(compareData[1]==(roomData[0][1]))&&(compareData[2]==(roomData[0][2]))&&(compareData[3]==(roomData[0][3])) ){
 				checkNum++;
 			}
-// 2번 XB0
+			// 2번 XB0
 			for(byte j=1 ; j<3 ; j++) {
 				checkX = check33[i][j][0];
 				checkY = check33[i][j][1];
@@ -207,7 +219,7 @@ public class OmokController implements Initializable{
 					boCheckNum--;
 				}
 			}
-// 3번 0XB0B0
+			// 3번 0XB0B0
 			for(byte h=0 ; h<5 ; h++) {
 				checkX = check33[i][h][0];
 				checkY = check33[i][h][1];
@@ -218,7 +230,7 @@ public class OmokController implements Initializable{
 			if((compareData[0]==(roomData[2][0]))&&(compareData[1]==(roomData[2][1]))&&(compareData[2]==(roomData[2][2]))&&(compareData[3]==(roomData[2][3]))&&(compareData[4]==(roomData[2][4]))){
 				checkNum++;
 			}
-// 4번 0X0BB0
+			// 4번 0X0BB0
 			for(byte g=0 ; g<5 ; g++) {
 				checkX = check33[i][g][0];
 				checkY = check33[i][g][1];
@@ -241,13 +253,13 @@ public class OmokController implements Initializable{
 		byte checkNum = 0;
 		byte[][][]check44 ={
 				{{0,-1},{0,1},{0,2},{0,3},{0,4}},     //           각 번호 체크 방향
-				{{-1,-1},{1,1},{2,2},{3,3},{4,4}},        //           ↖   ↑  ↗
-				{{-1,0},{1,0},{2,0},{3,0},{4,0}},         //            ⑥⑦⑧
+				{{-1,-1},{1,1},{2,2},{3,3},{4,4}},        //            ↖   ↑  ↗
+				{{-1,0},{1,0},{2,0},{3,0},{4,0}},         //             ⑥⑦⑧
 				{{-1,1},{1,-1},{2,-2},{3,-3},{4,-4}},    //            ← ⑤.●① →
-				{{0,1},{0,-1},{0,-2},{0,-3},{0,-4}},     //            ④③②
-				{{1,1},{-1,-1},{-2,-2},{-3,-3},{-4,-4}},  //               ↙   ↓  ↘
-				{{1,0},{-1,0},{-2,0},{-3,0},{-4,0}},     //
-				{{1,-1},{-1,1},{-2,2},{-3,3},{-4,4}}//
+				{{0,1},{0,-1},{0,-2},{0,-3},{0,-4}},     //              ④③②
+				{{1,1},{-1,-1},{-2,-2},{-3,-3},{-4,-4}},  //            ↙   ↓  ↘
+				{{1,0},{-1,0},{-2,0},{-3,0},{-4,0}},     
+				{{1,-1},{-1,1},{-2,2},{-3,3},{-4,4}}
 		}; //BXBBBB
 		byte checkX, checkY;
 		char[][]roomData ={ {'B','B','B'},{'B','B','O','B'},{'B','O','B','B'},{'O','B','B','B'},{'B','X','B','B'},{'B','X','B','O','B'},{'B','X','O','B','B'} };
@@ -265,7 +277,7 @@ public class OmokController implements Initializable{
 			if( (compareData[1]==(roomData[0][0]))&&(compareData[2]==(roomData[0][1]))&&(compareData[3]==(roomData[0][2])) ){
 				checkNum++;
 			}
-// 2번 BB0B
+			// 2번 BB0B
 			for(byte j=1 ; j<5 ; j++) {
 				checkX = check44[i][j][0];
 				checkY = check44[i][j][1];
@@ -276,7 +288,7 @@ public class OmokController implements Initializable{
 			if((compareData[1]==(roomData[1][0]))&&(compareData[2]==(roomData[1][1]))&&(compareData[3]==(roomData[1][2]))&&(compareData[4]==(roomData[1][3]))){
 				checkNum++;
 			}
-// 3번 B0BB
+			// 3번 B0BB
 			for(byte h=1 ; h<5 ; h++) {
 				checkX = check44[i][h][0];
 				checkY = check44[i][h][1];
@@ -287,7 +299,7 @@ public class OmokController implements Initializable{
 			if((compareData[1]==(roomData[2][0]))&&(compareData[2]==(roomData[2][1]))&&(compareData[3]==(roomData[2][2]))&&(compareData[4]==(roomData[2][3]))){
 				checkNum++;
 			}
-// 4번 0BBB
+			// 4번 0BBB
 			for(byte g=1 ; g<5 ; g++) {
 				checkX = check44[i][g][0];
 				checkY = check44[i][g][1];
@@ -298,7 +310,7 @@ public class OmokController implements Initializable{
 			if((compareData[1]==(roomData[3][0]))&&(compareData[2]==(roomData[3][1]))&&(compareData[3]==(roomData[3][2]))&&(compareData[4]==(roomData[3][3]))){
 				checkNum++;
 			}
-// 5번 BXBB
+			// 5번 BXBB
 			for(byte c=0 ; c<3 ; c++) {
 				checkX = check44[i][c][0];
 				checkY = check44[i][c][1];
@@ -309,7 +321,7 @@ public class OmokController implements Initializable{
 			if((compareData[0]==(roomData[4][0]))&&(compareData[1]==(roomData[4][2]))&&(compareData[2]==(roomData[4][3]))){
 				checkNum++;
 			}
-// 6번 BXBOB
+			// 6번 BXBOB
 			for(byte n=0 ; n<4 ; n++) {
 				checkX = check44[i][n][0];
 				checkY = check44[i][n][1];
@@ -320,7 +332,7 @@ public class OmokController implements Initializable{
 			if((compareData[0]==(roomData[5][0]))&&(compareData[1]==(roomData[5][2]))&&(compareData[2]==(roomData[5][3]))&&(compareData[3]==(roomData[5][4]))){
 				checkNum++;
 			}
-// 7번 BXOBB
+			// 7번 BXOBB
 			for(byte z=0 ; z<4 ; z++) {
 				checkX = check44[i][z][0];
 				checkY = check44[i][z][1];
@@ -358,7 +370,7 @@ public class OmokController implements Initializable{
 		byte checkNum = 0;
 		// 5수 체크
 		for(byte i = 0 ; i<check5.length ; i++) {
-// 1번 BBXBB
+			// 1번 BBXBB
 			for(byte k=0 ; k<5 ; k++) {
 				checkX = check5[i][k][0];
 				checkY = check5[i][k][1];
@@ -369,7 +381,7 @@ public class OmokController implements Initializable{
 			if( (compareData[0]==(roomData[0][0]))&&(compareData[1]==(roomData[0][1]))&&(compareData[2]==(roomData[0][3]))&&(compareData[3]==(roomData[0][4])) ){
 				checkNum++;
 			}
-// 2번 BXBBB
+			// 2번 BXBBB
 			for(byte k=1 ; k<6 ; k++) {
 				checkX = check5[i][k][0];
 				checkY = check5[i][k][1];
@@ -380,7 +392,7 @@ public class OmokController implements Initializable{
 			if( (compareData[1]==(roomData[1][0]))&&(compareData[2]==(roomData[1][2]))&&(compareData[3]==(roomData[1][3]))&&(compareData[4]==(roomData[1][4])) ){
 				checkNum++;
 			}
-// 3번 XBBBB
+			// 3번 XBBBB
 			for(byte k=3 ; k<6 ; k++) {
 				checkX = check5[i][k][0];
 				checkY = check5[i][k][1];
@@ -446,17 +458,17 @@ public class OmokController implements Initializable{
 			}
 		}
 		if(gameTurn == 1) {
-			stoneType = 'B';
 			imageAdress.push(new BorderPane());
 			omokBoard.add((Node)imageAdress.peek(), col, row);  // AnchorPane 를 덮어 착수된 위치는 hover이 되지 않기위해
 			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("texture/black.png"))));
 			omokBoard.add((Node)imageAdress.peek(),col, row);
+			stoneType = 'B';
 		}else{
-			stoneType = 'W';
 			imageAdress.push(new BorderPane());
 			omokBoard.add((Node)imageAdress.peek(), col, row);  // AnchorPane 를 덮어 착수된 위치는 hover이 되지 않기위해
 			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("texture/white.png"))));
 			omokBoard.add((Node)imageAdress.peek(),col, row);
+			stoneType = 'W';
 		}
 		setBoard(row, col, stoneType);
 
@@ -471,7 +483,7 @@ public class OmokController implements Initializable{
 		count++;
 	}
 
-	void onShowMain(ActionEvent e)throws IOException{
+	void onShowMain(MouseEvent e)throws IOException{
 		if(timerTask != null)timerTask.cancel();
 		Node node =(Node)(e.getSource());
 		stage =(Stage)(node.getScene().getWindow());
@@ -483,7 +495,7 @@ public class OmokController implements Initializable{
 	}
 
 	@FXML
-	void onClickMainButton(ActionEvent e)throws IOException{
+	void onClickMainButton(MouseEvent e)throws IOException{
 		if(count > 1){
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setTitle("오목");
@@ -493,6 +505,17 @@ public class OmokController implements Initializable{
 			return;
 		}
 		onShowMain(e);
+	}
+
+	@FXML
+	void onHoverEnter(MouseEvent e) {
+		Node source = (Node)e.getSource();
+		source.setStyle("-fx-cursor:hand;");
+	}
+	@FXML
+	void onHoverExit(MouseEvent e) {
+		Node source = (Node)e.getSource();
+		source.setStyle("-fx-cursor:default;");
 	}
 
 	public void initialize(URL arg0, ResourceBundle arg1) {

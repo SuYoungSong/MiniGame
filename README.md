@@ -8,6 +8,17 @@
 <br>
 
 # ■ 개발 목록
+### ~21/11/6
+- 메인페이지 끝말잇기 컴퓨터대전 추가<br>
+- 2048 완벽 구현<br>
+- 끝말잇기 컴퓨터대전 완벽 구현<br>
+- 오목 남은시간을 bar형태로 볼 수 있게 추가<br>
+<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992440782131210/1576318a8c286b53.PNG" width="100" height="250">
+<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992451657957386/f91d1362e4d04e53.PNG" width="200" height="250">
+<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992452077408286/961089bc4ee3c6cb.PNG" width="100" height="250">
+<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992453461520434/2048.PNG" width="100" height="250">
+<img src="https://cdn.discordapp.com/attachments/349833160592457728/906157320625594419/unknown.png" width="250" height="250"><br>
+
 ## ~21/11/2
 - 2048 페이지 제작<br>
 - 2048 처음 시작 할 경우 랜덤한 위치에 [2|4]오게 구현 ( 2가 나올 확률 70% 설정 )<br>
