@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 
@@ -13,6 +15,7 @@ public class Main extends Application {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
 			Scene scene = new Scene(root);
+			primaryStage.getIcons().add(new Image("file:src/application/texture/favicon_main2.png"));
 			primaryStage.setTitle("미니게임");
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);

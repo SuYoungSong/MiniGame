@@ -8,10 +8,16 @@
 <br>
 
 # ■ 개발 목록
-### ~21/11/6
+## 21/11/7
+- 메인페이지 UI 변경<br>
+- 부루마블 버튼 추가<br>
+- 아이콘 추가<br>
+<img src="https://cdn.discordapp.com/attachments/349833160592457728/906209963926503434/5e8e19d4feef651c.JPG" width="100" heigth="250"><br>
+
+## ~21/11/6
 - 메인페이지 끝말잇기 컴퓨터대전 추가<br>
-- 2048 완벽 구현<br>
-- 끝말잇기 컴퓨터대전 완벽 구현<br>
+- 2048 구현 완료<br>
+- 끝말잇기 컴퓨터대전 구현 완료<br>
 - 오목 남은시간을 bar형태로 볼 수 있게 추가<br>
 <img src="https://cdn.discordapp.com/attachments/814771922880823297/905992440782131210/1576318a8c286b53.PNG" width="100" height="250">
 <img src="https://cdn.discordapp.com/attachments/814771922880823297/905992451657957386/f91d1362e4d04e53.PNG" width="200" height="250">
