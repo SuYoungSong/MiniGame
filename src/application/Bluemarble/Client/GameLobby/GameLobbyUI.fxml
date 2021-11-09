@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="550.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Bluemarble.Client.GameLobby.GameLobbyController">
+   <children>
+      <ScrollPane fx:id="GameRoomContainer" layoutX="14.0" layoutY="14.0" prefHeight="520.0" prefWidth="365.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <Pane layoutX="393.0" layoutY="14.0" prefHeight="205.0" prefWidth="350.0" style="-fx-border-color: #000000;" />
+      <Button layoutX="393.0" layoutY="471.0" mnemonicParsing="false" onAction="#onClickCreateRoom" prefHeight="63.0" prefWidth="350.0" text="방만들기">
+         <font>
+            <Font name="NanumGothicBold" size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="126.0" fitWidth="126.0" layoutX="616.0" layoutY="235.0" opacity="0.5">
+         <image>
+            <Image url="@../../../texture/logo_bluemarble.png" />
+         </image>
+      </ImageView>
+      <ScrollPane fx:id="PlayerListContainer" layoutX="393.0" layoutY="235.0" prefHeight="220.0" prefWidth="207.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="126.0" prefWidth="130.0" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

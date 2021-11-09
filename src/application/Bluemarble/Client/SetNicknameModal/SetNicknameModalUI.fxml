@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="180.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Bluemarble.Client.SetNicknameModal.SetNicknameModalController">
+   <children>
+      <Button layoutX="194.0" layoutY="72.0" mnemonicParsing="false" onAction="#onClickCheckNickname" prefHeight="22.0" prefWidth="47.0" text="확인">
+         <font>
+            <Font name="NanumGothic" size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="54.0" layoutY="32.0" text="닉네임을 설정하세요.">
+         <font>
+            <Font name="NanumGothic" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutY="138.0" mnemonicParsing="false" onAction="#onClickRunGame" prefHeight="43.0" prefWidth="270.0" text="부루마블 입장">
+         <font>
+            <Font name="NanumGothic" size="16.0" />
+         </font>
+      </Button>
+      <TextField fx:id="ftNickname" layoutX="42.0" layoutY="72.0" prefHeight="23.0" prefWidth="152.0">
+         <font>
+            <Font name="NanumGothic" size="14.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lbMessage" layoutX="120.0" layoutY="110.0" />
+   </children>
+</AnchorPane>

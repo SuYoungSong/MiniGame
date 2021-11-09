@@ -6,19 +6,11 @@
     -fx-padding: 5px 10px;
     -fx-background-radius: 2px 15px 15px 15px;
 }
-/*#tMessage{*/
-/*    -fx-background-color: #0040ff;*/
-/*    -fx-padding: 4px 10px;*/
-/*}*/
 .right{
     -fx-padding: 5px 10px;
-    /*-fx-background-radius: 15px 2px 15px 15px;*/
-    /*-fx-background-color: #0040ff;*/
 }
 .left{
     -fx-padding: 5px 10px;
-    /*-fx-background-radius: 2px 15px 15px 15px;*/
-    /*-fx-background-color: #f1f2f4;*/
 }
 .label{
     -fx-font-size: 16px;

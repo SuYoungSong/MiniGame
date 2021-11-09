@@ -8,10 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-
-import application.bluemarble.testController;
+import application.Bluemarble.testController;
 
 public class MainController {
     private Stage stage;
@@ -47,7 +45,8 @@ public class MainController {
     @FXML
     void onClickBluemarbleButton(MouseEvent e) throws IOException {
     	Node node = (Node)(e.getSource());
-    	stageChange(node,"bluemarble/testUI.fxml", "부루마블");
+//    	stageChange(node,"Bluemarble/testUI.fxml", "부루마블");
+    	stageChange(node,"Bluemarble/Client/ConnectModal/ConnectModalUI.fxml", "부루마블");
     }
     @FXML
     void onHoverEnter(MouseEvent e) {
