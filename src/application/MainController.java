@@ -46,7 +46,7 @@ public class MainController {
     void onClickBluemarbleButton(MouseEvent e) throws IOException {
     	Node node = (Node)(e.getSource());
 //    	stageChange(node,"Bluemarble/testUI.fxml", "부루마블");
-    	stageChange(node,"Bluemarble/Client/ConnectModal/ConnectModalUI.fxml", "부루마블");
+    	stageChange(node,"Bluemarble/Client/GameLobby/GameLobbyUI.fxml", "부루마블");
     }
     @FXML
     void onHoverEnter(MouseEvent e) {

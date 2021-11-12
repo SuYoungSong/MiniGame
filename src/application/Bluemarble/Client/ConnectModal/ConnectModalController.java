@@ -1,7 +1,12 @@
 package application.Bluemarble.Client.ConnectModal;
 
-import application.Bluemarble.Client.SetNicknameModal.SetNicknameModalController;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import application.MainController;
+import application.Bluemarble.Client.Client;
+import application.Bluemarble.Client.SetNicknameModal.SetNicknameModalController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,16 +17,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class ConnectModalController implements Initializable {
 
 
     @FXML private Label lbMessage;
-
-
+	Client client = new Client();
+	
     @FXML
     void onClickDummy(ActionEvent e) throws IOException {
         Node node = (Node)(e.getSource());
@@ -47,7 +48,6 @@ public class ConnectModalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
 }

@@ -8,5 +8,6 @@ module MiniGame {
 	opens application.Bluemarble.Server to javafx.graphics, javafx.fxml;	
 	opens application.Bluemarble.Client.ConnectModal to javafx.graphics, javafx.fxml;
 	opens application.Bluemarble.Client.SetNicknameModal to javafx.graphics, javafx.fxml;
+	opens application.Bluemarble.Client.GameRoom to javafx.graphics, javafx.fxml;
 	opens application.Bluemarble.Client.GameLobby to javafx.graphics, javafx.fxml;
 }
