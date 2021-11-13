@@ -19,13 +19,11 @@ public class Client {
   					socket = new Socket(IP, port);
   					receive();
   				}catch (Exception e) {
-  					if(!socket.isClosed()) {
+  					if((socket==null)||(!socket.isClosed())) {	
   						stopClient();
   						System.out.println("[서버 접속 실패]");
-//  						Platform.exit();
-//  					}
-  				}
-  			}}
+  					}
+  				}}
   		};
   		thread.start();
   		

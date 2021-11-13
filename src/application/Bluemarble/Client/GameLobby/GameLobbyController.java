@@ -70,13 +70,14 @@ public class GameLobbyController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
     void setEnableNickname(boolean bool){ enableNickname = bool; }
+    
     boolean isNickname(String nickname){
         //Server로 DB조회 요청 로직 작성
-
-
         return true;
     }
+    
     void setMessage(String message, boolean type){
         //message: 메세지 / type: true(정상), false(불량)
         if (type){
@@ -98,7 +99,7 @@ public class GameLobbyController implements Initializable {
          if(isNickname(NICKNAME)){
              setMessage("사용 가능한 닉네임입니다.", true);
              setEnableNickname(true);
-             return;
+//             return;
          }
          // 서버로 닉네임 전달
          client.send(NICKNAME);
@@ -106,17 +107,26 @@ public class GameLobbyController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    	serverConnectTryWindow.setVisible(true);		// 서버 접속중 창 활성화
+    	
     	// 서버에 접속 시도
-//		client.startClient("127.0.0.1", 5005);
+		client.startClient("127.0.0.1", 5005);
 		
+		/*
+		 * 
+		 * 서버 접속을 시도하는동안 기다려줘야하는데 쓰레드 Join 사용하니
+		 * 서버 접속실패의 경우 정상적으로 작동하나 서버 접속을 성공할 경우 해당 쓰레드가 사라지지않고
+		 * 무한으로 돌기 때문에 다른 방법을 찾아야할듯,,
+		 * 
+		 */
 //    	if(client.isConnect) {
-    		// 서버에 접속 성공할 경우
-    		serverConnectTryWindow.setVisible(false);
-//    		nicSetWindow.setVisible(true);    			    		
+//    		 //서버에 접속 성공할 경우
+    		serverConnectTryWindow.setVisible(false);   // 서버접속중 창 비활성화
+    		nicSetWindow.setVisible(true);    			// 닉네임 설정창 활성화
 //    	} else {
-    		// 서버에 접속 실패할 경우
-//    		serverConnectTryWindow.setVisible(false);
-//    		connectFileWindows.setVisible(true);    		
+//    		//서버에 접속 실패할 경우
+//    		serverConnectTryWindow.setVisible(false);	// 서버 접속중 창 비활성화
+//    		connectFileWindows.setVisible(true);    	// 서버 접속실패 창 활성화
 //    	}
     }
 }
