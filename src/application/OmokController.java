@@ -76,6 +76,7 @@ public class OmokController implements Initializable{
 	}
 
 	char isWin(int x, int y) {
+		System.out.println("이스윈 실행");
 		boolean check[][]= new boolean[15][15];
 		for(int i = 0; i < 4; i++) {
 			int stoneCnt = 0;
@@ -96,8 +97,16 @@ public class OmokController implements Initializable{
 							q.add(rY);
 							stoneCnt += 1;
 						}
-						if(stoneType == 'B' && stoneCnt == 5)return stoneType;
-						if(stoneType == 'W' && stoneCnt >= 5)return stoneType;
+						if(stoneType == 'B' && stoneCnt == 5) {
+							System.out.println(stoneType + "," + stoneCnt);
+							return stoneType;
+						}
+						if(stoneType == 'W' && stoneCnt >= 5) {
+							System.out.println(stoneType + "," + stoneCnt);
+							return stoneType;
+						}
+						System.out.println(gameTurn);
+						System.out.println(stoneType + "," + stoneCnt);
 					}//if
 				}//for-j
 			}//while
@@ -457,6 +466,7 @@ public class OmokController implements Initializable{
 				return;
 			}
 		}
+		System.out.println("0번");
 		if(gameTurn == 1) {
 			imageAdress.push(new BorderPane());
 			omokBoard.add((Node)imageAdress.peek(), col, row);  // AnchorPane 를 덮어 착수된 위치는 hover이 되지 않기위해
@@ -471,14 +481,15 @@ public class OmokController implements Initializable{
 			stoneType = 'W';
 		}
 		setBoard(row, col, stoneType);
-
+		System.out.println("1번");
 		char result = isWin(row, col);
+		System.out.println("2번");
 		if(result == 'W' || result == 'B') {
 			timerTask.cancel();
 			onShowResetModal(result, 'd');
 			return;
 		}
-
+		System.out.println("승리 :"+result);
 		turnCheck();
 		count++;
 	}
