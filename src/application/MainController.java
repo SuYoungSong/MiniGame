@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
-import application.Bluemarble.testController;
 
 public class MainController {
     private Stage stage;
