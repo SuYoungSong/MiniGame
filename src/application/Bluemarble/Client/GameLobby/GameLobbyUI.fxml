@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="550.0" prefWidth="756.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Bluemarble.Client.GameLobby.GameLobbyController">
    <children>
-    <AnchorPane layoutX="14.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="521.0" prefWidth="366.0">
+    <AnchorPane fx:id="asdftest" layoutX="14.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="521.0" prefWidth="366.0">
          <children>
             <ScrollPane fx:id="GameRoomContainer" layoutX="-5.0" layoutY="4.0" prefHeight="520.0" prefWidth="365.0" />
          </children>

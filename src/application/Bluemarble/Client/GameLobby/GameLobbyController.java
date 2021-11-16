@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.MainController;
+import application.Bluemarble.Client.Client;
 import application.Bluemarble.Client.GameRoom.GameRoomController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,9 +31,14 @@ public class GameLobbyController implements Initializable {
     @FXML private TextField tfGameRoomCreateName;
     @FXML private TextField tfUserInputNickName;
     @FXML private AnchorPane serverConnectTryWindow;
+
+    public static void asdftest(String msg) {
+    	System.out.println(msg);
+    }
+
     private boolean enableNickname = false;
     @FXML private Label lbMessage;
-//    Client client = new Client();
+    Client client = new Client();
     
     // 게임 로비 방만들기 버튼 클릭
     @FXML
@@ -121,7 +127,7 @@ public class GameLobbyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     	// 서버에 접속 시도
-//		client.startClient("127.0.0.1", 5005);
+		client.startClient("localhost",5005);
     	nicSetWindow.setVisible(true);    			// 닉네임 설정창 활성화
     		
     }

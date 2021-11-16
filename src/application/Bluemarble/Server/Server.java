@@ -1,41 +1,77 @@
 package application.Bluemarble.Server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
-import java.net.SocketException;
-import java.util.Vector;
 
 public class Server {
-	ServerSocket serverSocket;
-	// 클라이언트 나누기 위한 벡터
-	Vector<ClientInteraction> allClient;		//서버에 연결된 모든 클라이언트
-	Vector<ClientInteraction> lobbyClient;		//게임로비에 연결되 있는 클라이언트
-	Vector<Room> room;						//만들어진 방
-	
-	public static void main(String[] args) {
-		Server server = new Server();
-		
-		server.allClient = new Vector<>();			
-		server.lobbyClient = new Vector<>();
-		server.room = new Vector<>();
-		
-		try {
-			//서버 소켓 준비
-			server.serverSocket = new ServerSocket(5005);
-			System.out.println("[Server] 서버 소켓 준비 완료");
-			
-			//클라이언트의 연결 요청을 상시 대기. 
-			while(true) {
-				Socket socket = server.serverSocket.accept();
-				ClientInteraction CI = new ClientInteraction(socket, server);	//소켓과 서버를 넘겨 객체 생성
-				
-				CI.start();	//클라이언트 상호작용 클래스 스레드 시작
+	Socket socket;
+
+	public Server(Socket socket) {
+		this.socket = socket;
+		receive();
+	}
+
+	// 클라이언트로부터 메시지를 전달 받는 메소드
+	public void receive() {
+		Runnable thread = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					//반복적으로 받아오기 위해
+					while(true) {
+						InputStream in = socket.getInputStream();
+						// 한번에 512바이트만큼 받을 수 있게
+						byte[] buffer = new byte[512];
+						int length = in.read(buffer);
+						while(length == -1) throw new IOException();
+						System.out.println("[메시지 수신 성공]"+socket.getRemoteSocketAddress()+": "+Thread.currentThread().getName());
+						String message = new String(buffer, 0, length, "UTF-8");
+						//다른 클라이언트한태도 메시지 뿌려주기
+						for(Server client : ServerController.clients) {
+							client.send(message);
+						}
+					}
+				}catch(Exception e) {
+					try {
+						System.out.println("[메시지 수신 오류]"
+								+socket.getRemoteSocketAddress()
+								+ ": "+ Thread.currentThread().getName());
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}
 			}
-		} catch(SocketException e) {	//각 오류를 콘솔로 알린다.
-			System.out.println("[Server] 서버 소켓 오류 > " + e.toString());
-		} catch(IOException e) {
-			System.out.println("[Server] 입출력 오류 > " + e.toString());
-		}
+		};
+		ServerController.threadPool.submit(thread);
+	}
+
+	// 클라이언트로부터 메세지를 전달 하는 메소드
+	public void send(String message) {
+		Runnable thread = new Runnable() {
+			@Override
+			public void run() {
+				try {
+					OutputStream out = socket.getOutputStream();
+					byte[] buffer = message.getBytes("UTF-8");
+					out.write(buffer);
+					out.flush();
+				} catch (Exception e){
+					try {
+						System.out.println("[메시지 송신 오류]"
+								+ socket.getRemoteSocketAddress()
+								+ ": " + Thread.currentThread().getName());
+						ServerController.clients.remove(Server.this);
+						socket.close();
+					} catch(Exception e2) {
+						e2.printStackTrace();
+					}
+
+				}
+			}
+
+		};
+		ServerController.threadPool.submit(thread);
 	}
 }
