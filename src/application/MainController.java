@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainController {
-    private Stage stage;
+    public Stage stage;
 
     void stageChange(Node node, String fxmlUrl, String title) throws IOException {
     	stage = (Stage)(node.getScene().getWindow());
@@ -24,6 +24,7 @@ public class MainController {
     @FXML
     void onClickOmokButton(MouseEvent e) throws IOException {
     	Node node = (Node)(e.getSource());
+        System.out.println("node = " + node);
     	stageChange(node,"OmokUI.fxml", "오목");
     }
     @FXML

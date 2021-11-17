@@ -1,77 +1,145 @@
 package application.Bluemarble.Server;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class Server {
-	Socket socket;
 
-	public Server(Socket socket) {
-		this.socket = socket;
-		receive();
-	}
+public class Server{
+	
+    @FXML private TextArea taLogData;
+    @FXML private TextField tfMsgInput;
+    String IP = "127.0.0.1";
+	int port = 5005;
+	
+    // 여러개의 스레드를 효율적으로 관리하기 위한 라이브러리
+    // threadPool 사용하면 기본적인 스레드 숫자에 제한을 두게 되어 갑작스러운 트래픽에 대응할 수 있다.
+    public static ExecutorService threadPool;
+    // ArrayList를 사용하지 않고 Vector를 사용하는 이유:
+    // 멀티스레드 환경에서 Vector는 synchronized가 적용되어 있지만 list는 적용되어 있지 않습니다.
+    // 즉 Vector는 한 번에 하나의 스레드만 접근 가능하며 ArrayList는 동시접근이 가능합니다.
+    public static Vector<ClientInteraction> clients = new Vector<ClientInteraction>();
+    public static ArrayList<String> userList = new ArrayList<String>();
+    ServerSocket serverSocket;
 
-	// 클라이언트로부터 메시지를 전달 받는 메소드
-	public void receive() {
-		Runnable thread = new Runnable() {
-			@Override
-			public void run() {
-				try {
-					//반복적으로 받아오기 위해
-					while(true) {
-						InputStream in = socket.getInputStream();
-						// 한번에 512바이트만큼 받을 수 있게
-						byte[] buffer = new byte[512];
-						int length = in.read(buffer);
-						while(length == -1) throw new IOException();
-						System.out.println("[메시지 수신 성공]"+socket.getRemoteSocketAddress()+": "+Thread.currentThread().getName());
-						String message = new String(buffer, 0, length, "UTF-8");
-						//다른 클라이언트한태도 메시지 뿌려주기
-						for(Server client : ServerController.clients) {
-							client.send(message);
-						}
-					}
-				}catch(Exception e) {
-					try {
-						System.out.println("[메시지 수신 오류]"
-								+socket.getRemoteSocketAddress()
-								+ ": "+ Thread.currentThread().getName());
-					} catch (Exception e2) {
-						e2.printStackTrace();
-					}
-				}
-			}
-		};
-		ServerController.threadPool.submit(thread);
-	}
+    // 서버를 구동시켜서 클라이언트의 연결을 기다리는 메소드
+    public void startServer(String IP, int PORT){
+        try{
+            serverSocket = new ServerSocket();
+            //기본적으로 소켓통신은 소켓 객체를 활성화 해준 후
+            //서버 컴퓨터 역할을 하는 자신의 컴퓨터가 자신의 IP주소, 자신의 포트 번호로
+            //특정한 클라이언트의 접속을 기다릴 수 있다.
+            serverSocket.bind(new InetSocketAddress(IP, PORT));
+        } catch (Exception e) {
+            e.printStackTrace();
+            //에러가 발생 후 서버가 닫혀있지 않다면 서버를 종료해 준다.
+            if(!serverSocket.isClosed()){
+                stopServer();
+            }
+            return;
+        }
 
-	// 클라이언트로부터 메세지를 전달 하는 메소드
-	public void send(String message) {
-		Runnable thread = new Runnable() {
-			@Override
-			public void run() {
-				try {
-					OutputStream out = socket.getOutputStream();
-					byte[] buffer = message.getBytes("UTF-8");
-					out.write(buffer);
-					out.flush();
-				} catch (Exception e){
-					try {
-						System.out.println("[메시지 송신 오류]"
-								+ socket.getRemoteSocketAddress()
-								+ ": " + Thread.currentThread().getName());
-						ServerController.clients.remove(Server.this);
-						socket.close();
-					} catch(Exception e2) {
-						e2.printStackTrace();
-					}
+        //에러가 발생하지 않았다면 클라이언트가 접속할때까지 기다리는 쓰레드
+        Runnable thread = new Runnable() {
+            @Override
+            public void run() {
+                //무한으로 반복함으로써 새로운 클라이언트가 접속할 수 있게 해준다.
+                while(true){
+                    try {
+                        //클라이언트 접속 확인
+                        Socket socket = serverSocket.accept();
+                        //접속을 했다면 클라이언트 배열에 클라이언트 추가
+                        clients.add(new ClientInteraction(socket));
+                        System.out.println("socket >> " + socket);
+                        System.out.println("[클라이언트 접속] "
+                                + socket.getRemoteSocketAddress()
+                                +": " + Thread.currentThread().getName());
+                    } catch (IOException e) {
+                        //서버소켓에 오류가 발생했다면 서버 종료
+                        if(!serverSocket.isClosed()){
+                            stopServer();
+                        }
+                        break;
+                    }
+                }
+            }
+        };
+        //threadPool 초기화
+        threadPool = Executors.newCachedThreadPool();
+        //threadPool에 현재 클라이언트를 기다리는 스레드를 담을 수 있게 한다.
+        threadPool.submit(thread);
+    }
 
-				}
-			}
+    // 서버의 작동을 중지하는 메소드
+    public void stopServer(){
+        //현재 작동 중인 모든 소켓 종료
+        try{
+            //Iterator를 사용해서 모든 클라이언트에 개별적으로 접근할 수 있게 해준다.
+            Iterator<ClientInteraction> iterator = clients.iterator();
+            //hasNext 하나씩 접근 가능하게 한다. ( 읽을 요소가 남아있는지 확인 )
+            while(iterator.hasNext()){
+            	ClientInteraction client = iterator.next();
+                client.socket.close();
+                iterator.remove();
+            }
+            //서버 소켓 종료
+            if(serverSocket != null && !serverSocket.isClosed()){
+                serverSocket.close();
+            }
+            //스레드 풀 종료
+            if(threadPool != null && !threadPool.isShutdown()){
+                threadPool.shutdown();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-		};
-		ServerController.threadPool.submit(thread);
-	}
+    }
+
+    @FXML
+    void onClickMsgSend(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onClickServerButton(ActionEvent event) {
+    	Button toggleButton = (Button) event.getSource();
+    	if(toggleButton.getText().equals("시작하기")) {
+			startServer(IP, port);
+			Platform.runLater(()->{
+				String message = String.format("[부루마블 서버 시작]\n",IP, port);
+				taLogData.appendText(message);
+				toggleButton.setText("종료하기");
+			});
+		}else {
+			stopServer();
+			Platform.runLater(()->{
+				String message = String.format("[부루마블 서버 종료]\n",IP,port);
+				taLogData.appendText(message);
+				toggleButton.setText("시작하기");
+			});
+		}
+    }
+
 }

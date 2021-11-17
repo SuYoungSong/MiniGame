@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -18,6 +19,7 @@ public class Main extends Application {
 			primaryStage.getIcons().add(new Image("file:src/application/texture/favicon_main2.png"));
 			primaryStage.setTitle("미니게임");
 			primaryStage.setResizable(false);
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

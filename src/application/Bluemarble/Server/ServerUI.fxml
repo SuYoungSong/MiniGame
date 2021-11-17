@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.Bluemarble.Server.ServerController">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.Bluemarble.Server.Server">
    <children>
       <TextField fx:id="tfMsgInput" layoutY="464.0" prefHeight="36.0" prefWidth="418.0" />
       <Button mnemonicParsing="false" onAction="#onClickServerButton" prefHeight="27.0" prefWidth="500.0" text="시작하기">

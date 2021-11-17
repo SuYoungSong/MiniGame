@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	
-	//UI를 생성하고, 실질적으로 프로그램을 동작시키는 메소드
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("ServerUI.fxml"));

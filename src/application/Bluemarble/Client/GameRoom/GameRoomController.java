@@ -1,10 +1,11 @@
 package application.Bluemarble.Client.GameRoom;
 
+import application.Bluemarble.Client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 
-public class GameRoomController {
+public class GameRoomController extends Client{
 	
     @FXML private AnchorPane diceZone;
     Dice dice = new Dice();
