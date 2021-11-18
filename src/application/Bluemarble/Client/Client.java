@@ -59,6 +59,7 @@ public class Client{
 				if(length == -1 ) throw new IOException();
 				String message = new String(buffer, 0, length, "UTF-8");
 				Platform.runLater(() -> {
+					System.out.println("[클라수신]:"+message);
 				});
 			}catch (Exception e) {
 				stopClient();

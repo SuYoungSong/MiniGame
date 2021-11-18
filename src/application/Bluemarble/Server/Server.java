@@ -20,6 +20,10 @@ public class Server {
     final String enterRoomTag = "enterRoom";
     final String leaveRoomTag = "leaveRoom";
 	Room myRoom;
+	String nickname;
+	
+	OutputStream out;
+	InputStream in;
 	
 	// 클라이언트로부터 메시지를 전달 받는 메소드
 	public void receive() {
@@ -29,12 +33,12 @@ public class Server {
 				try {
 					//반복적으로 받아오기 위해
 					while(true) {
-						InputStream in = socket.getInputStream();
+						in = socket.getInputStream();
 						// 한번에 512바이트만큼 받을 수 있게
 						byte[] buffer = new byte[512];
 						int length = in.read(buffer);
 						while(length == -1) throw new IOException();
-//						System.out.println("[메시지 수신 성공]"+socket.getRemoteSocketAddress()+": "+Thread.currentThread().getName());
+						System.out.println("[메시지 수신 성공]"+socket.getRemoteSocketAddress()+": "+Thread.currentThread().getName());
 						String message = new String(buffer, 0, length, "UTF-8");
 						
 						// 닉네임 중복 체크
@@ -85,7 +89,7 @@ public class Server {
 			@Override
 			public void run() {
 				try {
-					OutputStream out = socket.getOutputStream();
+					out = socket.getOutputStream();
 					byte[] buffer = message.getBytes("UTF-8");
 					out.write(buffer);
 					out.flush();
@@ -108,10 +112,10 @@ public class Server {
 	}
 	
 	// 닉네임 중복 체크
-	void checkNickname(String nickname) {
+	void checkNickname(String checkNickname) {
 		 boolean flag = false;
 		 for(int i = 0; i < ServerController.allUser.size(); i++){
-//	            if(nickname.equals(ServerController.allUser.get(i).nickname)) flag = true;
+	            if(nickname.equals(ServerController.allUser.get(i).nickname)) flag = true;
 	        }
 	        if (!flag) {
 	            ServerController.allUser.add(this);
@@ -121,10 +125,10 @@ public class Server {
 	            sendWaitRoom(checkRoomList());
 	            
 	            System.out.println("[ Server ] 닉네임 중복 체크 >> 닉네임 사용가능");
-	            send("@@payload:" + "##checkNickname" + "##false" + "##" + nickname);
+	            send("@@payload:" + "##checkNickname" + "##false" + "##" + checkNickname);
 	        } else {
 	            System.out.println("[ Server ] 닉네임 중복 체크 >> 동일한 닉네임 존재");
-	            send("@@payload:" + "##checkNickname" + "##true" + "##" + nickname);
+	            send("@@payload:" + "##checkNickname" + "##true" + "##" + checkNickname);
 	        }
 	    }
 	
@@ -157,9 +161,9 @@ public class Server {
     }
 	
 	// 방 입장
-	 void enterRoom(String payload[]){
+	 void enterRoom(String payload){
 	        for(int i = 0; i < ServerController.room.size(); i++){
-	            if(payload[1].equals(ServerController.room.get(i).title)) {
+	            if(payload.equals(ServerController.room.get(i).title)) {
 	                if (ServerController.room.get(i).userCnt < 2) {
 	                    System.out.println("[ Server ] 방 입장 >> Succeed");
 
@@ -173,20 +177,20 @@ public class Server {
 	                    sendWaitRoom(checkRoomList());
 	                    sendGameRoom(checkRoomUser());
 
-//	                    send("@@payload:##" + enterRoomTag + "##true" + "##null");
+	                    send("@@payload:##" + enterRoomTag + "##true" + "##null");
 	                } else {
 	                    System.out.println("[ Server ] 방 입장 >> Failed: 인원이 초과");
-//	                    send("@@payload:##" + enterRoomTag + "##false" + "##인원을 초과했습니다.");
+	                    send("@@payload:##" + enterRoomTag + "##false" + "##인원을 초과했습니다.");
 	                }
 	            } else {
 	                System.out.println("[ Server ] 방 입장 >> Failed: 존재하지 않는 방");
-//	                send("@@payload:##" + enterRoomTag + "##false" + "##방이 존재하지 않습니다.");
+	                send("@@payload:##" + enterRoomTag + "##false" + "##방이 존재하지 않습니다.");
 
 	            }
 	        }
 	    }
 	// 방 퇴장
-	 void leaveRoom(String payload[]){
+	 void leaveRoom(String payload){
 	        myRoom.connectUsers.remove(this);
 	        myRoom.userCnt--;
 	        ServerController.lobbyUser.add(this);
@@ -200,23 +204,22 @@ public class Server {
 	        }
 	    }
 	 // 방 만들기
-	 void createRoom(String payload[]){
+	 void createRoom(String payload){
 	        myRoom = new Room();
 	        myRoom.userCnt++;
-	        myRoom.title = payload[1];
+	        myRoom.title = payload;
 	        ServerController.room.add(myRoom);
 	        myRoom.connectUsers.add(this);
 	        ServerController.lobbyUser.remove(this);
 	        System.out.println("[ Server ] 방 생성 >> Succeed");
 	    }
 	 // printPayload
-	 void printPayload(String str[]) {
+	 void printPayload(String str) {
 	        System.out.printf("[ Receive ] Payload[] >> ");
-	        for (String s : str) {
-	            System.out.printf("%s ", s);
-	        }
+	           System.out.printf("%s ", str);
 	        System.out.println();
 	    }
+
 	 // checkRoomUser
 	 String checkRoomUser(){
 	        String str = "@@payload:##" + enterRoomTag;

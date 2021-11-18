@@ -15,7 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class ServerController {
+public class ServerController{
 
     @FXML private TextArea taLogData;
     @FXML private TextField tfMsgInput;
@@ -28,7 +28,7 @@ public class ServerController {
 		// 멀티 쓰레드 환경에서 안전하게 객체 추가와 삭제가 가능하다고 함
 		public static Vector<Server> allUser = new Vector<Server> ();
 		public static Vector<Server> lobbyUser = new Vector<Server> ();
-		public static Vector<Server> room = new Vector<Server> ();
+		public static Vector<Room> room = new Vector<Room> ();
 
 		ServerSocket serverSocket;
 
@@ -94,7 +94,6 @@ public class ServerController {
 		
     @FXML
     void onClickMsgSend(ActionEvent event) {
-
     }
 
     @FXML
