@@ -3,6 +3,7 @@ package application.Bluemarble.Client.GameLobby;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import application.MainController;
 import application.Bluemarble.Client.Client;
 import application.Bluemarble.Client.GameRoom.GameRoomController;
@@ -16,13 +17,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class GameLobbyController extends Client implements Initializable{
+public class GameLobbyController extends Client implements Initializable {
 
     @FXML private ScrollPane GameRoomContainer;
     @FXML private ScrollPane PlayerListContainer;
@@ -32,22 +31,11 @@ public class GameLobbyController extends Client implements Initializable{
     @FXML private TextField tfGameRoomCreateName;
     @FXML private TextField tfUserInputNickName;
     @FXML private AnchorPane serverConnectTryWindow;
+
     private boolean enableNickname = false;
     @FXML private Label lbMessage;
-    @FXML private Text tUserNickname;
-
-
-    public void setResMsg(String str[]){
-
-        //ex) payload[] >> [0]checkNickname, [1]true OR false, [2]"nickname"
-        if(str[1].contains("true")){
-            setMessage("동일한 닉네임이 존재합니다.", false);
-        } else {
-            nicSetWindow.setVisible(false);
-            tUserNickname.setText(str[2]);
-        }
-    }
-
+    Client client = new Client();
+    
     // 게임 로비 방만들기 버튼 클릭
     @FXML
     void onClickCreateRoom(ActionEvent event) {
@@ -81,7 +69,7 @@ public class GameLobbyController extends Client implements Initializable{
     	GameRoomCreateWindow.setVisible(false);
     	tfGameRoomCreateName.clear();
     }
-    // 게임 접속실패 창에서 메인으로 돌아가는 버튼
+    // 게임 접속실패 칭에서 메인으로 돌아가는 버튼
     @FXML
     void onClickMain(ActionEvent e) throws IOException {
 //    	client.stopClient();
@@ -93,14 +81,14 @@ public class GameLobbyController extends Client implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
-
+    
     void setEnableNickname(boolean bool){ enableNickname = bool; }
-
-    @FXML
-    void onClickSetNicknameModal(ActionEvent e) {
-    	nicSetWindow.setVisible(true);    			// 닉네임 설정창 활성화
+    
+    boolean isNickname(String nickname){
+        //Server로 DB조회 요청 로직 작성
+        return true;
     }
-
+    
     void setMessage(String message, boolean type){
         //message: 메세지 / type: true(정상), false(불량)
         if (type){
@@ -113,22 +101,31 @@ public class GameLobbyController extends Client implements Initializable{
     }
     // 닉네임 설정창에서 접속 버튼
     @FXML
-    void onClickGameLobbyConnect(MouseEvent e) {
-//        System.out.println("GameLobby Mouse Event >> " + e);
-        setMouseEvent(e);
-        isConnect = true;
-        final String nickname = tfUserInputNickName.getText();
-//        .format 적용예정
-//        send(String.format("%s%s%s", "@@payload", "##checkNickname", "##" + nickname));
-        send("@@payload:" + "##checkNickname" + "##" + nickname);
-
+    void onClickGameLobbyConnect(ActionEvent event) {
+    	 final String NICKNAME = tfUserInputNickName.getText();
+    	 send("##NICKNAME"+NICKNAME);
+    	 // 닉네임 설정창에서 서버가 열려있지 않은경우 체크
+//    	 if(!client.isConnect) {
+//    		 connectFileWindows.setVisible(true);    	// 서버 접속실패 창 활성화				
+//    	 }
+//         if(NICKNAME.equals("")) {
+//             setMessage("닉네임을 입력해주세요.", false);
+//             return;
+//         }
+//         if(isNickname(NICKNAME)){
+//             setMessage("사용 가능한 닉네임입니다.", true);
+//             setEnableNickname(true);
+////             return;
+//         }
+//         // 서버로 닉네임 전달
+//         client.send(NICKNAME,"SETNICK");
+//         nicSetWindow.setVisible(false);    			    		
     }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    	if(!isConnect) {
-	        startClient("localhost", 5005);
-	        nicSetWindow.setVisible(true);
-    	}
+    	// 서버에 접속 시도
+		client.startClient("localhost",5005);
+    	nicSetWindow.setVisible(true);    			// 닉네임 설정창 활성화
+    		
     }
 }
