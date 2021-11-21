@@ -1,4 +1,4 @@
-package application;
+package application.wordChainGame;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +35,9 @@ public class WordChainGameController {
     @FXML private Label lbScore;
 
     private final int minLetterCnt = 2;
-
+    
+    
+    // 두음법칙 처리하는 메소드
     void runPhoneticRule(){
         char afterLetter[] = {'나', '낙', '난', '날', '남', '납', '낭', '내', '냉', '엽',
                                 '노', '녹', '논', '농', '뇌', '용', '누', '윤', '율', '융',
@@ -64,7 +66,9 @@ public class WordChainGameController {
         }
         phoneticRule = false;
     }
-
+    
+    
+    // 사용자가 입력한 단어가 국어사전에 있는지 확인하는 메소드
     boolean isWord(String word){
         try {
             URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=" + word);
@@ -100,7 +104,7 @@ public class WordChainGameController {
         lbScore.setText(Integer.toString(++score));
     }
 
-    @FXML
+    @FXML	// 단어 입력받음
     void onPressEnter(KeyEvent e) {
         if( e.getCode() == KeyCode.ENTER ) {
             String word = inputWord.getText();
@@ -138,44 +142,25 @@ public class WordChainGameController {
         }
     }
 
-    @FXML
+    @FXML	// 마우스 호버 시작
     void onHoverEnter(MouseEvent e) {
         Node source = (Node)e.getSource();
         source.setStyle("-fx-cursor:hand;");
     }
-    @FXML
+    @FXML	// 마우스 호버 끝
     void onHoverExit(MouseEvent e) {
         Node source = (Node)e.getSource();
         source.setStyle("-fx-cursor:default;");
     }
 
-    @FXML
+    @FXML	// 메인으로 돌아가는 버튼
     void onClickMainButton(MouseEvent e) throws IOException {
         Node node = (Node)(e.getSource());
         stage = (Stage)(node.getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/MainUI.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("미니게임");
         stage.setScene(scene);
         stage.show();
     }
 }
-
-//  boolean isWord(String word){
-//  try {
-//      //시간 남으면 key 따로 분리할 예정
-//      String key = "0255BF41748A78C0AAFCAC21A3D9BE1D";
-//      URL url = new URL("https://stdict.korean.go.kr/api/search.do?key=" + key + "&type_search=search&q=" + word);
-//      String line = "";
-//      HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-//      connection.setRequestMethod("GET");
-//      BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-//      while ((line = br.readLine()) != null) {
-//          if(line.contains("<word>")) return true;
-//      }
-//      br.close();
-//  } catch (Exception e) {
-//      e.printStackTrace();
-//  }
-//  return false;
-//}

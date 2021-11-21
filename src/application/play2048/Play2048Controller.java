@@ -1,11 +1,9 @@
-package application;
+package application.play2048;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Stack;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -37,6 +35,7 @@ public class Play2048Controller {
 	private boolean doubleSumProtection = false;
 	private int bestScore = 0;
 	private int gameContinueCount = 0;
+	
 	//보드 초기화
 	void initArrayBoard() {
 		for(int i = 0 ; i<boardSize ; i++ ) {
@@ -50,6 +49,7 @@ public class Play2048Controller {
 			}
 		}
 	}
+	
 	// 보드 상태 프린트
 	void boardPrint() {
 		for(int i = 0 ; i<4 ; i++) {
@@ -60,6 +60,7 @@ public class Play2048Controller {
 		}
 		System.out.println("");
 	}
+	
 	// 보드 변화를 체크
 	boolean isboardChange(int[][] beforeBoard) {
 		for(int i=0 ; i<boardSize ; i++) {
@@ -71,6 +72,7 @@ public class Play2048Controller {
 		}
 		return false;
 	}
+	
 	// 새로운 타일을 화면에 추가할때 타일이 없는 곳을 찾아서 좌표값을 ArrayList에 넣어준다.
 	void boardZeroCheck(){
 		boardZeroCheckX.clear();
@@ -85,11 +87,13 @@ public class Play2048Controller {
 			}
 		}
 	}
+	
 	//    내가 생각한 2048 로직															| (0,0) | (1,0) | (2,0) | (3,0) |
-//    1. 해당 방향으로 최대한 타일을 밀기											| (0,1) | (1,1) | (2,1) | (3,1) |
-//    2. 해당 방향으로 근접한 위치에 같은 수가 있는경우 합치기						| (0,2) | (1,2) | (2,2) | (3,2) |
-//    3. 해당 방향으로  타일을 또 밀기 												| (0,3) | (1,3) | (2,3) | (3,3) |
-//	  4. 새로운 타일을 생성
+	//    1. 해당 방향으로 최대한 타일을 밀기											| (0,1) | (1,1) | (2,1) | (3,1) |
+	//    2. 해당 방향으로 근접한 위치에 같은 수가 있는경우 합치기						| (0,2) | (1,2) | (2,2) | (3,2) |
+	//    3. 해당 방향으로  타일을 또 밀기 												| (0,3) | (1,3) | (2,3) | (3,3) |
+	//	  4. 새로운 타일을 생성
+	
 	@FXML
 	// 키보드 입력이 있는 경우
 	void onPressKey(KeyEvent e) {
@@ -346,6 +350,7 @@ public class Play2048Controller {
 			}
 		}
 	}
+	
 	// 타일 설정
 	void tileSetting(Label tile,boolean isNew) {
 		tile.setPrefSize(89, 89);
@@ -354,7 +359,7 @@ public class Play2048Controller {
 			tile.setVisible(false);
 		else
 			tile.setVisible(true);
-		if(isNew == true) {
+		if(isNew == true) {	// 새로 생겨난 타일인 경우 가시성을 위해 노란 테두리를 넣음
 			if(tile.getText().equals("2"))				tile.setStyle("-fx-background-color:#D5CEC4; -fx-text-fill:#6D675D;-fx-alignment: center;-fx-font-size:30;-fx-border-color:yellow;-fx-border-width:5"); //2
 			if(tile.getText().equals("4"))				tile.setStyle("-fx-background-color:#D2CAB5; -fx-text-fill:#6A645B;-fx-alignment: center;-fx-font-size:30;-fx-border-color:yellow;-fx-border-width:5"); //4
 			return;
@@ -372,6 +377,7 @@ public class Play2048Controller {
 		if(tile.getText().equals("2048"))			tile.setStyle("-fx-background-color:#D7C647; -fx-text-fill:#E2D8BA;-fx-alignment: center;-fx-font-size:30;"); //2048
 		if(Integer.parseInt(tile.getText())>=4096)	tile.setStyle("-fx-background-color:#37332E; -fx-text-fill:#C0BEBA;-fx-alignment: center;-fx-font-size:30;"); //4096
 	}
+	
 	// 타일 추가하기
 	void newTileAdd() {
 		boardZeroCheck();
@@ -388,6 +394,7 @@ public class Play2048Controller {
 			boardPrint();
 		}
 	}
+	
 	// 더이상 타일을 움직일 수 없는지 체크
 	void gameOVerCheck() {
 		// 게임판이 꽉찬 상태인지 확인
@@ -416,6 +423,7 @@ public class Play2048Controller {
 		}
 		gameOverPopup();
 	}
+	
 	// 게임 종료 팝업
 	void gameOverPopup() {
 		System.out.println("게임 오버 : 더이상 타일을 생성할 수 없습니다.");
@@ -431,6 +439,7 @@ public class Play2048Controller {
 			lblScore.setText("0");
 		}
 	}
+	
 	// 베스트 스코어 설정
 	void bestScoreCheck() {
 		int nowScore = Integer.parseInt(lblScore.getText());
@@ -439,6 +448,7 @@ public class Play2048Controller {
 			lblBestScore.setText(String.valueOf(bestScore));
 		}
 	}
+	
 	// 스코어 설정
 	void scoreCheck() {
 		int sum = 0;
@@ -450,6 +460,7 @@ public class Play2048Controller {
 		lblScore.setText(String.valueOf(sum));
 		bestScoreCheck();
 	}
+	
 	// 보드 초기화
 	void initBoard() {
 		Node gridLine = board2048.getChildren().get(0);
@@ -467,6 +478,7 @@ public class Play2048Controller {
 		newTileAdd();
 		newTileAdd();
 	}
+	
 	// 메인화면으로 돌아가는 버튼
 	@FXML
 	void onClickMainButton(MouseEvent e) throws IOException {
@@ -481,18 +493,19 @@ public class Play2048Controller {
 		}
 		Node node = (Node)(e.getTarget());
 		stage = (Stage)(node.getScene().getWindow());
-		Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/application/MainUI.fxml"));
 		Scene scene = new Scene(root);
 		stage.setTitle("미니게임");
 		stage.setScene(scene);
 		stage.show();
 	}
-
+	// 마우스 호버상태
 	@FXML
 	void onHoverEnter(MouseEvent e) {
 		Node source = (Node)e.getSource();
 		source.setStyle("-fx-cursor:hand;");
 	}
+	// 마우스 호버상태 끝 
 	@FXML
 	void onHoverExit(MouseEvent e) {
 		Node source = (Node)e.getSource();

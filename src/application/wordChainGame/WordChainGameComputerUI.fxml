@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: ffffff;" stylesheets="@WordChainGameComputerUI.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.WordChainGameComputerController">
+<AnchorPane prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: ffffff;" stylesheets="@WordChainGameComputerUI.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.wordChainGame.WordChainGameComputerController">
     <children>
         <Pane prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #0040ff;">
             <children>
@@ -37,32 +37,32 @@
         <ScrollPane fx:id="scrollContainer" layoutX="12.0" layoutY="127.0" prefHeight="449.0" prefWidth="372.0" />
         <ImageView fitHeight="24.0" fitWidth="27.0" layoutX="345.0" layoutY="600.0">
             <image>
-                <Image url="@texture/paper-plane.png" />
+                <Image url="@../texture/paper-plane.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="32.0" fitWidth="29.0" layoutX="22.0" layoutY="66.0" onMouseClicked="#onClickMainButton" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit">
             <image>
-                <Image url="@texture/arrow.png" />
+                <Image url="@../texture/arrow.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="91.0" layoutY="56.0">
             <image>
-                <Image url="@texture/ai.png" />
+                <Image url="@../texture/ai.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="254.0" layoutY="55.0">
             <image>
-                <Image url="@texture/boy.png" />
+                <Image url="@../texture/boy.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="82.0" fitWidth="82.0" layoutX="163.0" layoutY="41.0">
             <image>
-                <Image url="@texture/competition.png" />
+                <Image url="@../texture/competition.png" />
             </image>
         </ImageView>
       <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="17.0" layoutY="592.0" onMouseClicked="#onClickRefresh" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit">
          <image>
-            <Image url="@texture/refresh.png" />
+            <Image url="@../texture/refresh.png" />
          </image>
       </ImageView>
     </children>

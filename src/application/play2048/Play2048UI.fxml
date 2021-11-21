@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="515.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Play2048Controller">
+<AnchorPane prefHeight="515.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.play2048.Play2048Controller">
     <children>
         <GridPane fx:id="board2048" alignment="CENTER" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
             <columnConstraints>
@@ -62,7 +62,7 @@
          <children>
             <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="4.0" layoutY="6.0">
                <image>
-                  <Image url="@texture/arrow_2048.png" />
+                  <Image url="@../texture/arrow_2048.png" />
                </image>
             </ImageView>
          </children></Pane>

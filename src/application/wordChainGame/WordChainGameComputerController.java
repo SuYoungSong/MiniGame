@@ -1,4 +1,4 @@
-package application;
+package application.wordChainGame;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 public class WordChainGameComputerController implements Initializable {
     private Stage stage;
     private int score;
@@ -45,7 +44,9 @@ public class WordChainGameComputerController implements Initializable {
     @FXML private Text tMessage;
     @FXML private Text tScore;
     @FXML private ScrollPane scrollContainer;
-
+    
+    
+    // 두음법칙 처리하는 메소드
     void runPhoneticRule(){
         char afterLetter[] = {'나', '낙', '난', '날', '남', '납', '낭', '내', '냉', '엽',
                 '노', '녹', '논', '농', '뇌', '용', '누', '윤', '율', '융',
@@ -74,6 +75,8 @@ public class WordChainGameComputerController implements Initializable {
         }
         phoneticRule = false;
     }
+    
+    // 컴퓨터가 입력하는 단어를 받아오는 메소드
     String computerWord(char word){
         try {
             String findWord;
@@ -105,6 +108,8 @@ public class WordChainGameComputerController implements Initializable {
         }
         return null;    // 컴퓨터가 입력할 단어가 없어서 패배
     }
+    
+    // 사용자가 입력하는 단어가 국어사전에 있는 단어인지 확인하는 메소드
     boolean isWord(String word){
         try {
             URL url = new URL("https://stdict.korean.go.kr/common/autoComplete.json?searchKeyword=" + word);
@@ -121,19 +126,24 @@ public class WordChainGameComputerController implements Initializable {
         }
         return false;
     }
+    
     void setFirstWord(String word){
         firstWord = word.charAt(0);
     }
+    
     void setLastWord(String word){
         lastWord = word.charAt(word.length() - 1);
     }
+    
     void setMessage(String message){
         tMessage.setText(message);
 
     }
+    
     void addScore(){
         tScore.setText(Integer.toString(++score));
     }
+    
     void setChatList(String word){
 
         messageList.add(new Label(word));
@@ -148,7 +158,8 @@ public class WordChainGameComputerController implements Initializable {
         }
         chatIndex += 1;
     }
-    @FXML
+    
+    @FXML	// 단어를 입력 받음
     void onPressEnter(KeyEvent e) {
         if( e.getCode() == KeyCode.ENTER ) {
             String word = inputWord.getText();
@@ -199,31 +210,35 @@ public class WordChainGameComputerController implements Initializable {
             } else setMessage("등록되지 않은 단어입니다.");
         }
     }
+    
     public void scrollToBottom() {
         Platform.runLater(() -> this.scrollContainer.vvalueProperty().setValue(1.0));
     }
-    @FXML
+    
+    @FXML	// 메인으로 돌아가는 버튼
     void onClickMainButton(MouseEvent e) throws IOException {
         Node node = (Node)(e.getSource());
         stage = (Stage)(node.getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application/MainUI.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("미니게임");
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
+    
+    @FXML	// 마우스 호버 시작
     void onHoverEnter(MouseEvent e) {
         Node source = (Node)e.getSource();
         source.setStyle("-fx-cursor:hand;");
     }
-    @FXML
+    
+    @FXML	// 마우스 호버 끝
     void onHoverExit(MouseEvent e) {
         Node source = (Node)e.getSource();
         source.setStyle("-fx-cursor:default;");
     }
-
-    @FXML
+    
+    @FXML	// 다시하기 버튼
     void onClickRefresh(MouseEvent e) throws IOException {
         Node node = (Node)(e.getSource());
         stage = (Stage)(node.getScene().getWindow());

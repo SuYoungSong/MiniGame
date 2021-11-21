@@ -1,4 +1,4 @@
-package application;
+package application.omok;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,7 +46,8 @@ public class OmokController implements Initializable{
 	char stoneType;
 	char[][]board = new char[boardSize][boardSize];
 	Stack imageAdress = new Stack();
-
+	
+	// 보드(배열) 초기화
 	void initBoard() {
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
@@ -54,7 +55,8 @@ public class OmokController implements Initializable{
 			}
 		}
 	}
-
+	
+	// 현재 보드 상태 출력
 	void printBoard() {
 		for(int i = 0; i < board.length; i++) {
 			for(int j = 0; j < board[i].length; j++) {
@@ -64,7 +66,8 @@ public class OmokController implements Initializable{
 		}
 		System.out.printf("\n");
 	}
-
+	
+	// 배열 보드 관리 ( 돌 놓은곳 체크 )
 	void setBoard(int x, int y, char type) {
 		board[x][y]= type;
 		printBoard();
@@ -74,9 +77,8 @@ public class OmokController implements Initializable{
 		if(board[x][y]!= 'O')return true;
 		return false;
 	}
-
+	// 게임이 끝났는지 확인
 	char isWin(int x, int y) {
-		System.out.println("이스윈 실행");
 		boolean check[][]= new boolean[15][15];
 		for(int i = 0; i < 4; i++) {
 			int stoneCnt = 0;
@@ -98,22 +100,18 @@ public class OmokController implements Initializable{
 							stoneCnt += 1;
 						}
 						if(stoneType == 'B' && stoneCnt == 5) {
-							System.out.println(stoneType + "," + stoneCnt);
 							return stoneType;
 						}
 						if(stoneType == 'W' && stoneCnt >= 5) {
-							System.out.println(stoneType + "," + stoneCnt);
 							return stoneType;
 						}
-						System.out.println(gameTurn);
-						System.out.println(stoneType + "," + stoneCnt);
 					}//if
 				}//for-j
 			}//while
 		}//for-i
 		return 'n';
 	}
-
+	// 지금 누구의 턴인지 체크
 	void turnCheck() {
 		if(count % 2 == 0) {
 			gameTurn = 1;
@@ -123,7 +121,7 @@ public class OmokController implements Initializable{
 			turnText.setText("백돌의 차례입니다");
 		}
 	}
-	int asdf = 10000;
+	int asdf = 10000;		// 프로그래시브 바 자연스럽게 흘러가게 
 	TimerTask timerTask;
 	Timer timer = new Timer("boardTimer");
 	public TimerTask createTask() {
@@ -133,7 +131,7 @@ public class OmokController implements Initializable{
 			@Override
 			public void run() {
 				asdf = asdf-1;
-				progressBarTimeLimited.progressProperty().set(asdf*0.0001);
+				progressBarTimeLimited.progressProperty().set(asdf*0.0001);	// 프로그래시브바 설정
 					setLimitTime(limitTime);
 					if(asdf%1000 == 0) {
 					limitTime--;
@@ -419,19 +417,19 @@ public class OmokController implements Initializable{
 			return false;
 		}
 	}
-
+	// 보드 초기화
 	void resetBoard(){
 		initBoard();
-		while(!imageAdress.isEmpty() ) {
+		while(!imageAdress.isEmpty() ) {	// 이전 게임에 저장됬던 돌 초기화
 			omokBoard.getChildren().remove(imageAdress.pop());
 		}
 		count = 1;
 		gameTurn = 1;
 		turnText.setText("흑돌의 차례입니다");
 	}
-
+	// 게임 종료 후 다시하기 팝업창
 	void onShowResetModal(char type, char option){
-// type >> "B(Black)", "W(White)"을 매개변수로 받음
+		// type >> "B(Black)", "W(White)"을 매개변수로 받음
 		// option >> "d(default)", t(timeout)을 매겨변수로 받음
 
 		String originStoneName =(type == 'B')? "흑돌" : "백돌";
@@ -448,7 +446,7 @@ public class OmokController implements Initializable{
 	}
 
 
-	@FXML
+	@FXML	// 사용자가 돌을 놓음
 	void onClickBoard(MouseEvent e) {
 		runTimer();
 		Node source =(Node)e.getSource();
@@ -466,24 +464,21 @@ public class OmokController implements Initializable{
 				return;
 			}
 		}
-		System.out.println("0번");
 		if(gameTurn == 1) {
 			imageAdress.push(new BorderPane());
 			omokBoard.add((Node)imageAdress.peek(), col, row);  // AnchorPane 를 덮어 착수된 위치는 hover이 되지 않기위해
-			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("texture/black.png"))));
+			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("/application/texture/black.png"))));
 			omokBoard.add((Node)imageAdress.peek(),col, row);
 			stoneType = 'B';
 		}else{
 			imageAdress.push(new BorderPane());
 			omokBoard.add((Node)imageAdress.peek(), col, row);  // AnchorPane 를 덮어 착수된 위치는 hover이 되지 않기위해
-			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("texture/white.png"))));
+			imageAdress.push(new ImageView(new Image(getClass().getResourceAsStream("/application/texture/white.png"))));
 			omokBoard.add((Node)imageAdress.peek(),col, row);
 			stoneType = 'W';
 		}
 		setBoard(row, col, stoneType);
-		System.out.println("1번");
 		char result = isWin(row, col);
-		System.out.println("2번");
 		if(result == 'W' || result == 'B') {
 			timerTask.cancel();
 			onShowResetModal(result, 'd');
@@ -494,18 +489,19 @@ public class OmokController implements Initializable{
 		count++;
 	}
 
+	// 메인으로 돌아가는 함수
 	void onShowMain(MouseEvent e)throws IOException{
 		if(timerTask != null)timerTask.cancel();
 		Node node =(Node)(e.getSource());
 		stage =(Stage)(node.getScene().getWindow());
-		Parent root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/application/MainUI.fxml"));
 		Scene scene = new Scene(root);
 		stage.setTitle("미니게임");
 		stage.setScene(scene);
 		stage.show();
 	}
 
-	@FXML
+	@FXML	// 게임중일경우 잘못누름 방지 ( 메인가는 버튼 ) 
 	void onClickMainButton(MouseEvent e)throws IOException{
 		if(count > 1){
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -518,12 +514,12 @@ public class OmokController implements Initializable{
 		onShowMain(e);
 	}
 
-	@FXML
+	@FXML	// 마우스 호버 시작
 	void onHoverEnter(MouseEvent e) {
 		Node source = (Node)e.getSource();
 		source.setStyle("-fx-cursor:hand;");
 	}
-	@FXML
+	@FXML	// 마우스 호버 끝
 	void onHoverExit(MouseEvent e) {
 		Node source = (Node)e.getSource();
 		source.setStyle("-fx-cursor:default;");
