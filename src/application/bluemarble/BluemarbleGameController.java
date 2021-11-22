@@ -3,6 +3,7 @@ package application.bluemarble;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
 import application.MainController;
@@ -59,22 +60,24 @@ public class BluemarbleGameController implements Initializable{
   
   @FXML void onChangeStartDistMoney(KeyEvent e) {
 	int lastCurser = tfStartDiskMoney.getCaretPosition();			// 커서위치 고정을 위한 코드
-	
+	NumberFormat commaSetting = NumberFormat.getNumberInstance();	// 콤마
 	// 지우기 키 (delete, backspace) 입력시 발동
 	if(e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) { return; }
-	// 기능키 이외의 키를 입력하였을 경우
 	try {
 		int inputKey = Integer.parseInt(e.getText());
+		System.out.println(inputKey);
+	// 기능키 이외의 키를 입력하였을 경우
 	}catch (Exception err) {
-//		err.printStackTrace();
 		String str = tfStartDiskMoney.getText().replace(e.getCode().toString(), "");
         System.out.println("str = " + str);
         Platform.runLater(() -> {
        	 tfStartDiskMoney.setText(str);
-       	 tfStartDiskMoney.positionCaret(lastCurser);		// 커서위치 고정을 위한 코드
 		 });
         System.out.println("[ Bluemarble ] 숫자만 입력할 수 있습니다.");
 	  } 
+	double comma = Double.parseDouble(tfStartDiskMoney.getText().replace(",", ""));
+	tfStartDiskMoney.setText(String.valueOf(commaSetting.format( comma )));
+	tfStartDiskMoney.positionCaret(lastCurser);		// 커서위치 고정을 위한 코드
   } 
 
   @FXML void onClick2PlayerButton(ActionEvent e) {
