@@ -1,51 +1,127 @@
 package application.bluemarble;
 
-import javafx.scene.image.Image;
+import java.io.IOException;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ResourceBundle;
 
-public class BluemarbleGameController {
+import application.MainController;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+public class BluemarbleGameController implements Initializable{
 	final private byte goldCardNum = 10;	// 황금카드 갯수
 	
+	 @FXML void onClickRunDice(ActionEvent e) {
+	  }
+	 
+	//   마우스 호버 액션
+	  @FXML
+	  void onHoverEnter(MouseEvent e) {
+	      Node source = (Node)e.getSource();
+	      source.setStyle("-fx-cursor:hand;");
+	  }
+	  @FXML
+	  void onHoverExit(MouseEvent e) {
+	      Node source = (Node)e.getSource();
+	      source.setStyle("-fx-cursor:default;");
+	  }
+  
 	
-	// 황금카드에 도착한경우 작동하는 메소드
-	void choiceRandomGoldCard() {
-		int n = (int) Math.floor(Math.random() *goldCardNum);	// 카드를 랜덤으로 뽑기 위해숫자
-		Image cardImg = new Image(getClass().getResourceAsStream("/application/texture/bluemarbleGoldCard"+n));
-		
-		switch(n+1) {
-			case 1:
-				System.out.println("출발지로 이동");
-				break;
-			case 2:
-				System.out.println("세계여행으로 이동");
-				break;
-			case 3:
-				System.out.println("내가 갖고있는 땅값 2배");
-				break;
-			case 4:
-				System.out.println("내가 원하는 상대의 땅을 갖고오기");
-				break;
-			case 5:
-				System.out.println("나의 땅 하나를 무조건 매각하기");
-				break;
-			case 6:
-				System.out.println("다음 주사위를 굴린 수치에 2배를 이동");
-				break;
-			case 7:
-				System.out.println("다음 주사위를 굴린 수치만큼 뒤로 이동");
-				break;
-			case 8:
-				System.out.println("다음턴을 한정으로 상대땅을 밟으면 통행료 면제");
-				break;
-			case 9:
-				System.out.println(("은행에서 50만원 받기"));
-				break;
-			case 10:
-				System.out.println("내가 갖고있는 돈의 10%를 각 플레이어에게 나눠주기");
-				break;
-		}
-	}
+//  ==================================================
+//               Start Bluemarble Modal
+//  ==================================================
+  DecimalFormat df =  new DecimalFormat("###,###");
+  @FXML private AnchorPane apStartBluemarbleModal;
+  @FXML private ToggleGroup PlayerCntGroup;
+  @FXML private ToggleGroup startDistMoneyGroup;
+  @FXML private RadioButton rb2Player;
+  @FXML private RadioButton rb3Player;
+  @FXML private RadioButton rb4Player;
+  @FXML private RadioButton rbDefaultDistMoney;
+  @FXML private RadioButton rbCustomDistMoney;
+  @FXML private TextField tfStartDiskMoney;
+ 
+  
+  @FXML void onChangeStartDistMoney(KeyEvent e) {
+	int lastCurser = tfStartDiskMoney.getCaretPosition();			// 커서위치 고정을 위한 코드
 	
-	
-	
-	
+	// 지우기 키 (delete, backspace) 입력시 발동
+	if(e.getCode() == KeyCode.DELETE || e.getCode() == KeyCode.BACK_SPACE) { return; }
+	// 기능키 이외의 키를 입력하였을 경우
+	try {
+		int inputKey = Integer.parseInt(e.getText());
+	}catch (Exception err) {
+//		err.printStackTrace();
+		String str = tfStartDiskMoney.getText().replace(e.getCode().toString(), "");
+        System.out.println("str = " + str);
+        Platform.runLater(() -> {
+       	 tfStartDiskMoney.setText(str);
+       	 tfStartDiskMoney.positionCaret(lastCurser);		// 커서위치 고정을 위한 코드
+		 });
+        System.out.println("[ Bluemarble ] 숫자만 입력할 수 있습니다.");
+	  } 
+  } 
+
+  @FXML void onClick2PlayerButton(ActionEvent e) {
+      if(!rbDefaultDistMoney.isSelected()) return;
+      setStartDistMoney(5860000);
+  }
+  @FXML void onClick3PlayerButton(ActionEvent e) {
+      if(!rbDefaultDistMoney.isSelected()) return;
+      setStartDistMoney(2930000);
+  }
+  @FXML void onClick4PlayerButton(ActionEvent e) {
+      if(!rbDefaultDistMoney.isSelected()) return;
+      setStartDistMoney(2930000);
+  }
+  @FXML void onClickCustomDistMoneyButton(ActionEvent e) {
+      tfStartDiskMoney.setDisable(false);
+      tfStartDiskMoney.requestFocus();
+  }
+  @FXML void onClickDefaultDistMoneyButton(ActionEvent e) {
+      if(rb2Player.isSelected()) setStartDistMoney(5860000);
+      else setStartDistMoney(2930000);
+      tfStartDiskMoney.setDisable(true);
+  }
+  @FXML void onCloseCreateRoomModal(MouseEvent e) throws IOException {
+      Node node = (Node)(e.getSource());
+      Stage stage = (Stage)(node.getScene().getWindow());
+      Parent root = FXMLLoader.load(MainController.class.getResource("MainUI.fxml"));
+      Scene scene = new Scene(root);
+      stage.setTitle("부루마블");
+      stage.setScene(scene);
+      stage.show();
+  }
+  @FXML void onSubmitCreateRoomModal(MouseEvent e) {
+      System.out.println("확인");
+  }
+  void setStartDistMoney(long v){ tfStartDiskMoney.setText(df.format(v)); }
+  void initStartBluemarbleModal() {
+      setStartDistMoney(5860000);
+      tfStartDiskMoney.setDisable(true);
+      rbDefaultDistMoney.setSelected(true);
+      rb2Player.setSelected(true);
+      apStartBluemarbleModal.setVisible(true);
+  }
+  @Override
+  public void initialize(URL url, ResourceBundle resourceBundle) {
+      initStartBluemarbleModal();
+  }
 }
+
+	
