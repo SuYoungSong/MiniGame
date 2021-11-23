@@ -9,8 +9,8 @@ public class BluemarbleGameController {
 	// 황금카드에 도착한경우 작동하는 메소드
 	void choiceRandomGoldCard() {
 		int n = (int) Math.floor(Math.random() *goldCardNum);	// 카드를 랜덤으로 뽑기 위해숫자
-		Image cardImg = new Image(getClass().getResourceAsStream("/application/texture/bluemarbleGoldCard"+n));
-		
+//		Image cardImg = new Image(getClass().getResourceAsStream("/application/texture/bluemarbleGoldCard"+n));
+//		ㄴ 아직 이미지 추가 안함.
 		switch(n+1) {
 			case 1:
 				System.out.println("출발지로 이동");
