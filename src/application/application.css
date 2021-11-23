@@ -1,0 +1,22 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#createRoomModal_content {
+    -fx-border-radius: 32px;
+    -fx-background-radius: 32px;
+}
+#createRoomModal {
+    -fx-background-color: #ffffff;
+}
+#create_room_close {
+    -fx-background-color: #ffffff;
+}
+#create_room_close:hover {
+    /*-fx-background-color: #ffffff;*/
+    -fx-background-color: red;
+}
+#create_room_submit {
+    -fx-background-color: #CCE6FF;
+}
+#create_room_cancel{
+    -fx-background-color: #FFE3DE;
+}

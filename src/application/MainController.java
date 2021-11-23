@@ -44,7 +44,7 @@ public class MainController {
     
     @FXML	// 부루마블로 이동
     void onClickBluemarbleButton(MouseEvent e) throws IOException {
-//    	stageChange(e,"bluemarble/GameLobbyUI.fxml", "부루마블");
+    	stageChange(e,"bluemarble/BluemarbleGameUI.fxml", "부루마블");
     }
     
     @FXML	// 마우스 호버 이벤트
