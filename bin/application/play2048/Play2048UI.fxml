@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="515.0" prefWidth="380.0" style="-fx-background-color: E0E0D8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.play2048.Play2048Controller">
+    <children>
+        <GridPane fx:id="board2048" alignment="CENTER" gridLinesVisible="true" onKeyReleased="#onPressKey" prefWidth="405.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="140.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="90.0" minHeight="90.0" prefHeight="90.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </GridPane>
+        <AnchorPane layoutX="65.0" layoutY="26.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="26.0">
+            <children>
+                <Label fx:id="lblScore" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <Label layoutX="25.0" layoutY="14.0" text="Score" textFill="#e0dcd5">
+                    <font>
+                        <Font size="29.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="196.0" layoutY="26.0" prefHeight="95.0" prefWidth="119.0" style="-fx-background-color: A59E90; -fx-background-radius: 15;" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="26.0">
+            <children>
+                <Label fx:id="lblBestScore" alignment="CENTER" layoutX="10.0" layoutY="45.0" prefHeight="42.0" prefWidth="99.0" text="0" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP">
+                    <font>
+                        <Font size="26.0" />
+                    </font>
+                </Label>
+                <Label layoutX="33.0" layoutY="14.0" text="Best" textFill="#e0dcd5">
+                    <font>
+                        <Font size="29.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+      <Pane layoutX="11.0" layoutY="54.0" onMouseClicked="#onClickMainButton" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="40.0" prefWidth="40.0">
+         <children>
+            <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="4.0" layoutY="6.0">
+               <image>
+                  <Image url="@../texture/arrow_2048.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+    </children>
+</AnchorPane>

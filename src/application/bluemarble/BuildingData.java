@@ -23,6 +23,11 @@ public class BuildingData {
 		buyLand = 80000;	buyVilla = 50000;	buyBuilding = 150000;	buyHotel = 250000;
 		passLand = 4000;	passVilla = 20000;	passBuilding = 180000;	passHotel = 450000;
 	}
+	//제주도
+	void Jeju() {
+		buyLand = 100000;
+		passLand = 150000;
+	}
 	// 싱가포르
 	void Singapore() {
 		buyLand = 100000;	buyVilla = 50000;	buyBuilding = 150000;	buyHotel = 250000;
