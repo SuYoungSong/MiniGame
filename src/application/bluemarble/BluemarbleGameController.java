@@ -171,8 +171,8 @@ public class BluemarbleGameController implements Initializable {
 	//
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
-	@FXML
 	int turnCount = 1;
+	@FXML
 	void onClickRunDice(ActionEvent e) {
 		// 더블 구현해야함.
 		ImageView[] diceIV = { dice1, dice2 };
