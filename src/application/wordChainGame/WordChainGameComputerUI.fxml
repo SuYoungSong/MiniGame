@@ -2,13 +2,10 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.text.*?>
 <AnchorPane prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: ffffff;" stylesheets="@WordChainGameComputerUI.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.wordChainGame.WordChainGameComputerController">
     <children>
         <Pane prefHeight="39.0" prefWidth="400.0" style="-fx-background-color: #0040ff;">

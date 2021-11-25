@@ -1,9 +1,5 @@
 package application.play2048;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -19,11 +15,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
+
 public class Play2048Controller {
 
-	@FXML	private GridPane board2048;
-	@FXML   private Label lblScore;
-	@FXML   private Label lblBestScore;
+	@FXML private GridPane board2048;
+	@FXML private Label lblScore;
+	@FXML private Label lblBestScore;
 	private Stage stage;
 	private ArrayList<Integer> boardZeroCheckX = new ArrayList<Integer>();
 	private ArrayList<Integer> boardZeroCheckY = new ArrayList<Integer>();

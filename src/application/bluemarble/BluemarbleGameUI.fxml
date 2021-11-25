@@ -1,29 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="80.0" prefWidth="1000.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
+<AnchorPane prefHeight="927.0" prefWidth="1262.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
    <children>
-      <ImageView fitHeight="750.0" fitWidth="750.0" layoutX="132.0" layoutY="36.0">
+      <ImageView fitHeight="904.0" fitWidth="906.0" layoutX="178.0" layoutY="12.0">
          <image>
             <Image url="@../texture/GameBoard.png" />
          </image>
       </ImageView>
       <Button layoutX="456.0" layoutY="463.0" mnemonicParsing="false" onAction="#onClickRunDice" text="주사위굴리기" />
-      <AnchorPane id="createRoomModal" fx:id="apStartBluemarbleModal" layoutX="150.0" layoutY="217.0" prefHeight="352.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0;">
+      <AnchorPane fx:id="apPlayer1Container" prefHeight="150.0" prefWidth="350.0" style="-fx-background-radius: 0 0 32px 0; -fx-background-color: #F0F0F0; -fx-border-radius: 0 0 32px 0;">
          <children>
-            <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff;">
+            <Pane prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #f1c40f;">
                <children>
-                  <AnchorPane id="create_room_close" layoutX="650.0" onMouseClicked="#onCloseCreateRoomModal" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="50.0" prefWidth="50.0" stylesheets="@../application.css">
+                  <Text fx:id="tPlayer1Nickname" fill="WHITE" layoutX="148.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+               </children></Pane>
+            <Pane layoutY="14.0" prefHeight="135.0" prefWidth="135.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 0 8px 0 0;">
+               <children>
+                  <Pane fx:id="pPlayer1Profile" layoutX="8.0" layoutY="8.0" prefHeight="120.0" prefWidth="120.0" style="-fx-border-color: a5a6a6; -fx-border-radius: 8;" />
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="135.0" layoutY="54.0" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #f1c40f; -fx-padding: 2px 5px;" text="총 자산" textAlignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="135.0" layoutY="92.0" style="-fx-background-color: #f1c40f; -fx-padding: 2px 5px;" text="보유현금" textAlignment="CENTER" textFill="WHITE" />
+            <Text fx:id="tPlayer1Asset" fill="#f39c12" layoutX="200.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="tPlayer1Money" fill="#f39c12" layoutX="200.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.2943722903728485" />
+               </color>
+            </DropShadow>
+         </effect></AnchorPane>
+      <AnchorPane fx:id="apPlayer2Container" layoutX="906.0" layoutY="-2.0" prefHeight="150.0" prefWidth="350.0" style="-fx-background-radius: 0 0 0 32px; -fx-background-color: #F0F0F0; -fx-border-radius: 0 0 0 32px;">
+         <children>
+            <Pane prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #d35400;">
+               <children>
+                  <Text fx:id="tPlayer2Nickname" fill="WHITE" layoutX="148.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="215.0" layoutY="20.0" prefHeight="135.0" prefWidth="135.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 8px 0 0 0;">
+               <children>
+                  <Pane fx:id="pPlayer2Profile" layoutX="8.0" layoutY="7.0" prefHeight="120.0" prefWidth="120.0" style="-fx-border-color: a5a6a6; -fx-border-radius: 8;" />
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="155.0" layoutY="54.0" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #d35400; -fx-padding: 2px 5px;" text="총 자산" textAlignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="155.0" layoutY="92.0" style="-fx-background-color: #d35400; -fx-padding: 2px 5px;" text="보유현금" textAlignment="CENTER" textFill="WHITE" />
+            <Text fx:id="tPlayer2Asset" fill="#d35400" layoutX="8.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="tPlayer2Money" fill="#d35400" layoutX="8.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.2943722903728485" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
+      <AnchorPane fx:id="apPlayer3Container" layoutX="6.0" layoutY="774.0" prefHeight="150.0" prefWidth="350.0" style="-fx-background-radius: 0 32px 0 0; -fx-background-color: #F0F0F0; -fx-border-radius: 0 32px 0 0;">
+         <children>
+            <Pane layoutY="113.0" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #2ecc71;">
+               <children>
+                  <Text fx:id="tPlayer3Nickname" fill="WHITE" layoutX="148.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+                  <Pane layoutY="-113.0" prefHeight="135.0" prefWidth="135.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 0 0 8px 0;">
+                     <children>
+                        <Pane fx:id="pPlayer3Profile" layoutX="8.0" layoutY="8.0" prefHeight="120.0" prefWidth="120.0" style="-fx-border-color: a5a6a6; -fx-border-radius: 8;" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="137.0" layoutY="37.0" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #2ecc71; -fx-padding: 2px 5px;" text="총 자산" textAlignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="137.0" layoutY="76.0" style="-fx-background-color: #2ecc71; -fx-padding: 2px 5px;" text="보유현금" textAlignment="CENTER" textFill="WHITE" />
+            <Text fx:id="tPlayer3Asset" fill="#2ecc71" layoutX="199.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="tPlayer3Money" fill="#2ecc71" layoutX="199.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.2943722903728485" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
+      <AnchorPane fx:id="apPlayer4Container" layoutX="912.0" layoutY="774.0" prefHeight="150.0" prefWidth="350.0" style="-fx-background-radius: 32px 0 0 0; -fx-background-color: #F0F0F0; -fx-border-radius: 32px 0 0 0;">
+         <children>
+            <Pane layoutY="113.0" prefHeight="40.0" prefWidth="350.0" style="-fx-background-color: #3498db;">
+               <children>
+                  <Text fx:id="tPlayer4Nickname" fill="WHITE" layoutX="148.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+                  <Pane layoutX="215.0" layoutY="-113.0" prefHeight="135.0" prefWidth="135.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 0 0 0 8px;">
+                     <children>
+                        <Pane fx:id="pPlayer4Profile" layoutX="8.0" layoutY="8.0" prefHeight="120.0" prefWidth="120.0" style="-fx-border-color: a5a6a6; -fx-border-radius: 8;" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Label alignment="CENTER" layoutX="155.0" layoutY="38.0" prefHeight="21.0" prefWidth="58.0" style="-fx-background-color: #3498db; -fx-padding: 2px 5px;" text="총 자산" textAlignment="CENTER" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="155.0" layoutY="76.0" style="-fx-background-color: #3498db; -fx-padding: 2px 5px;" text="보유현금" textAlignment="CENTER" textFill="WHITE" />
+            <Text fx:id="tPlayer4Asset" fill="#3498db" layoutX="8.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Text fx:id="tPlayer4Money" fill="#3498db" layoutX="8.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="140.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.2943722903728485" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
+      <AnchorPane id="createRoomModal" fx:id="apStartBluemarbleModal" layoutX="281.0" layoutY="192.0" prefHeight="567.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;">
+         <children>
+            <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
+               <children>
+                  <AnchorPane id="create_room_close" layoutX="650.0" onMouseClicked="#onCloseCreateRoomModal" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 0px 12px 0px 0px;" stylesheets="@../application.css">
                      <children>
                         <Text fill="#a5a6a6" layoutX="7.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="×" textAlignment="CENTER" wrappingWidth="35.572265625">
                            <font>
@@ -32,21 +182,21 @@
                         </Text>
                      </children>
                   </AnchorPane>
-                  <Text layoutX="54.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="부루마블 시작">
+                  <Text layoutX="54.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="부루마블 시작">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
                   <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="14.0" layoutY="11.0">
                      <image>
-                        <Image url="@../texture/black.png" />
+                        <Image url="@../texture/settings.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane id="createRoomModal_container" layoutX="14.0" layoutY="64.0" prefHeight="222.0" prefWidth="671.0" style="-fx-background-color: #ffffff;">
+            <AnchorPane id="createRoomModal_container" layoutX="15.0" layoutY="65.0" prefHeight="434.0" prefWidth="671.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;">
                <children>
-                  <RadioButton fx:id="rb2Player" layoutX="194.0" layoutY="128.0" mnemonicParsing="false" onAction="#onClick2PlayerButton" text="2인">
+                  <RadioButton fx:id="rb2Player" layoutX="194.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#onClickPlayerCntButton" text="2인">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -54,12 +204,12 @@
                         <ToggleGroup fx:id="PlayerCntGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rb3Player" layoutX="356.0" layoutY="128.0" mnemonicParsing="false" onAction="#onClick3PlayerButton" text="3인" toggleGroup="$PlayerCntGroup">
+                  <RadioButton fx:id="rb3Player" layoutX="361.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#onClickPlayerCntButton" text="3인" toggleGroup="$PlayerCntGroup">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </RadioButton>
-                  <RadioButton fx:id="rb4Player" layoutX="510.0" layoutY="128.0" mnemonicParsing="false" onAction="#onClick4PlayerButton" text="4인" toggleGroup="$PlayerCntGroup">
+                  <RadioButton fx:id="rb4Player" layoutX="510.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#onClickPlayerCntButton" text="4인" toggleGroup="$PlayerCntGroup">
                      <font>
                         <Font size="32.0" />
                      </font>
@@ -69,27 +219,27 @@
                         <Font size="32.0" />
                      </font>
                   </Text>
-                  <Text layoutX="33.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="시작 금액">
+                  <Text layoutX="33.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="시작 금액">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="tfStartDiskMoney" alignment="CENTER_RIGHT" layoutX="190.0" layoutY="47.0" onKeyPressed="#onChangeStartDistMoney" prefHeight="51.0" prefWidth="200.0" text="2,930,000">
+                  <TextField fx:id="tfStartDistMoney" alignment="CENTER_RIGHT" layoutX="190.0" layoutY="47.0" onKeyTyped="#onType" prefHeight="51.0" prefWidth="200.0" stylesheets="@../application.css" text="293">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </TextField>
-                  <Text layoutX="399.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="만원">
+                  <Text layoutX="399.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="만원">
                      <font>
                         <Font size="32.0" />
                      </font>
                   </Text>
-                  <Text layoutX="37.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="※ 3~4 인 기준 293만원, 2인은 586만원이 적당합니다.  ">
+                  <Text layoutX="37.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="※ 3~4 인 기준 293만원, 2인은 586만원이 적당합니다.  ">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <RadioButton fx:id="rbDefaultDistMoney" layoutX="484.0" layoutY="49.0" mnemonicParsing="false" onAction="#onClickDefaultDistMoneyButton" text="기본 금액">
+                  <RadioButton fx:id="rbDefaultDistMoney" layoutX="484.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#onClickDefaultDistMoneyButton" text="기본 금액">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -97,25 +247,100 @@
                         <ToggleGroup fx:id="startDistMoneyGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbCustomDistMoney" layoutX="484.0" layoutY="76.0" mnemonicParsing="false" onAction="#onClickCustomDistMoneyButton" text="사용자 지정 금액" toggleGroup="$startDistMoneyGroup">
+                  <RadioButton fx:id="rbCustomDistMoney" layoutX="484.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#onClickCustomDistMoneyButton" text="사용자 지정 금액" toggleGroup="$startDistMoneyGroup">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </RadioButton>
                   <Line endX="503.0" layoutX="134.0" layoutY="115.0" startX="-103.0" stroke="#a5a6a6" />
+                  <Pane layoutX="27.0" layoutY="194.0" prefHeight="186.0" prefWidth="140.0" style="-fx-border-color: a5a6a6;">
+                     <children>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="11.0">
+                           <image>
+                              <Image url="@../texture/horse_bird.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="pPlayer1" onMouseClicked="#onToggleCharacterCard" onMouseEntered="#onHoverEnterCard" onMouseExited="#onHoverExitCard" opacity="0.5" prefHeight="151.0" prefWidth="140.0" style="-fx-background-color: #000000;" styleClass="character_card" stylesheets="@../application.css" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="184.0" layoutY="194.0" prefHeight="186.0" prefWidth="140.0" style="-fx-border-color: a5a6a6;">
+                     <children>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="11.0">
+                           <image>
+                              <Image url="@../texture/horse_dinosaur.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="pPlayer2" onMouseClicked="#onToggleCharacterCard" onMouseEntered="#onHoverEnterCard" onMouseExited="#onHoverExitCard" opacity="0.5" prefHeight="151.0" prefWidth="140.0" style="-fx-background-color: #000000;" styleClass="character_card" stylesheets="@../application.css" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="344.0" layoutY="194.0" prefHeight="186.0" prefWidth="140.0" style="-fx-border-color: a5a6a6;">
+                     <children>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="11.0">
+                           <image>
+                              <Image url="@../texture/horse_fairy.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="pPlayer3" onMouseClicked="#onToggleCharacterCard" onMouseEntered="#onHoverEnterCard" onMouseExited="#onHoverExitCard" opacity="0.5" prefHeight="151.0" prefWidth="140.0" style="-fx-background-color: #000000;" styleClass="character_card" stylesheets="@../application.css" />
+                     </children>
+                  </Pane>
+                  <Pane layoutX="504.0" layoutY="194.0" prefHeight="186.0" prefWidth="140.0" style="-fx-border-color: a5a6a6;">
+                     <children>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="11.0">
+                           <image>
+                              <Image url="@../texture/horse_ghost.png" />
+                           </image>
+                        </ImageView>
+                        <Pane fx:id="pPlayer4" onMouseClicked="#onToggleCharacterCard" onMouseEntered="#onHoverEnterCard" onMouseExited="#onHoverExitCard" opacity="0.5" prefHeight="151.0" prefWidth="140.0" style="-fx-background-color: #000000;" styleClass="character_card" stylesheets="@../application.css" />
+                     </children>
+                  </Pane>
+                  <TextField fx:id="tf1PlayerNickname" alignment="CENTER" layoutX="27.0" layoutY="345.0" prefWidth="140.0" text="병아리">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tf2PlayerNickname" alignment="CENTER" layoutX="184.0" layoutY="345.0" prefWidth="140.0" text="익룡">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tf3PlayerNickname" alignment="CENTER" layoutX="344.0" layoutY="345.0" prefWidth="140.0" text="요정">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="tf4PlayerNickname" alignment="CENTER" layoutX="504.0" layoutY="345.0" prefWidth="140.0" text="유령">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <Text fx:id="tStartModalMessage" layoutX="27.0" layoutY="414.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="게임을 진행할 캐릭터를 선택해주세요." textAlignment="CENTER" wrappingWidth="617.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
-            <Button id="create_room_submit" layoutX="568.0" layoutY="299.0" mnemonicParsing="false" onMouseClicked="#onSubmitCreateRoomModal" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" stylesheets="@../application.css" text="확인">
+            <Button id="create_room_submit" layoutX="569.0" layoutY="511.0" mnemonicParsing="false" onMouseClicked="#onSubmitCreateRoomModal" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="확인">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button id="create_room_cancel" layoutX="439.0" layoutY="299.0" mnemonicParsing="false" onMouseClicked="#onCloseCreateRoomModal" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" stylesheets="@../application.css" text="취소">
+            <Button id="create_room_cancel" layoutX="442.0" layoutY="511.0" mnemonicParsing="false" onMouseClicked="#onCloseCreateRoomModal" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="취소">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
          </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.38528138399124146" />
+               </color>
+            </DropShadow>
+         </effect>
       </AnchorPane>
    </children>
+   <effect>
+      <DropShadow height="28.3275" radius="12.564375" width="23.93" />
+   </effect>
 </AnchorPane>

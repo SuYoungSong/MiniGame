@@ -1,22 +1,39 @@
 package application.bluemarble;
 
+import javafx.scene.image.Image;
+
 public class Player {
     // 플레이어 닉네임, 자산, 현금, 도시 개수, 차례
     private String nickname;
+    private int x, y;
     private long asset;
     private long money;
-    private int cityCnt;
+    private int[] cityNum;
     private int turn;
-    
-    Player(){}
-    Player(String nickaname, long money){
+    private Image profileImgURI;
+
+
+
+    Player(String nickaname, long money, Image profileImgURI){
         //유저 생성 시 가지고 있는 자산은 현금밖에 없기 때문에 자산과 현금에 같은 값 삽입
         this.nickname = nickaname;
         this.asset = money;
         this.money = money;
+        this.profileImgURI = profileImgURI;
     }
 
-    public String getNickname() {
+
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int[] position(){
+        //int[0] = x, int[1] = y
+        return new int[] {x, y};
+    }
+
+    public String nickname() {
         return nickname;
     }
 
@@ -24,7 +41,7 @@ public class Player {
         this.nickname = nickname;
     }
 
-    public long getAsset() {
+    public long asset() {
         return asset;
     }
 
@@ -32,7 +49,7 @@ public class Player {
         this.asset = asset;
     }
 
-    public long getMoney() {
+    public long money() {
         return money;
     }
 
@@ -40,11 +57,19 @@ public class Player {
         this.money = money;
     }
 
-    public int getCityCnt() {
-        return cityCnt;
+//    public int cityCnt() {
+//        return cityCnt;
+//    }
+
+//    public void setCityCnt(int cityCnt) {
+//        this.cityCnt = cityCnt;
+//    }
+
+    public Image profileImgURI() {
+        return profileImgURI;
     }
 
-    public void setCityCnt(int cityCnt) {
-        this.cityCnt = cityCnt;
+    public void setProfileImgURI(Image profileImgURI) {
+        this.profileImgURI = profileImgURI;
     }
 }

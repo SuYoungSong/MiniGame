@@ -1,15 +1,5 @@
 package application.omok;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.LinkedList;
-import java.util.Optional;
-import java.util.Queue;
-import java.util.ResourceBundle;
-import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +17,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
 
 
 public class OmokController implements Initializable{
