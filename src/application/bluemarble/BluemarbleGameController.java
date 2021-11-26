@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import application.MainController;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class BluemarbleGameController implements Initializable {
 
@@ -104,6 +106,8 @@ public class BluemarbleGameController implements Initializable {
 	Text[] profileNickname = new Text[5];
 	AnchorPane[] playerContainer = new AnchorPane[5];
 	Pane[] profilePane = new Pane[5];
+	ImageView[] playerHorse = new ImageView[5];
+	byte[] playerGroundNumber = { 0, 0, 0, 0, 0 };
 
 	// 인원수에 맞게 text 관리 배열 생성
 	void profileSettting() {
@@ -165,7 +169,17 @@ public class BluemarbleGameController implements Initializable {
 		}
 		System.out.println();
 	}
-	
+	// 플레이어를 시작Pane에 배치
+	void playerPlaceStart() {
+		for(int i = 1 ; i < playerCnt +1 ; i++ ) {
+			playerHorse[i] = new ImageView( player[i].profileImgURI()  );
+			playerHorse[i].setFitHeight(30);
+			playerHorse[i].setFitWidth(30);
+			playerHorse[i].setX(10);
+			playerHorse[i].setY(10);
+			startPane.getChildren().add(playerHorse[i]);
+		}
+	}
 /////////////////////////////////////////////////////////////
 	//임시
 	//
@@ -185,15 +199,44 @@ public class BluemarbleGameController implements Initializable {
 		playerMove(sum, turnCount);
 		// 턴 설정
 		turnCount++;
-		if(turnCount>=player.length) turnCount = 1;
-		printPlayerObject();
+		if(turnCount>playerCnt) turnCount = 1;
 	}
 ////////////////////////////////////
 	
 	void playerMove(int moveNum, int playerNum) {
+		AnchorPane[] groundNum = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane, jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
+				islandPane, atheanaePane, goldCardPane3, copenhagenPane, stockholmPane, concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
+				socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane, busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
+				spacePane, tokyoPane, colombiaPane, parisPane, romaPane, goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane};
+		AnchorPane beforePane = groundNum[playerGroundNumber[playerNum]];
+		double afterX, afterY;
+		// 기존 위치에서 주사위 굴린 만큼 이동한 결과 저장
+		playerGroundNumber[playerNum] += moveNum;
+		if(playerGroundNumber[playerNum]>=40) {
+			playerGroundNumber[playerNum] -= 40;
+		}
+		//
+		//
+		//	OTL
+		//
+		//
 		// 플레이어 이동
-//		player[playerNum]
-	}
+//		new TranslateTransition();
+//		TranslateTransition tt = new TranslateTransition(new Duration(500), playerHorse[playerNum]);
+//		// 이동을 시작할 위치
+//		tt.setFromX(beforePane.getLayoutX());
+//		tt.setFromY(beforePane.getLayoutY());
+//		// 이동할 목적지
+//		afterX = (groundNum[playerGroundNumber[playerNum]].getLayoutX()*(-1));
+//		afterY = (groundNum[playerGroundNumber[playerNum]].getLayoutY()*(-1));
+//		afterX = (afterX<0)?afterX*(-1):afterX;
+//		afterY = (afterY<0)?afterY*(-1):afterY;
+//        tt.setToX(afterX);
+//        tt.setToY(afterY);
+//        tt.play();
+        beforePane.getChildren().remove(playerHorse[playerNum]);
+        groundNum[playerGroundNumber[playerNum]].getChildren().add(playerHorse[playerNum]);
+		}
 	
 	// 마우스 호버 액션
 	@FXML
@@ -398,6 +441,7 @@ public class BluemarbleGameController implements Initializable {
 		apStartBluemarbleModal.setVisible(false);
 		profileSettting();
 		connectObjectToFX();
+		playerPlaceStart();
 	}
 
 	//캐릭터 카드 호버 시작
