@@ -169,6 +169,7 @@ public class BluemarbleGameController implements Initializable {
 		}
 		System.out.println();
 	}
+	@FXML private AnchorPane apGameRoom;
 	// 플레이어를 시작Pane에 배치
 	void playerPlaceStart() {
 		for(int i = 1 ; i < playerCnt +1 ; i++ ) {
@@ -177,7 +178,9 @@ public class BluemarbleGameController implements Initializable {
 			playerHorse[i].setFitWidth(30);
 			playerHorse[i].setX(10);
 			playerHorse[i].setY(10);
-			startPane.getChildren().add(playerHorse[i]);
+			apGameRoom.getChildren().add(playerHorse[i]);
+			playerHorse[i].setLayoutX(startPane.getLayoutX());
+			playerHorse[i].setLayoutY(startPane.getLayoutY());
 		}
 	}
 /////////////////////////////////////////////////////////////
@@ -208,6 +211,8 @@ public class BluemarbleGameController implements Initializable {
 				islandPane, atheanaePane, goldCardPane3, copenhagenPane, stockholmPane, concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
 				socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane, busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
 				spacePane, tokyoPane, colombiaPane, parisPane, romaPane, goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane};
+		System.out.printf("%d플레이어 이동전 땅 %s \n",playerNum, groundNum[playerGroundNumber[playerNum]]);
+		System.out.printf("%d플레이어 이동전 땅 %f %f \n",playerNum, groundNum[playerGroundNumber[playerNum]].getLayoutX(),groundNum[playerGroundNumber[playerNum]].getLayoutY());
 		AnchorPane beforePane = groundNum[playerGroundNumber[playerNum]];
 		double afterX, afterY;
 		// 기존 위치에서 주사위 굴린 만큼 이동한 결과 저장
@@ -215,27 +220,25 @@ public class BluemarbleGameController implements Initializable {
 		if(playerGroundNumber[playerNum]>=40) {
 			playerGroundNumber[playerNum] -= 40;
 		}
-		//
-		//
-		//	OTL
-		//
-		//
+
 		// 플레이어 이동
-//		new TranslateTransition();
-//		TranslateTransition tt = new TranslateTransition(new Duration(500), playerHorse[playerNum]);
-//		// 이동을 시작할 위치
-//		tt.setFromX(beforePane.getLayoutX());
-//		tt.setFromY(beforePane.getLayoutY());
-//		// 이동할 목적지
-//		afterX = (groundNum[playerGroundNumber[playerNum]].getLayoutX()*(-1));
-//		afterY = (groundNum[playerGroundNumber[playerNum]].getLayoutY()*(-1));
-//		afterX = (afterX<0)?afterX*(-1):afterX;
-//		afterY = (afterY<0)?afterY*(-1):afterY;
-//        tt.setToX(afterX);
-//        tt.setToY(afterY);
-//        tt.play();
-        beforePane.getChildren().remove(playerHorse[playerNum]);
-        groundNum[playerGroundNumber[playerNum]].getChildren().add(playerHorse[playerNum]);
+		new TranslateTransition();
+		TranslateTransition tt = new TranslateTransition(new Duration(500), playerHorse[playerNum]);
+		// 이동을 시작할 위치
+		tt.setFromX(beforePane.getLayoutX());
+		tt.setFromY(beforePane.getLayoutY());
+		// 이동할 목적지
+		afterX = (groundNum[playerGroundNumber[playerNum]].getLayoutX());
+		afterY = (groundNum[playerGroundNumber[playerNum]].getLayoutY());
+        tt.setToX(afterX);
+        tt.setToY(afterY);
+        tt.play();
+        playerHorse[playerNum].setLayoutX(afterX);
+        playerHorse[playerNum].setLayoutY(afterY);
+        System.out.printf("%d플레이어 이동후 땅 %s \n",playerNum, groundNum[playerGroundNumber[playerNum]]);
+        System.out.printf("%d플레이어 이동전 후 %f %f \n",playerNum, groundNum[playerGroundNumber[playerNum]].getLayoutX(),groundNum[playerGroundNumber[playerNum]].getLayoutY());
+//        beforePane.getChildren().remove(playerHorse[playerNum]);
+//        groundNum[playerGroundNumber[playerNum]].getChildren().add(playerHorse[playerNum]);
 		}
 	
 	// 마우스 호버 액션
