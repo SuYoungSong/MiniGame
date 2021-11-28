@@ -16,11 +16,9 @@ public class GoldCard {
 			switch(n+1) {
 				case 1:
 					System.out.println("출발지로 이동");
-					moveStartPane();
 					break;
 				case 2:
 					System.out.println("세계여행으로 이동");
-					moveTravalPane();
 					break;
 				case 3:
 					System.out.println("내가 갖고있는 땅값 2배");
@@ -48,14 +46,5 @@ public class GoldCard {
 					break;
 			}
 		}
-		// 출발지로 이동하는 황금카드
-		void moveStartPane() {
-			
-		}
-		// 세계여행으로 이동하는 황금카드
-		void moveTravalPane() {
-			
-		}
-		//
 
 }

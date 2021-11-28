@@ -6,6 +6,7 @@ public class Player {
     // 플레이어 닉네임, 자산, 현금, 도시 개수, 차례
     private String nickname;
     private int x, y;
+    private int positionIndex;
     private long asset;
     private long money;
     private int[] cityNum;
@@ -22,6 +23,14 @@ public class Player {
         this.profileImgURI = profileImgURI;
     }
 
+
+    int positionIndex(){
+        return positionIndex;
+    }
+
+    void setPositionIndex(int positionIndex){
+        this.positionIndex = positionIndex;
+    }
 
     public void setPosition(int x, int y){
         this.x = x;
