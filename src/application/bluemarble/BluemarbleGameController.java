@@ -100,6 +100,7 @@ public class BluemarbleGameController implements Initializable {
 
 
     final private byte goldCardNum = 10; // 황금카드 갯수
+    GoldCard goldcard = new GoldCard(goldCardNum,this);
     Player[] player = new Player[5]; // 플레이어는 1 ~ 4번으로 0번 인덱스는 사용하지 않습니다.
     //플레이어 프로필 이미지
     Image birdImage = new Image(Main.class.getResourceAsStream("texture/horse_bird.png"));
@@ -127,7 +128,12 @@ public class BluemarbleGameController implements Initializable {
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
 
-
+    // 플레이어가 가진돈의 정보를 불러옴
+    void refreshMoney() {
+    	for(int i = 1 ; i <= playerCnt ; i++) {
+    		profileMoney[i].setText(String.valueOf(player[i].money()));
+    	}
+    }
     // ==================================================
     //                    Test Code
     // ==================================================
@@ -292,7 +298,7 @@ public class BluemarbleGameController implements Initializable {
         	System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
         }
     }
-    @FXML void onClickFunc3(ActionEvent e) {}
+    @FXML void onClickFunc3(ActionEvent e) { goldcard.choiceRandomGoldCard();}
     // 플레이어의 말을 저장하는 배열
     ImageView[] playerHorseImg = new ImageView[5];
     // 현재 플레이어의 위치를 숫자로 저장하는 배열
@@ -313,6 +319,7 @@ public class BluemarbleGameController implements Initializable {
     
     // 주사위 굴렸을때 플레이어 이동에 관련된 메소드
     void playerMove(int diceNum, int turn) {
+    	System.out.println(diceNum);
         int LandPaneTotalCnt = 40;
         AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
                 jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
@@ -343,6 +350,8 @@ public class BluemarbleGameController implements Initializable {
         
         
         // 목적지로 이동할때 보드를 횡단하지 않기위해 추가한 코드  
+        System.out.println(originPosition/10);
+        System.out.println(movePosition/10);
         if( (originPosition/10) != (movePosition/10) ) {
         	TranslateTransition tt2 = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
         	tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
@@ -355,6 +364,9 @@ public class BluemarbleGameController implements Initializable {
         st.play();
         
         playerPosition[turn] += diceNum;	// 플레이어 위치 기록
+        if(playerPosition[turn]>=40)
+        	playerPosition[turn] -= 40;
+        System.out.println(playerPosition[turn]);
 
     }
 
@@ -473,7 +485,7 @@ public class BluemarbleGameController implements Initializable {
     @FXML	private Pane pPlayer3;
     @FXML	private Pane pPlayer4;
     private boolean[] selectPlayer = new boolean[5];
-    private int playerCnt; // 선택 해야할 카드 개수 (총 플레이 인원 수)
+    public int playerCnt; // 선택 해야할 카드 개수 (총 플레이 인원 수)
     private int selectedCharacterCnt; // 선택된 카드 개수
 
     //캐릭터 선택 카드 토글
