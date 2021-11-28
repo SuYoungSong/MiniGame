@@ -8,7 +8,10 @@ import java.util.Stack;
 
 import application.Main;
 import application.MainController;
-import javafx.animation.PathTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -29,9 +32,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CubicCurveTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -324,48 +324,36 @@ public class BluemarbleGameController implements Initializable {
 
         int originPosition = playerPosition[turn] % LandPaneTotalCnt;
         int movePosition = (originPosition + diceNum) % LandPaneTotalCnt;
-        double startX = LandPaneList[originPosition].getLayoutX() - startPane.getLayoutX();
-        double startY = LandPaneList[originPosition].getLayoutY() - startPane.getLayoutY();
         double endX = LandPaneList[movePosition].getLayoutX() - startPane.getLayoutX();
         double endY = LandPaneList[movePosition].getLayoutY() - startPane.getLayoutY();
-       
+        SequentialTransition st;	// 애니메이션을 차례대로 동작시키는 함수
         
-        Path path = new Path();
-       
+        /*
+         * <<<<수정해야할 사항>>>>
+         * Duratuion을 이동하는 칸에 비례해서 계산하는 식을 하나 짜야할듯함.
+         * 지금 돌려보면 판은 제대로 돌아도 커브를 돌때 이동속도가 제각각이됨.
+         */
+        
+        // 목적지 까지 가는 이동 애니매이션 
         TranslateTransition tt = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
-        
-//        tt.setFromX(startX);
-//        tt.setFromY(startY);
-       int jj = 0;        
-       path.getElements().add(new MoveTo(startX,startY));
-
-        // 라인을 넘어가는 이동이 발생하는 경우 판을 횡단하는 경우를 방지      수정중
-        for( int i = 1 ; i <= LandPaneList.length / 4 ; i++ ) {
-        	if( ((originPosition<10*i)&&(movePosition>=10*i)) ) {	
-        		path.getElements().add(new CubicCurveTo(startX, startY, (LandPaneList[10*i].getLayoutX() - startPane.getLayoutX()), (LandPaneList[10*i].getLayoutY() - startPane.getLayoutY()), endX, endY));
-//                tt.setToX( LandPaneList[10*i].getLayoutX() - startPane.getLayoutX() );
-//                tt.setToY( LandPaneList[10*i].getLayoutY() - startPane.getLayoutY() );
-//                tt.play();
-        		jj++;
-        	}
-        }
-        playerPosition[turn] += diceNum;
-//    	playerHorseImg[turn].setFitWidth(45);
-//    	playerHorseImg[turn].setFitHeight(45);
-//    	playerHorseImg[turn].setRotate(0);
-        
         tt.setToX(endX);
         tt.setToY(endY);
-        tt.play();
         
         
-        if(jj<1)         path.getElements().add(new CubicCurveTo(startX, startY, startX,startY, endX, endY));
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(1000));
-        pathTransition.setPath(path);
-        pathTransition.setNode(playerHorseImg[turn]);
-        pathTransition.play();
-          
+        // 목적지로 이동할때 보드를 횡단하지 않기위해 추가한 코드  
+        if( (originPosition/10) != (movePosition/10) ) {
+        	TranslateTransition tt2 = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
+        	tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
+        	tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
+        	// 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행  
+        	st = new SequentialTransition(playerHorseImg[turn],tt2,tt);	
+        }else {        	
+        	st = new SequentialTransition(playerHorseImg[turn],tt);
+        }
+        st.play();
+        
+        playerPosition[turn] += diceNum;	// 플레이어 위치 기록
+
     }
 
     // 마우스 호버 액션
