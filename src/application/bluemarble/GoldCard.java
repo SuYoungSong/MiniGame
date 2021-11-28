@@ -39,7 +39,7 @@ public class GoldCard {
 					System.out.println("다음턴을 한정으로 상대땅을 밟으면 통행료 면제");
 					break;
 				case 9:
-					System.out.println(("은행에서 50만원 받기"));
+					System.out.println(("은행에서 100만원 받기"));
 					break;
 				case 10:
 					System.out.println("내가 갖고있는 돈의 10%를 각 플레이어에게 나눠주기");

@@ -8,10 +8,7 @@ import java.util.Stack;
 
 import application.Main;
 import application.MainController;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -325,7 +322,7 @@ public class BluemarbleGameController implements Initializable {
                 busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
                 spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
                 goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
-
+        
         int originPosition = playerPosition[turn] % LandPaneTotalCnt;
         int movePosition = (originPosition + diceNum) % LandPaneTotalCnt;
         double endX = LandPaneList[movePosition].getLayoutX() - startPane.getLayoutX();
@@ -516,9 +513,9 @@ public class BluemarbleGameController implements Initializable {
 
     //카드 배경 및 상태 초기화
     void setCard(int cnt) {
-        Pane[] playerPane = { new Pane(), pPlayer1, pPlayer2, pPlayer3, pPlayer4 };
+        Pane[] playerPane = { null, pPlayer1, pPlayer2, pPlayer3, pPlayer4 };
         // 카드 배경 초기화
-        for(int i = 1 ; i < cnt+1 ; i++) {
+        for(int i = 1 ; i < playerPane.length ; i++) {
             selectPlayer[i] = false;
             playerPane[i].setStyle("-fx-background-color: #000000;-fx-opacity: 0.5");
         }
