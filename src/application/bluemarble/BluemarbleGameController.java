@@ -3,13 +3,12 @@ package application.bluemarble;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
 import application.Main;
 import application.MainController;
+import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,8 +29,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -280,6 +281,7 @@ public class BluemarbleGameController implements Initializable {
             diceResult[i] = (int)(Math.random()*6)+1;
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
+        System.out.println(diceResult[0]+diceResult[1]);
         playerMove(diceResult[0]+diceResult[1], turnCount);
         
         // 더블이 아닌경우 다음턴으로 넘어간다.
@@ -303,41 +305,67 @@ public class BluemarbleGameController implements Initializable {
 	        playerHorseImg[i].setFitWidth(45);
 	        playerHorseImg[i].setFitHeight(45);
 	        playerHorseImg[i].setRotate(45);
+	        playerHorseImg[i].setX(10);
+	        playerHorseImg[i].setY(10);
     	}
     }
     
     // 주사위 굴렸을때 플레이어 이동에 관련된 메소드
     void playerMove(int diceNum, int turn) {
         int LandPaneTotalCnt = 40;
-        AnchorPane[] LandPaneList = {startPane, taibeiPane, hongKongPane, goldCardPane1, manilaPane,
+        AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
                 jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
                 islandPane, atheanaePane, goldCardPane3, copenhagenPane, stockholmPane,
                 concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
                 socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane,
                 busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
                 spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
-                goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane};
+                goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
 
         int originPosition = playerPosition[turn] % LandPaneTotalCnt;
         int movePosition = (originPosition + diceNum) % LandPaneTotalCnt;
-        ImageView playerImg;
         double startX = LandPaneList[originPosition].getLayoutX() - startPane.getLayoutX();
         double startY = LandPaneList[originPosition].getLayoutY() - startPane.getLayoutY();
         double endX = LandPaneList[movePosition].getLayoutX() - startPane.getLayoutX();
         double endY = LandPaneList[movePosition].getLayoutY() - startPane.getLayoutY();
+       
+        
+        Path path = new Path();
+       
+        TranslateTransition tt = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
+        
+//        tt.setFromX(startX);
+//        tt.setFromY(startY);
+       int jj = 0;        
+       path.getElements().add(new MoveTo(startX,startY));
 
-            playerImg = playerHorseImg[turn];
-            playerImg.setFitWidth(45);
-            playerImg.setFitHeight(45);
-            playerImg.setRotate(0);
-            new TranslateTransition();
-            TranslateTransition tt = new TranslateTransition(new Duration(1000), playerImg);
-            tt.setFromX(startX);
-            tt.setFromY(startY);
-            tt.setToX(endX);
-            tt.setToY(endY);
-            tt.play();
-            playerPosition[turn] += diceNum;
+        // 라인을 넘어가는 이동이 발생하는 경우 판을 횡단하는 경우를 방지      수정중
+        for( int i = 1 ; i <= LandPaneList.length / 4 ; i++ ) {
+        	if( ((originPosition<10*i)&&(movePosition>=10*i)) ) {	
+        		path.getElements().add(new CubicCurveTo(startX, startY, (LandPaneList[10*i].getLayoutX() - startPane.getLayoutX()), (LandPaneList[10*i].getLayoutY() - startPane.getLayoutY()), endX, endY));
+//                tt.setToX( LandPaneList[10*i].getLayoutX() - startPane.getLayoutX() );
+//                tt.setToY( LandPaneList[10*i].getLayoutY() - startPane.getLayoutY() );
+//                tt.play();
+        		jj++;
+        	}
+        }
+        playerPosition[turn] += diceNum;
+//    	playerHorseImg[turn].setFitWidth(45);
+//    	playerHorseImg[turn].setFitHeight(45);
+//    	playerHorseImg[turn].setRotate(0);
+        
+        tt.setToX(endX);
+        tt.setToY(endY);
+        tt.play();
+        
+        
+        if(jj<1)         path.getElements().add(new CubicCurveTo(startX, startY, startX,startY, endX, endY));
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(1000));
+        pathTransition.setPath(path);
+        pathTransition.setNode(playerHorseImg[turn]);
+        pathTransition.play();
+          
     }
 
     // 마우스 호버 액션
