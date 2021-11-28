@@ -109,7 +109,7 @@ public class BluemarbleGameController implements Initializable {
     Image dinosaurImage = new Image(Main.class.getResourceAsStream("texture/horse_dinosaur.png"));
     Image fairyImage = new Image(Main.class.getResourceAsStream("texture/horse_fairy.png"));
     Image ghostImage = new Image(Main.class.getResourceAsStream("texture/horse_ghost.png"));
-    //빌딩 이미지
+    //빌딩 이미지  [ 1 -> 건설된 건물, 0-> 건설안된건물  ex) 호텔만 건설된 경우 001, 소형건물과 호텔이 건설된 경우 101 ]
     Image building100Image = new Image(Main.class.getResourceAsStream("texture/building_100.png"));
     Image building110Image = new Image(Main.class.getResourceAsStream("texture/building_110.png"));
     Image building111Image = new Image(Main.class.getResourceAsStream("texture/building_111.png"));
@@ -119,12 +119,13 @@ public class BluemarbleGameController implements Initializable {
     Image building011Image = new Image(Main.class.getResourceAsStream("texture/building_011.png"));
     Image flagImage = new Image(Main.class.getResourceAsStream("texture/building_flag.png"));
     
+    // FXML을 반복문으로 사용하기 위해 주소를 저장할 배열
     Text[] profileAsset = new Text[5];
     Text[] profileMoney = new Text[5];
     Text[] profileNickname = new Text[5];
     AnchorPane[] playerContainer = new AnchorPane[5];
     Pane[] profilePane = new Pane[5];
-    
+    // 주사위 이미지 저장
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
@@ -134,7 +135,7 @@ public class BluemarbleGameController implements Initializable {
     //                    Test Code
     // ==================================================
     int n = 0;
-  Stack imageURI = new Stack();
+    Stack imageURI = new Stack();
 //    new TranslateTransition();
 
     @FXML void onClickFunc2(ActionEvent e) {
@@ -209,9 +210,7 @@ public class BluemarbleGameController implements Initializable {
         n++;
     }
 
-
-
-    // 인원수에 맞게 text 관리 배열 생성
+    // 반복문으로 사용할 수 있게 배열에 관련 자료를 저장
     void profileSettting() {
         switch (playerCnt) {
             case 4:
@@ -261,7 +260,7 @@ public class BluemarbleGameController implements Initializable {
             playerContainer[i].setVisible(true);
         }
     }
-
+    // 플레이어 정보 출력
     void printPlayerObject() {
         for (int i = 1; i < playerCnt + 1 ; i++) {
             System.out.println("player " + i + " nickname >> " + player[i].nickname());
@@ -273,7 +272,7 @@ public class BluemarbleGameController implements Initializable {
     }
 
 
-    @FXML
+    @FXML	// 주사위를 던지는 메소드
     void onClickRunDice(ActionEvent e) {
     	int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
         ImageView[] diceIV = { dice1, dice2 };	// 주사위 이미지
@@ -289,12 +288,17 @@ public class BluemarbleGameController implements Initializable {
         	turnCount++;
         	if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         }else {
+        	/*
+        	 * 게임 내 보여줄만한 label 추가해야할듯   
+        	 * 지금은 : ㅁ 의 턴 입니다. / 더블로 ㅁ의 턴을 한번더 진행합니다 등등..
+        	 */
         	System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
         }
     }
     @FXML void onClickFunc3(ActionEvent e) {}
-
+    // 플레이어의 말을 저장하는 배열
     ImageView[] playerHorseImg = new ImageView[5];
+    // 현재 플레이어의 위치를 숫자로 저장하는 배열
     int playerPosition[] = new int[5];
     
     // 게임 시작시 스타트팬에 캐릭터 추가
@@ -332,6 +336,7 @@ public class BluemarbleGameController implements Initializable {
          * <<<<수정해야할 사항>>>>
          * Duratuion을 이동하는 칸에 비례해서 계산하는 식을 하나 짜야할듯함.
          * 지금 돌려보면 판은 제대로 돌아도 커브를 돌때 이동속도가 제각각이됨.
+         * ++ 바라보는 각도 변경
          */
         
         // 목적지 까지 가는 이동 애니매이션 
