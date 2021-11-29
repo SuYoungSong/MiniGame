@@ -143,7 +143,8 @@ public class BluemarbleGameController implements Initializable {
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
     BuildingData building = new BuildingData();
-
+    byte[] islandExitCount = new byte[5]; 
+    boolean isOneMoreTurn;
     // 플레이어가 가진돈의 정보를 불러옴
     void refreshMoney() {
         for(int i = 1 ; i <= playerCnt ; i++) {
@@ -262,6 +263,8 @@ public class BluemarbleGameController implements Initializable {
     @FXML private Button btnRunDice;
     @FXML	// 주사위를 던지는 메소드
     void onClickRunDice(ActionEvent e) {
+    	// 더블이 나와도 특수팬(우주여행, 무인도) 의 경우 턴이 한번 더 진행되지 않게 설정
+    	isOneMoreTurn = true;
         btnRunDice.setDisable(true);
 
         int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
@@ -271,20 +274,31 @@ public class BluemarbleGameController implements Initializable {
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
         System.out.println(diceResult[0]+diceResult[1]);
-        playerMove(diceResult[0]+diceResult[1], turnCount);
+
+        // 무인도 체크
+        if( !(diceResult[0] == diceResult[1]) && islandExitCount[turnCount]>0) {
+        	islandExitCount[turnCount]--;
+        	System.out.println("[무인도 탈출 실패] 탈출까지 "+islandExitCount[turnCount]+"턴 남았습니다.");
+        	btnRunDice.setDisable(false);
+        }else {
+        	islandExitCount[turnCount] = 0;
+        	playerMove(diceResult[0]+diceResult[1], turnCount);
+        }
 
         // 더블이 아닌경우 다음턴으로 넘어간다.
-        if(!(diceResult[0] == diceResult[1])) {
+        if( !(diceResult[0] == diceResult[1]) ) {
             showDiceNumber(diceResult[0]+diceResult[1], false);
             turnCount++;
             if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         }else {
-            /*
-             * 게임 내 보여줄만한 label 추가해야할듯
-             * 지금은 : ㅁ 의 턴 입니다. / 더블로 ㅁ의 턴을 한번더 진행합니다 등등..
-             */
-            showDiceNumber(diceResult[0]+diceResult[1], true);
-            System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
+        	if(isOneMoreTurn) {
+        		showDiceNumber(diceResult[0]+diceResult[1], true);
+            	System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
+        	}else {
+        		System.out.println("무인도, 우주여행에서 더블 시 한턴 더 진행이 불가능합니다. 턴이 넘어갑니다.");
+	    		turnCount++;
+	            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
+        	}
         }
     }
 
@@ -367,8 +381,11 @@ public class BluemarbleGameController implements Initializable {
                 // 도착한곳이 출발지 인 경우
             }else if(LandPaneList[playerPosition[turn]] == islandPane){
                 // 도착한 곳이 무인도 인 경우
+            	islandExitCount[turn] = 3;
+            	isOneMoreTurn = false;
             }else if (LandPaneList[playerPosition[turn]] == spacePane) {
                 // 도착한 곳이 우주여행 인 경우
+            	isOneMoreTurn = false;
             }else {
                 for(int i = 0 ; i< goldCardPaneNum.length ; i++) {
                     if( playerPosition[turn] == goldCardPaneNum[i]) {
@@ -574,7 +591,7 @@ public class BluemarbleGameController implements Initializable {
         }
     }
 
-
+    // 건물 구매 버튼
     @FXML void onSubmitBuy(MouseEvent e){
         char[] selectTypeArr = new char[3];
 
