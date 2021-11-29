@@ -416,7 +416,7 @@
             </AnchorPane>
             <AnchorPane id="createRoomModal_container" layoutX="15.0" layoutY="70.0" prefHeight="319.0" prefWidth="671.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;">
                <children>
-                  <Pane fx:id="pLandPrice" layoutX="14.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
+                  <Pane fx:id="pLandPrice" layoutX="14.0" layoutY="14.0" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
                      <children>
                         <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
                            <children>
@@ -434,7 +434,7 @@
                         </ImageView>
                         <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
                            <children>
-                              <CheckBox fx:id="cbLandPrice" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" text="땅값" textFill="WHITE">
+                              <CheckBox fx:id="cbLandPrice" disable="true" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" selected="true" text="땅값" textFill="WHITE">
                                  <font>
                                     <Font size="16.0" />
                                  </font>

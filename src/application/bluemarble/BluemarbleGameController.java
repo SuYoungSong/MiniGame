@@ -112,14 +112,14 @@ public class BluemarbleGameController implements Initializable {
     Image fairyImage = new Image(Main.class.getResourceAsStream("texture/horse_fairy.png"));
     Image ghostImage = new Image(Main.class.getResourceAsStream("texture/horse_ghost.png"));
     //빌딩 이미지  [ 1 -> 건설된 건물, 0-> 건설안된건물  ex) 호텔만 건설된 경우 001, 소형건물과 호텔이 건설된 경우 101 ]
+    Image building000Image = new Image(Main.class.getResourceAsStream("texture/building_flag.png"));
     Image building100Image = new Image(Main.class.getResourceAsStream("texture/building_100.png"));
-    Image building110Image = new Image(Main.class.getResourceAsStream("texture/building_110.png"));
-    Image building111Image = new Image(Main.class.getResourceAsStream("texture/building_111.png"));
     Image building010Image = new Image(Main.class.getResourceAsStream("texture/building_010.png"));
     Image building001Image = new Image(Main.class.getResourceAsStream("texture/building_001.png"));
-    Image building101Image = new Image(Main.class.getResourceAsStream("texture/building_101.png"));
+    Image building110Image = new Image(Main.class.getResourceAsStream("texture/building_110.png"));
     Image building011Image = new Image(Main.class.getResourceAsStream("texture/building_011.png"));
-    Image flagImage = new Image(Main.class.getResourceAsStream("texture/building_flag.png"));
+    Image building101Image = new Image(Main.class.getResourceAsStream("texture/building_101.png"));
+    Image building111Image = new Image(Main.class.getResourceAsStream("texture/building_111.png"));
 
     String[] LandListKor = {null, "타이베이", "황금카드1", "홍콩", "마닐라",
             "제주도", "싱가포르", "황금카드2", "카이로", "이스탄불",
@@ -143,58 +143,20 @@ public class BluemarbleGameController implements Initializable {
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
     BuildingData building = new BuildingData();
-    
+
     // 플레이어가 가진돈의 정보를 불러옴
     void refreshMoney() {
-    	for(int i = 1 ; i <= playerCnt ; i++) {
-    		profileMoney[i].setText(String.valueOf(convertNumberToCurrency((player[i].money()))));
-    	}
+        for(int i = 1 ; i <= playerCnt ; i++) {
+            profileMoney[i].setText(String.valueOf(convertNumberToCurrency((player[i].money()))));
+        }
     }
-    
+
     // ==================================================
     //                    Test Code
     // ==================================================
-    int n = 0;
-    Stack imageURI = new Stack();
-
     @FXML void onClickFunc3(ActionEvent e) { goldcard.choiceRandomGoldCard(); }
     @FXML void onClickFunc2(ActionEvent e) {}
-    @FXML void onClickFunc(ActionEvent e){
-
-        System.out.println("기능 버튼");
-        imageURI.forEach(e2 -> System.out.println("e2 >> " + e2));
-        System.out.println("func >>  " + n);
-        athenaePane.getChildren().removeAll();
-
-        System.out.println("athenaePane X, Y >> " + athenaePane.getLayoutX() + ", " + athenaePane.getLayoutY());
-        ImageView iv = new ImageView();
-        if(!imageURI.isEmpty()) athenaePane.getChildren().removeAll();
-//            if(!imageURI.isEmpty()) atheanaePane.getChildren().remove(imageURI.pop());
-
-        imageURI.add(building111Image);
-        switch(50){
-            case 0:
-//                    atheanaePane.getChildren().add(iv);
-                taibeiPane.getChildren().add(iv);
-                break;
-            case 1:
-//                    hongKongPane.getChildren().add(iv);
-                seoulPane.getChildren().add(iv);
-                break;
-            case 2:
-                hawaiiPane.getChildren().add(iv);
-                break;
-            case 4:
-                tokyoPane.getChildren().add(iv);
-                break;
-        }
-        iv.setImage(building111Image);
-        iv.setFitHeight(50);
-        iv.setFitWidth(50);
-        iv.setX(0);
-        iv.setY(-44);
-        n++;
-    }
+    @FXML void onClickFunc(ActionEvent e) {}
 
     // 반복문으로 사용할 수 있게 배열에 관련 자료를 저장
     void profileSettting() {
@@ -260,6 +222,8 @@ public class BluemarbleGameController implements Initializable {
         }
         System.out.println();
     }
+
+    
     // ==================================================
     //                      Dice
     // ==================================================
@@ -327,6 +291,7 @@ public class BluemarbleGameController implements Initializable {
     // 플레이어의 말을 저장하는 배열
     ImageView[] playerHorseImg = new ImageView[5];
     // 현재 플레이어의 위치를 숫자로 저장하는 배열
+    int playerTotalPosition[] = new int[5];
     int playerPosition[] = new int[5];
 
     // 게임 시작시 스타트팬에 캐릭터 추가
@@ -344,8 +309,6 @@ public class BluemarbleGameController implements Initializable {
 
     int setDuration(int val) { return val * 100; }
 
-
-
     // 주사위 굴렸을때 플레이어 이동에 관련된 메소드
     void playerMove(int diceNum, int turn) {
         int LandPaneTotalCnt = 40;
@@ -358,13 +321,14 @@ public class BluemarbleGameController implements Initializable {
                 spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
                 goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
 
-        int originPosition = playerPosition[turn] % LandPaneTotalCnt;
+        int originPosition = playerTotalPosition[turn] % LandPaneTotalCnt;
         int movePosition = (originPosition + diceNum) % LandPaneTotalCnt;
         double endX = LandPaneList[movePosition].getLayoutX() - startPane.getLayoutX();
         double endY = LandPaneList[movePosition].getLayoutY() - startPane.getLayoutY();
         int[] goldCardPaneNum = { 2, 7, 12, 17, 22, 35 };
         SequentialTransition st;	// 애니메이션을 차례대로 동작시키는 함수
 
+        System.out.println("playerTotalPosition = " + playerTotalPosition[turn]);
         setBuildingPrice(LandPaneList[movePosition].getId().toString());
         /*
          * <<<<수정해야할 사항>>>>
@@ -388,29 +352,35 @@ public class BluemarbleGameController implements Initializable {
             st = new SequentialTransition(playerHorseImg[turn],tt);
         }
 
-        playerPosition[turn] += diceNum;	// 플레이어 위치 기록
+        playerTotalPosition[turn] += diceNum;	// 플레이어 위치 누적 기록
+        playerPosition[turn] = movePosition;    // 플레이어 절대 위치 기록
+
+        for(int i:playerPosition){
+            System.out.println("UIU i = " + i);
+        }
+
         //이동 종료
         st.setOnFinished(e -> {
             boolean isGoldCardPane = false;
             showProfileHighlight();
-            if( (LandPaneList[playerPosition[turn]] == startPane) ) {
-            	// 도착한곳이 출발지 인 경우            
-            }else if( LandPaneList[playerPosition[turn]] == islandPane ){
-            	// 도착한 곳이 무인도 인 경우
-            }else if ( LandPaneList[playerPosition[turn]] == spacePane ) {
-            	// 도착한 곳이 우주여행 인 경우
+            if(LandPaneList[playerPosition[turn]] == startPane) {
+                // 도착한곳이 출발지 인 경우
+            }else if(LandPaneList[playerPosition[turn]] == islandPane){
+                // 도착한 곳이 무인도 인 경우
+            }else if (LandPaneList[playerPosition[turn]] == spacePane) {
+                // 도착한 곳이 우주여행 인 경우
             }else {
-            	for(int i = 0 ; i< goldCardPaneNum.length ; i++) {
-            		if( playerPosition[turn] == goldCardPaneNum[i]) {
-            			isGoldCardPane = true;
-            		}
-            	}
-            	if(isGoldCardPane) {
-            		// 도착한 곳이 골드카드 인 경우
-            		goldcard.choiceRandomGoldCard();
-            	}else {
-            		onShowGroundDocumentModal(LandListKor[movePosition], turn);            	
-            	}
+                for(int i = 0 ; i< goldCardPaneNum.length ; i++) {
+                    if( playerPosition[turn] == goldCardPaneNum[i]) {
+                        isGoldCardPane = true;
+                    }
+                }
+                if(isGoldCardPane) {
+                    // 도착한 곳이 골드카드 인 경우
+                    goldcard.choiceRandomGoldCard();
+                }else {
+                    onShowGroundDocumentModal(LandListKor[movePosition], turn);
+                }
             }
             btnRunDice.setDisable(false);
         });
@@ -450,12 +420,11 @@ public class BluemarbleGameController implements Initializable {
     @FXML CheckBox cbVillaPrice;
     @FXML CheckBox cbBuildingPrice;
     @FXML CheckBox cbHotelPrice;
-    
+
     //현재 땅, 땅의 주인, 땅의 타입
     String currentLand;
     String currentLandOwner;
     String currentLandType;
-    String selectType;
 
     void setBuildingPrice(String landId){
         landId = landId.replaceAll("Pane", "");
@@ -490,17 +459,14 @@ public class BluemarbleGameController implements Initializable {
         if(currentLandOwner == null) {
             System.out.println("주인 없음");
 
-
-        //땅 주인과 현재 플레이어가 같을 때
+            //땅 주인과 현재 플레이어가 같을 때
         } else if(currentLandOwner.equals(player[turnCount].nickname())){
             System.out.println("어서와");
 
             char[] typeArr = currentLandType.toCharArray();
+
             //구매된 토지 중복 선택 불가
-            if((typeArr[0]) == '-'){
-                cbLandPrice.setSelected(true);
-                cbLandPrice.setDisable(true);
-            } else if(typeArr[0] == '1'){
+            if(typeArr[0] == '1'){
                 cbVillaPrice.setSelected(true);
                 cbVillaPrice.setDisable(true);
             } else if(typeArr[1] == '1'){
@@ -526,10 +492,6 @@ public class BluemarbleGameController implements Initializable {
         Node source = (Node) e.getSource();
         String buildId = source.idProperty().getValue();
         switch (buildId){
-            case "pLandPrice":
-                if(cbLandPrice.isSelected()) cbLandPrice.setSelected(false);
-                else cbLandPrice.setSelected(true);
-                break;
             case "pVillaPrice":
                 if(cbVillaPrice.isSelected()) cbVillaPrice.setSelected(false);
                 else cbVillaPrice.setSelected(true);
@@ -545,10 +507,10 @@ public class BluemarbleGameController implements Initializable {
             default: break;
         }
     }
-    
+
     void onShowGroundDocumentModal(String title,int turn){
-        
-    	boolean isSpecialRegin = false;
+
+        boolean isSpecialRegin = false;
         //모달 제목
         tDocumentTitle.setText(title);
         //토지 가격(토지 -> 빌라 -> 빌딩 -> 호텔)순
@@ -556,32 +518,75 @@ public class BluemarbleGameController implements Initializable {
         apGroundDocumentModal.setVisible(true);
     }
 
-    @FXML void onSubmitBuy(MouseEvent e){
-        System.out.println("Buy");
+    // 건물 그려주는 함수
+    void drawBuilding(String type){
+        ImageView iv = new ImageView();
+        AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
+                jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
+                islandPane, athenaePane, goldCardPane3, copenhagenPane, stockholmPane,
+                concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
+                socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane,
+                busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
+                spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
+                goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
 
+        System.out.println("LandPaneList[playerPosition[turnCount]] = " + LandPaneList[playerPosition[turnCount]]);
+        System.out.println("playerPosition[turnCount] = " + playerPosition[turnCount]);
+        System.out.println("turnCount = " + turnCount);
+        System.out.println("turnCount - 1 = " + (turnCount - 1));
+
+//        turnCount는 이미 턴을 넘긴상태로 가져와져서 아래와 같이 이전턴으로 처리
+        int preTurn = 0;
+        if(turnCount == 1) preTurn = playerCnt;
+        else preTurn = turnCount - 1;
+
+        LandPaneList[playerPosition[preTurn]].getChildren().add(iv);
+        iv.setFitHeight(50);
+        iv.setFitWidth(50);
+        iv.setX(0);
+        iv.setY(-44);
+
+        switch(type){
+            case "000":
+                iv.setImage(building000Image);
+                return;
+            case "100":
+                iv.setImage(building100Image);
+                return;
+            case "010":
+                iv.setImage(building010Image);
+                return;
+            case "001":
+                iv.setImage(building001Image);
+                return;
+            case "110":
+                iv.setImage(building110Image);
+                return;
+            case "011":
+                iv.setImage(building011Image);
+                return;
+            case "101":
+                iv.setImage(building101Image);
+                return;
+            case "111":
+                iv.setImage(building111Image);
+                return;
+        }
+    }
+
+
+    @FXML void onSubmitBuy(MouseEvent e){
         char[] selectTypeArr = new char[3];
 
+        if(cbVillaPrice.isSelected()) selectTypeArr[0] = '1';
+        else selectTypeArr[0] = '0';
+        if(cbBuildingPrice.isSelected()) selectTypeArr[1] = '1';
+        else selectTypeArr[1] = '0';
+        if(cbHotelPrice.isSelected()) selectTypeArr[2] = '1';
+        else selectTypeArr[2] = '0';
 
-        if(cbLandPrice.isSelected()) {
-            selectTypeArr[0] = '9';
-            selectTypeArr[1] = '9';
-            selectTypeArr[2] = '9';
-        } else {
-            if(cbVillaPrice.isSelected()) {
-                 selectTypeArr[0] = '1';
-            }
-            if(cbBuildingPrice.isSelected()) {
-                 selectTypeArr[1] = '1';
-            }
-            if(cbHotelPrice.isSelected()){
-                selectTypeArr[2] = '1';
-            }
-        }
-
-        String selectArr = new String(selectTypeArr);
-        System.out.println("selectArr >> " + selectArr);
-
-
+        String selectType = new String(selectTypeArr);
+        System.out.println("selectType >> " + selectType);
 
         building.setBerlinOwner(player[turnCount].nickname());
         try {
@@ -595,8 +600,8 @@ public class BluemarbleGameController implements Initializable {
         } catch(Exception exc) {
             System.out.println(exc.toString());
         }
-
-
+        apGroundDocumentModal.setVisible(false);
+        drawBuilding(selectType);
     }
 
     @FXML void onCancelBuy(MouseEvent e){
