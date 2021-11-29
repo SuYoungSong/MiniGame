@@ -1,10 +1,14 @@
 package application.bluemarble;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import application.Main;
 import application.MainController;
@@ -18,10 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -49,7 +50,7 @@ public class BluemarbleGameController implements Initializable {
     @FXML private AnchorPane cairoPane;
     @FXML private AnchorPane istanbulPane;
     @FXML private AnchorPane islandPane;
-    @FXML private AnchorPane atheanaePane;
+    @FXML private AnchorPane athenaePane;
     @FXML private AnchorPane goldCardPane3;
     @FXML private AnchorPane copenhagenPane;
     @FXML private AnchorPane stockholmPane;
@@ -84,6 +85,10 @@ public class BluemarbleGameController implements Initializable {
     @FXML private Pane pPlayer2Profile;
     @FXML private Pane pPlayer3Profile;
     @FXML private Pane pPlayer4Profile;
+    @FXML private Pane pPlayer1Highlight;
+    @FXML private Pane pPlayer2Highlight;
+    @FXML private Pane pPlayer3Highlight;
+    @FXML private Pane pPlayer4Highlight;
 
     @FXML private Text tPlayer1Asset;
     @FXML private Text tPlayer1Money;
@@ -98,8 +103,7 @@ public class BluemarbleGameController implements Initializable {
     @FXML private Text tPlayer4Money;
     @FXML private Text tPlayer4Nickname;
 
-
-    final private byte goldCardNum = 10; // 황금카드 갯수
+    final private byte goldCardNum = 6; // 황금카드 갯수
     GoldCard goldcard = new GoldCard(goldCardNum,this);
     Player[] player = new Player[5]; // 플레이어는 1 ~ 4번으로 0번 인덱스는 사용하지 않습니다.
     //플레이어 프로필 이미지
@@ -116,100 +120,79 @@ public class BluemarbleGameController implements Initializable {
     Image building101Image = new Image(Main.class.getResourceAsStream("texture/building_101.png"));
     Image building011Image = new Image(Main.class.getResourceAsStream("texture/building_011.png"));
     Image flagImage = new Image(Main.class.getResourceAsStream("texture/building_flag.png"));
-    
+
+    String[] LandListKor = {null, "타이베이", "황금카드1", "홍콩", "마닐라",
+            "제주도", "싱가포르", "황금카드2", "카이로", "이스탄불",
+            "무인도", "아테네", "황금카드3", "코펜하겐", "스톡홀름",
+            "콩코드여객기", "취리히", "황금카드4", "베를린", "몬트리올",
+            "사회복지기금-지급", "부에노스아이레스", "황금카드5", "상파울루", "시드니",
+            "부산", "하와이", "리스본", "퀸엘리자베스", "마드리드",
+            "우주정거장", "도쿄", "콜롬비아", "파리", "로마",
+            "황금카드6", "런던", "뉴욕", "사회복지기금-납부", "서울", null};
+
     // FXML을 반복문으로 사용하기 위해 주소를 저장할 배열
     Text[] profileAsset = new Text[5];
     Text[] profileMoney = new Text[5];
     Text[] profileNickname = new Text[5];
     AnchorPane[] playerContainer = new AnchorPane[5];
     Pane[] profilePane = new Pane[5];
+    Pane[] profileHighlight = new Pane[5];
+
     // 주사위 이미지 저장
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
-
+    BuildingData building = new BuildingData();
+    
     // 플레이어가 가진돈의 정보를 불러옴
     void refreshMoney() {
     	for(int i = 1 ; i <= playerCnt ; i++) {
-    		profileMoney[i].setText(String.valueOf(player[i].money()));
+    		profileMoney[i].setText(String.valueOf(convertNumberToCurrency((player[i].money()))));
     	}
     }
+    
     // ==================================================
     //                    Test Code
     // ==================================================
     int n = 0;
     Stack imageURI = new Stack();
-//    new TranslateTransition();
 
-    @FXML void onClickFunc2(ActionEvent e) {
-        pPlayer1Profile.setStyle("-fx-border-color: red;-fx-border-width: 12px;-fx-border-radius: 8px");
-        onShowGroundDocumentModal("Open Modal");
-    }
-
-
+    @FXML void onClickFunc3(ActionEvent e) { goldcard.choiceRandomGoldCard(); }
+    @FXML void onClickFunc2(ActionEvent e) {}
     @FXML void onClickFunc(ActionEvent e){
-        ImageView iv2 = new ImageView();
-        taibeiPane.getChildren().add(iv2);
-        iv2.setImage(ghostImage);
-        iv2.setFitWidth(50);
-        iv2.setFitHeight(50);
-
-        new TranslateTransition();
-        TranslateTransition tt = new TranslateTransition(new Duration(1000), iv2);
-//        tt.setFromX(saoPauloPane.getLayoutX());
-        tt.setFromX(0);
-        tt.setFromY(0);
-
-        double moveToX = istanbulPane.getLayoutX() - startPane.getLayoutX();
-        double moveToY = istanbulPane.getLayoutY() - startPane.getLayoutY();
-        double moveToXr = startPane.getLayoutX() - istanbulPane.getLayoutX();
-        double moveToYr = startPane.getLayoutY() - istanbulPane.getLayoutY();
-//        tt.setToX(moveToXr);
-//        tt.setToY(moveToYr);
-        tt.setToX(100);
-        tt.setToY(0);
-//        tt.setToX(istanbulPane.getLayoutX());
-//        tt.setToY(istanbulPane.getLayoutY());
-        System.out.println("startPane x, y " + startPane.getLayoutX() + ", " + startPane.getLayoutY());
-        System.out.println("istanbulPane x, y " + istanbulPane.getLayoutX() + ", " + istanbulPane.getLayoutY());
-        System.out.println("moveToX, Y = " + moveToX + ", " + moveToY);
-        System.out.println("moveToXr, Yr = " + moveToXr + ", " + moveToYr);
-        tt.setAutoReverse(true);
-        tt.setCycleCount(5);
-        tt.play();
 
         System.out.println("기능 버튼");
         imageURI.forEach(e2 -> System.out.println("e2 >> " + e2));
         System.out.println("func >>  " + n);
-        atheanaePane.getChildren().removeAll();
+        athenaePane.getChildren().removeAll();
 
-            System.out.println("atheanaePane X, Y >> " + atheanaePane.getLayoutX() + ", " + atheanaePane.getLayoutY());
-            ImageView iv = new ImageView();
-            if(!imageURI.isEmpty()) atheanaePane.getChildren().removeAll();
+        System.out.println("athenaePane X, Y >> " + athenaePane.getLayoutX() + ", " + athenaePane.getLayoutY());
+        ImageView iv = new ImageView();
+        if(!imageURI.isEmpty()) athenaePane.getChildren().removeAll();
 //            if(!imageURI.isEmpty()) atheanaePane.getChildren().remove(imageURI.pop());
 
-            imageURI.add(building111Image);
-            switch(50){
-                case 0:
+        imageURI.add(building111Image);
+        switch(50){
+            case 0:
 //                    atheanaePane.getChildren().add(iv);
-                    taibeiPane.getChildren().add(iv);
-                    break;
-                case 1:
+                taibeiPane.getChildren().add(iv);
+                break;
+            case 1:
 //                    hongKongPane.getChildren().add(iv);
-                    seoulPane.getChildren().add(iv);
-                    break;
-                case 2:
-                    hawaiiPane.getChildren().add(iv);
-                    break;
-                case 4:
-                    tokyoPane.getChildren().add(iv);
-                    break;
-            }
-            iv.setImage(building111Image);
-            iv.setFitHeight(50);
-            iv.setFitWidth(50);
-            iv.setX(0);
-            iv.setY(-44);
+                seoulPane.getChildren().add(iv);
+                break;
+            case 2:
+                hawaiiPane.getChildren().add(iv);
+                break;
+            case 4:
+                tokyoPane.getChildren().add(iv);
+                break;
+        }
+        iv.setImage(building111Image);
+        iv.setFitHeight(50);
+        iv.setFitWidth(50);
+        iv.setX(0);
+        iv.setY(-44);
         n++;
     }
 
@@ -222,24 +205,28 @@ public class BluemarbleGameController implements Initializable {
                 profileNickname[4] = tPlayer4Nickname;
                 playerContainer[4] = apPlayer4Container;
                 profilePane[4] = pPlayer4Profile;
+                profileHighlight[4] = pPlayer4Highlight;
             case 3:
                 profileAsset[3] = tPlayer3Asset;
                 profileMoney[3] = tPlayer3Money;
                 profileNickname[3] = tPlayer3Nickname;
                 playerContainer[3] = apPlayer3Container;
                 profilePane[3] = pPlayer3Profile;
+                profileHighlight[3] = pPlayer3Highlight;
             case 2:
                 profileAsset[2] = tPlayer2Asset;
                 profileMoney[2] = tPlayer2Money;
                 profileNickname[2] = tPlayer2Nickname;
                 playerContainer[2] = apPlayer2Container;
                 profilePane[2] = pPlayer2Profile;
+                profileHighlight[2] = pPlayer2Highlight;
             case 1:
                 profileAsset[1] = tPlayer1Asset;
                 profileMoney[1] = tPlayer1Money;
                 profileNickname[1] = tPlayer1Nickname;
                 playerContainer[1] = apPlayer1Container;
                 profilePane[1] = pPlayer1Profile;
+                profileHighlight[1] = pPlayer1Highlight;
                 break;
         }
     }
@@ -273,101 +260,166 @@ public class BluemarbleGameController implements Initializable {
         }
         System.out.println();
     }
+    // ==================================================
+    //                      Dice
+    // ==================================================
 
+    @FXML private Label lbDiceNumber;
+    @FXML private Label lbDiceDouble;
+    //현재 턴인 유저 프로필에 하이라이트 추가
+    void showProfileHighlight(){
+        for(Pane p:profileHighlight){
+            if(p == null) continue;
+            p.setStyle("");
+        }
+        profileHighlight[turnCount].setStyle("-fx-border-color: red;-fx-border-width: 12px;-fx-border-radius: 8px");
+    }
 
+    Timer timerDice;
+    TimerTask timerTaskDice;
+    //주사위 결과 출력
+    void showDiceNumber(int num, boolean isDouble){
+        if(timerDice != null) timerDice.cancel();
+        if(isDouble) lbDiceDouble.setVisible(true);
+        else lbDiceDouble.setVisible(false);
+        lbDiceNumber.setText(Integer.toString(num));
+        lbDiceNumber.setVisible(true);
+        timerDice = new Timer();
+        timerTaskDice = new TimerTask() {
+            @Override
+            public void run() {
+                lbDiceNumber.setVisible(false);
+                lbDiceDouble.setVisible(false);
+            }
+        };
+        timerDice.schedule(timerTaskDice, 2000);
+    }
+
+    @FXML private Button btnRunDice;
     @FXML	// 주사위를 던지는 메소드
     void onClickRunDice(ActionEvent e) {
-    	int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
+        btnRunDice.setDisable(true);
+
+        int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
         ImageView[] diceIV = { dice1, dice2 };	// 주사위 이미지
-        for(int i = 0 ; i<2 ; i++) {
+        for(int i = 0 ; i < 2 ; i++) {
             diceResult[i] = (int)(Math.random()*6)+1;
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
         System.out.println(diceResult[0]+diceResult[1]);
         playerMove(diceResult[0]+diceResult[1], turnCount);
-        
+
         // 더블이 아닌경우 다음턴으로 넘어간다.
         if(!(diceResult[0] == diceResult[1])) {
-        	turnCount++;
-        	if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
+            showDiceNumber(diceResult[0]+diceResult[1], false);
+            turnCount++;
+            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         }else {
-        	/*
-        	 * 게임 내 보여줄만한 label 추가해야할듯   
-        	 * 지금은 : ㅁ 의 턴 입니다. / 더블로 ㅁ의 턴을 한번더 진행합니다 등등..
-        	 */
-        	System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
+            /*
+             * 게임 내 보여줄만한 label 추가해야할듯
+             * 지금은 : ㅁ 의 턴 입니다. / 더블로 ㅁ의 턴을 한번더 진행합니다 등등..
+             */
+            showDiceNumber(diceResult[0]+diceResult[1], true);
+            System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
         }
     }
-    @FXML void onClickFunc3(ActionEvent e) { goldcard.choiceRandomGoldCard();}
+
     // 플레이어의 말을 저장하는 배열
     ImageView[] playerHorseImg = new ImageView[5];
     // 현재 플레이어의 위치를 숫자로 저장하는 배열
     int playerPosition[] = new int[5];
-    
+
     // 게임 시작시 스타트팬에 캐릭터 추가
     void assignPlayer() {
-    	for(int i = 1 ; i<playerCnt+1 ; i++) {
-    		playerHorseImg[i] = new ImageView(player[i].profileImgURI());
-	        startPane.getChildren().add(playerHorseImg[i]);
-	        playerHorseImg[i].setFitWidth(45);
-	        playerHorseImg[i].setFitHeight(45);
-	        playerHorseImg[i].setRotate(45);
-	        playerHorseImg[i].setX(10);
-	        playerHorseImg[i].setY(10);
-    	}
+        for(int i = 1 ; i<playerCnt+1 ; i++) {
+            playerHorseImg[i] = new ImageView(player[i].profileImgURI());
+            startPane.getChildren().add(playerHorseImg[i]);
+            playerHorseImg[i].setFitWidth(45);
+            playerHorseImg[i].setFitHeight(45);
+            playerHorseImg[i].setRotate(45);
+            playerHorseImg[i].setX(10);
+            playerHorseImg[i].setY(10);
+        }
     }
-    
+
+    int setDuration(int val) { return val * 100; }
+
+
+
     // 주사위 굴렸을때 플레이어 이동에 관련된 메소드
     void playerMove(int diceNum, int turn) {
-    	System.out.println(diceNum);
         int LandPaneTotalCnt = 40;
         AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
                 jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
-                islandPane, atheanaePane, goldCardPane3, copenhagenPane, stockholmPane,
+                islandPane, athenaePane, goldCardPane3, copenhagenPane, stockholmPane,
                 concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
                 socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane,
                 busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
                 spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
                 goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
-        
+
         int originPosition = playerPosition[turn] % LandPaneTotalCnt;
         int movePosition = (originPosition + diceNum) % LandPaneTotalCnt;
         double endX = LandPaneList[movePosition].getLayoutX() - startPane.getLayoutX();
         double endY = LandPaneList[movePosition].getLayoutY() - startPane.getLayoutY();
+        int[] goldCardPaneNum = { 2, 7, 12, 17, 22, 35 };
         SequentialTransition st;	// 애니메이션을 차례대로 동작시키는 함수
-        
+
+        setBuildingPrice(LandPaneList[movePosition].getId().toString());
         /*
          * <<<<수정해야할 사항>>>>
          * Duratuion을 이동하는 칸에 비례해서 계산하는 식을 하나 짜야할듯함.
          * 지금 돌려보면 판은 제대로 돌아도 커브를 돌때 이동속도가 제각각이됨.
          * ++ 바라보는 각도 변경
          */
-        
-        // 목적지 까지 가는 이동 애니매이션 
-        TranslateTransition tt = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
+        // 목적지 까지 가는 이동 애니매이션
+        TranslateTransition tt = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turn]);
         tt.setToX(endX);
         tt.setToY(endY);
-        
-        
-        // 목적지로 이동할때 보드를 횡단하지 않기위해 추가한 코드  
-        System.out.println(originPosition/10);
-        System.out.println(movePosition/10);
-        if( (originPosition/10) != (movePosition/10) ) {
-        	TranslateTransition tt2 = new TranslateTransition(new Duration(1000), playerHorseImg[turn]);
-        	tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
-        	tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
-        	// 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행  
-        	st = new SequentialTransition(playerHorseImg[turn],tt2,tt);	
-        }else {        	
-        	st = new SequentialTransition(playerHorseImg[turn],tt);
-        }
-        st.play();
-        
-        playerPosition[turn] += diceNum;	// 플레이어 위치 기록
-        if(playerPosition[turn]>=40)
-        	playerPosition[turn] -= 40;
-        System.out.println(playerPosition[turn]);
 
+        // 목적지로 이동할때 보드를 횡단하지 않기위해 추가한 코드
+        if( (originPosition/10) != (movePosition/10) ) {
+            TranslateTransition tt2 = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turn]);
+            tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
+            tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
+            // 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행
+            st = new SequentialTransition(playerHorseImg[turn],tt2,tt);
+        } else {
+            st = new SequentialTransition(playerHorseImg[turn],tt);
+        }
+
+        playerPosition[turn] += diceNum;	// 플레이어 위치 기록
+        //이동 종료
+        st.setOnFinished(e -> {
+            boolean isGoldCardPane = false;
+            showProfileHighlight();
+            if( (LandPaneList[playerPosition[turn]] == startPane) ) {
+            	// 도착한곳이 출발지 인 경우            
+            }else if( LandPaneList[playerPosition[turn]] == islandPane ){
+            	// 도착한 곳이 무인도 인 경우
+            }else if ( LandPaneList[playerPosition[turn]] == spacePane ) {
+            	// 도착한 곳이 우주여행 인 경우
+            }else {
+            	for(int i = 0 ; i< goldCardPaneNum.length ; i++) {
+            		if( playerPosition[turn] == goldCardPaneNum[i]) {
+            			isGoldCardPane = true;
+            		}
+            	}
+            	if(isGoldCardPane) {
+            		// 도착한 곳이 골드카드 인 경우
+            		goldcard.choiceRandomGoldCard();
+            	}else {
+            		onShowGroundDocumentModal(LandListKor[movePosition], turn);            	
+            	}
+            }
+            btnRunDice.setDisable(false);
+        });
+        st.play();
+    }
+
+    void initDice(){
+        lbDiceNumber.setVisible(false);
+        lbDiceDouble.setVisible(false);
     }
 
     // 마우스 호버 액션
@@ -398,16 +450,79 @@ public class BluemarbleGameController implements Initializable {
     @FXML CheckBox cbVillaPrice;
     @FXML CheckBox cbBuildingPrice;
     @FXML CheckBox cbHotelPrice;
+    
+    //현재 땅, 땅의 주인, 땅의 타입
+    String currentLand;
+    String currentLandOwner;
+    String currentLandType;
+    String selectType;
 
-    BuildingData building = new BuildingData();
+    void setBuildingPrice(String landId){
+        landId = landId.replaceAll("Pane", "");
+        char[] arr = landId.toCharArray();
+        arr[0] = Character.toUpperCase(arr[0]);
+        landId = new String(arr);
+
+        //땅 정보 불러올 예정
+        try {
+            Class<?> cls = Class.forName(building.getClass().getName());
+            Method mId = cls.getDeclaredMethod(landId);
+            Method mOwner = cls.getDeclaredMethod(landId + "Owner");
+            Method mType = cls.getDeclaredMethod(landId + "Type");
+            mId.invoke(building);
+            currentLandOwner = (String) mOwner.invoke(building);
+            currentLandType = (String) mType.invoke(building);
+        } catch(Exception exc) {
+            System.out.println(exc.toString());
+        }
+
+        // 가격 정보 없는 부지 정리
+        System.out.println("landId >> " + landId);
+        System.out.println("landOwner >> " + currentLandOwner);
+        System.out.println("landType >> " + currentLandType);
+        System.out.println("building Land price >> " + building.buyLand());
+        System.out.println("building Villa price >> " + building.buyVilla());
+        System.out.println("building Building price >> " + building.buyBuilding());
+        System.out.println("building Hotel price >> " + building.buyHotel());
+
+
+        //땅 주인이 없을 때
+        if(currentLandOwner == null) {
+            System.out.println("주인 없음");
+
+
+        //땅 주인과 현재 플레이어가 같을 때
+        } else if(currentLandOwner.equals(player[turnCount].nickname())){
+            System.out.println("어서와");
+
+            char[] typeArr = currentLandType.toCharArray();
+            //구매된 토지 중복 선택 불가
+            if((typeArr[0]) == '-'){
+                cbLandPrice.setSelected(true);
+                cbLandPrice.setDisable(true);
+            } else if(typeArr[0] == '1'){
+                cbVillaPrice.setSelected(true);
+                cbVillaPrice.setDisable(true);
+            } else if(typeArr[1] == '1'){
+                cbBuildingPrice.setSelected(true);
+                cbBuildingPrice.setDisable(true);
+            } else if(typeArr[2] == '1'){
+                cbHotelPrice.setSelected(true);
+                cbHotelPrice.setDisable(true);
+            }
+
+        //땅 주인과 현재 플레이어가 다를 때
+        } else {
+            System.out.println("침입자");
+        }
+        tLandPrice.setText(Integer.toString(building.buyLand()));
+        tVillaPrice.setText(Integer.toString(building.buyVilla()));
+        tBuildingPrice.setText(Integer.toString(building.buyBuilding()));
+        tHotelPrice.setText(Integer.toString(building.buyHotel()));
+    }
 
     @FXML void onToggleBuildCard(MouseEvent e) {
         // 토지 정보에 토지 주인, 어느토지까지 구매했는지 작성
-        building.Cairo();
-        System.out.println(building.buyLand());
-        building.Manila();
-        System.out.println(building.buyLand());
-
         Node source = (Node) e.getSource();
         String buildId = source.idProperty().getValue();
         switch (buildId){
@@ -429,63 +544,92 @@ public class BluemarbleGameController implements Initializable {
                 break;
             default: break;
         }
-
     }
-
-    void onShowGroundDocumentModal(String buildName){
-
+    
+    void onShowGroundDocumentModal(String title,int turn){
+        
+    	boolean isSpecialRegin = false;
         //모달 제목
-        buildName = "OK";
-        tDocumentTitle.setText(buildName);
+        tDocumentTitle.setText(title);
         //토지 가격(토지 -> 빌라 -> 빌딩 -> 호텔)순
-//        tLandPrice.setText(building.owner.setOwner());
-        tLandPrice.setText("344,000");
-
-
-
+        //setBuildingPrice() 함수에서 빌딩별 가격 적용함
         apGroundDocumentModal.setVisible(true);
     }
 
-
-    @FXML void onClickBuy(MouseEvent e){
+    @FXML void onSubmitBuy(MouseEvent e){
         System.out.println("Buy");
 
+        char[] selectTypeArr = new char[3];
+
+
+        if(cbLandPrice.isSelected()) {
+            selectTypeArr[0] = '9';
+            selectTypeArr[1] = '9';
+            selectTypeArr[2] = '9';
+        } else {
+            if(cbVillaPrice.isSelected()) {
+                 selectTypeArr[0] = '1';
+            }
+            if(cbBuildingPrice.isSelected()) {
+                 selectTypeArr[1] = '1';
+            }
+            if(cbHotelPrice.isSelected()){
+                selectTypeArr[2] = '1';
+            }
+        }
+
+        String selectArr = new String(selectTypeArr);
+        System.out.println("selectArr >> " + selectArr);
+
+
+
+        building.setBerlinOwner(player[turnCount].nickname());
+        try {
+            Class<?> cls = Class.forName(building.getClass().getName());
+            Method mId = cls.getDeclaredMethod(currentLand);
+            Method mOwner = cls.getDeclaredMethod("set" + currentLand + "Owner", String.class);
+            Method mType = cls.getDeclaredMethod("set" + currentLand + "Type", String.class);
+            mId.invoke(building);
+            currentLandOwner = (String) mOwner.invoke(building, player[turnCount].nickname());
+            currentLandType = (String) mType.invoke(building, selectType);
+        } catch(Exception exc) {
+            System.out.println(exc.toString());
+        }
+
+
     }
 
-    @FXML void onClickBuySkip(MouseEvent e){
+    @FXML void onCancelBuy(MouseEvent e){
         apGroundDocumentModal.setVisible(false);
     }
-
-    void initGroundDocumentModal(){
+    void initGroundDocumentModal() {
         apGroundDocumentModal.setVisible(false);
     }
-
-
 
     // ==================================================
     //              Start Bluemarble Modal
     // ==================================================
     DecimalFormat df = new DecimalFormat("###,###");
-    @FXML	private AnchorPane apStartBluemarbleModal;
-    @FXML	private ToggleGroup startDistMoneyGroup;
-    @FXML	private ToggleGroup PlayerCntGroup;
-    @FXML	private RadioButton rb2Player;
-    @FXML	private RadioButton rb3Player;
-    @FXML	private RadioButton rb4Player;
-    @FXML	private RadioButton rbDefaultDistMoney;
-    @FXML	private RadioButton rbCustomDistMoney;
-    @FXML	private TextField tfStartDistMoney;
-    @FXML	private TextField tf1PlayerNickname;
-    @FXML	private TextField tf2PlayerNickname;
-    @FXML	private TextField tf3PlayerNickname;
-    @FXML	private TextField tf4PlayerNickname;
-    @FXML	private Text tStartModalMessage;
-    @FXML	private Pane pPlayer1;
-    @FXML	private Pane pPlayer2;
-    @FXML	private Pane pPlayer3;
-    @FXML	private Pane pPlayer4;
+    @FXML private AnchorPane apStartBluemarbleModal;
+    @FXML private ToggleGroup startDistMoneyGroup;
+    @FXML private ToggleGroup PlayerCntGroup;
+    @FXML private RadioButton rb2Player;
+    @FXML private RadioButton rb3Player;
+    @FXML private RadioButton rb4Player;
+    @FXML private RadioButton rbDefaultDistMoney;
+    @FXML private RadioButton rbCustomDistMoney;
+    @FXML private TextField tfStartDistMoney;
+    @FXML private TextField tf1PlayerNickname;
+    @FXML private TextField tf2PlayerNickname;
+    @FXML private TextField tf3PlayerNickname;
+    @FXML private TextField tf4PlayerNickname;
+    @FXML private Text tStartModalMessage;
+    @FXML private Pane pPlayer1;
+    @FXML private Pane pPlayer2;
+    @FXML private Pane pPlayer3;
+    @FXML private Pane pPlayer4;
     private boolean[] selectPlayer = new boolean[5];
-    public int playerCnt; // 선택 해야할 카드 개수 (총 플레이 인원 수)
+    private int playerCnt; // 선택 해야할 카드 개수 (총 플레이 인원 수)
     private int selectedCharacterCnt; // 선택된 카드 개수
 
     //캐릭터 선택 카드 토글
@@ -574,10 +718,8 @@ public class BluemarbleGameController implements Initializable {
     //시작시 분배 금액 기본 금액 버튼
     @FXML
     void onClickDefaultDistMoneyButton(MouseEvent e) {
-        if (rb2Player.isSelected())
-            setStartDistMoney(586);
-        else
-            setStartDistMoney(293);
+        if (rb2Player.isSelected()) setStartDistMoney(586);
+        else setStartDistMoney(293);
         tfStartDistMoney.setDisable(true);
     }
 
@@ -612,11 +754,9 @@ public class BluemarbleGameController implements Initializable {
         }
         int objectCnt = 1;
         for (int i = 1; i < selectPlayer.length; i++) {
-            if (selectPlayer[i] == false)
-                continue;
+            if (selectPlayer[i] == false) continue;
             String nickname = "";
             Image imageURI = null;
-//            System.out.println("submit i >> " + i);
             int money = Integer.parseInt(tfStartDistMoney.getText() + "0000");
             switch (i) {
                 case 1:
@@ -653,6 +793,7 @@ public class BluemarbleGameController implements Initializable {
         profileSettting();
         connectObjectToFX();
         assignPlayer();
+        showProfileHighlight();
     }
 
     //캐릭터 카드 호버 시작
@@ -707,6 +848,7 @@ public class BluemarbleGameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initStartBluemarbleModal(); // 부루마블 시작 모달 초기화
-        initGroundDocumentModal(); //땅 문서 구매 모달 초기화
+        initGroundDocumentModal(); // 땅 문서 구매 모달 초기화
+        initDice(); //주사위 초기화
     }
 }

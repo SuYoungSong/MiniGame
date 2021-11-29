@@ -65,7 +65,9 @@ public class Player {
     public void setMoney(long money) {
         this.money = money;
     }
-
+    public void refreshAsset() {
+    	this.asset = money;	// 땅 가격 추가 해야함
+    }
 //    public int cityCnt() {
 //        return cityCnt;
 //    }
