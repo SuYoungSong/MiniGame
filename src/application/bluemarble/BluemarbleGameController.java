@@ -137,14 +137,14 @@ public class BluemarbleGameController implements Initializable {
     AnchorPane[] playerContainer = new AnchorPane[5];
     Pane[] profilePane = new Pane[5];
     Pane[] profileHighlight = new Pane[5];
-
+    byte[] islandExitCount = new byte[5]; 	// 무인도 탈출까지 몇 턴 남았는지 저장하는 배열
+    boolean isOneMoreTurn = false;			// 더블이 나와도 더블 효과를 설정할것인지 
     // 주사위 이미지 저장
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
     int turnCount = 1;	// 시작 플레이어 설정
     BuildingData building = new BuildingData();
-    byte[] islandExitCount = new byte[5]; 
-    boolean isOneMoreTurn;
+
     // 플레이어가 가진돈의 정보를 불러옴
     void refreshMoney() {
         for(int i = 1 ; i <= playerCnt ; i++) {
@@ -369,10 +369,6 @@ public class BluemarbleGameController implements Initializable {
         playerTotalPosition[turn] += diceNum;	// 플레이어 위치 누적 기록
         playerPosition[turn] = movePosition;    // 플레이어 절대 위치 기록
 
-        for(int i:playerPosition){
-            System.out.println("UIU i = " + i);
-        }
-
         //이동 종료
         st.setOnFinished(e -> {
             boolean isGoldCardPane = false;
@@ -449,6 +445,8 @@ public class BluemarbleGameController implements Initializable {
         arr[0] = Character.toUpperCase(arr[0]);
         landId = new String(arr);
 
+        currentLand = landId;
+
         //땅 정보 불러올 예정
         try {
             Class<?> cls = Class.forName(building.getClass().getName());
@@ -462,6 +460,9 @@ public class BluemarbleGameController implements Initializable {
             System.out.println(exc.toString());
         }
 
+        System.out.println(landId + "Owner");
+        System.out.println(landId + "Type");
+
         // 가격 정보 없는 부지 정리
         System.out.println("landId >> " + landId);
         System.out.println("landOwner >> " + currentLandOwner);
@@ -470,6 +471,11 @@ public class BluemarbleGameController implements Initializable {
         System.out.println("building Villa price >> " + building.buyVilla());
         System.out.println("building Building price >> " + building.buyBuilding());
         System.out.println("building Hotel price >> " + building.buyHotel());
+
+        //빌딩 체크상태 초기화
+        cbVillaPrice.setSelected(false);
+        cbBuildingPrice.setSelected(false);
+        cbHotelPrice.setSelected(false);
 
 
         //땅 주인이 없을 때
@@ -508,10 +514,24 @@ public class BluemarbleGameController implements Initializable {
         // 토지 정보에 토지 주인, 어느토지까지 구매했는지 작성
         Node source = (Node) e.getSource();
         String buildId = source.idProperty().getValue();
+//        char[] landTypeArr = null;
+//        if(currentLandType != null) landTypeArr = currentLandType.toCharArray();
+//
+
+
         switch (buildId){
             case "pVillaPrice":
-                if(cbVillaPrice.isSelected()) cbVillaPrice.setSelected(false);
-                else cbVillaPrice.setSelected(true);
+                //이미 선택이 되어 있을 때 비활성 처리
+//                if(landTypeArr[0] == '1' && player[turnCount].nickname().equals(currentLandOwner)){
+//                    System.out.println("주인이 동일, 빌라 체크");
+//
+                    
+                    cbVillaPrice.setSelected(true);
+                    cbVillaPrice.setDisable(true);
+//                } else {
+//                    if(cbVillaPrice.isSelected()) cbVillaPrice.setSelected(false);
+//                    else cbVillaPrice.setSelected(true);
+//                }
                 break;
             case "pBuildingPrice":
                 if(cbBuildingPrice.isSelected()) cbBuildingPrice.setSelected(false);
@@ -526,7 +546,6 @@ public class BluemarbleGameController implements Initializable {
     }
 
     void onShowGroundDocumentModal(String title,int turn){
-
         boolean isSpecialRegin = false;
         //모달 제목
         tDocumentTitle.setText(title);
@@ -546,11 +565,6 @@ public class BluemarbleGameController implements Initializable {
                 busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
                 spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
                 goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
-
-        System.out.println("LandPaneList[playerPosition[turnCount]] = " + LandPaneList[playerPosition[turnCount]]);
-        System.out.println("playerPosition[turnCount] = " + playerPosition[turnCount]);
-        System.out.println("turnCount = " + turnCount);
-        System.out.println("turnCount - 1 = " + (turnCount - 1));
 
 //        turnCount는 이미 턴을 넘긴상태로 가져와져서 아래와 같이 이전턴으로 처리
         int preTurn = 0;
@@ -591,7 +605,7 @@ public class BluemarbleGameController implements Initializable {
         }
     }
 
-    // 건물 구매 버튼
+
     @FXML void onSubmitBuy(MouseEvent e){
         char[] selectTypeArr = new char[3];
 
@@ -603,20 +617,23 @@ public class BluemarbleGameController implements Initializable {
         else selectTypeArr[2] = '0';
 
         String selectType = new String(selectTypeArr);
+        System.out.println("player[turnCount].nickname() >> " + player[turnCount].nickname());
         System.out.println("selectType >> " + selectType);
 
-        building.setBerlinOwner(player[turnCount].nickname());
+        System.out.println("currentLand = " + currentLand);
         try {
             Class<?> cls = Class.forName(building.getClass().getName());
             Method mId = cls.getDeclaredMethod(currentLand);
             Method mOwner = cls.getDeclaredMethod("set" + currentLand + "Owner", String.class);
             Method mType = cls.getDeclaredMethod("set" + currentLand + "Type", String.class);
             mId.invoke(building);
-            currentLandOwner = (String) mOwner.invoke(building, player[turnCount].nickname());
-            currentLandType = (String) mType.invoke(building, selectType);
+            mOwner.invoke(building, player[turnCount].nickname());
+            mType.invoke(building, selectType);
         } catch(Exception exc) {
             System.out.println(exc.toString());
         }
+
+
         apGroundDocumentModal.setVisible(false);
         drawBuilding(selectType);
     }
