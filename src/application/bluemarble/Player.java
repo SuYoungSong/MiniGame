@@ -12,8 +12,8 @@ public class Player {
     private int[] cityNum;
     private int turn;
     private Image profileImgURI;
-
-
+//    BluemarbleGameController bgc;
+    
 
     Player(String nickaname, long money, Image profileImgURI){
         //유저 생성 시 가지고 있는 자산은 현금밖에 없기 때문에 자산과 현금에 같은 값 삽입
@@ -21,6 +21,7 @@ public class Player {
         this.asset = money;
         this.money = money;
         this.profileImgURI = profileImgURI;
+//        this.bgc = bgc;
     }
 
 

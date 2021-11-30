@@ -1,4 +1,7 @@
 package application.bluemarble;
+
+import java.util.ArrayList;
+
 public class BuildingData{
 	int buyLand, buyVilla, buyBuilding, buyHotel;		// 땅 구매 비용
 	int passLand, passVilla, passBuilding, passHotel;	// 땅 통행 비용
@@ -254,8 +257,14 @@ public class BuildingData{
 			SaoPauloOwner, SydneyOwner, BusanOwner, HawaiiOwner, LisbonOwner,
 			QueenElizabethOwner, MadridOwner, TokyoOwner, ColombiaOwner, ParisOwner,
 			RomaOwner, LondonOwner, NewYorkOwner, SeoulOwner;
-
 	
+//	String[] LandOwner = {TaibeiOwner, HongKongOwner, ManilaOwner, JejuOwner,	SingaporeOwner,
+//						CairoOwner, IstanbulOwner,	AthenaeOwner, CopenhagenOwner, StockholmOwner,
+//						ConcordeOwner,	ZurichOwner, BerlinOwner, MontrealOwner, BuenosAiresOwner,
+//						SaoPauloOwner, SydneyOwner, BusanOwner, HawaiiOwner, LisbonOwner,
+//						QueenElizabethOwner, MadridOwner, TokyoOwner, ColombiaOwner, ParisOwner,
+//						RomaOwner, LondonOwner, NewYorkOwner, SeoulOwner };
+				
 	/* 총 사용할 타입 종류 : 9가지(String)
 	* 0(1) 0(2) 0(3) >> (1)빌라 구매여부, (2)빌딩 구매여부, (3)호텔 구매여부 
 	* 000: 건축물이 존재하지 않을 때(토지만 구매했을 때)
@@ -274,7 +283,18 @@ public class BuildingData{
 			SaoPauloType, SydneyType, BusanType, HawaiiType, LisbonType,
 			QueenElizabethType, MadridType, TokyoType, ColombiaType, ParisType,
 			RomaType, LondonType, NewYorkType, SeoulType;
-
+	// Asset 계산용 소유중인 땅 전부 보내기
+//	public ArrayList<String> playerOwnerLand(String playerNick) {
+//		ArrayList<String> temp = new ArrayList<>();
+//		
+//		for(String nick : LandOwner) {
+//			 if(playerNick.equals(nick)) {
+//				 temp.add(nick);
+//			 }
+//		}
+//		return temp;
+//	}
+	
 	public String TaibeiOwner() {
 		return TaibeiOwner;
 	}
@@ -825,5 +845,5 @@ public class BuildingData{
 //	땅 구매비용 : 대지료 35만, 호텔 100만, 빌딩 60만, 별장 20만
 //	땅 통행비용 : 대지료 3만5천, 호텔 150만, 빌딩 110만, 별장 17만
 //서울
-//	땅 구매비용 : 대지료 50만, 호텔 150만, 빌딩 90만, 별장 50만
-//	땅 통행비용 : 대지료 10만, 호텔 200만, 빌딩 150만, 별장 40만
+//	땅 구매비용 : 대지료 70만, 
+//	땅 통행비용 : 대지료 80만, 
