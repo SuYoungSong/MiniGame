@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="927.0" prefWidth="1262.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
+<AnchorPane prefHeight="927.0" prefWidth="1262.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
    <children>
       <ImageView fitHeight="904.0" fitWidth="906.0" layoutX="178.0" layoutY="12.0">
          <image>
@@ -346,50 +346,50 @@
       </AnchorPane>
       <ImageView fx:id="dice1" fitHeight="50.0" fitWidth="50.0" layoutX="573.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dice2" fitHeight="50.0" fitWidth="50.0" layoutX="636.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane fx:id="taibeiPane" layoutX="560.0" layoutY="739.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane1" layoutX="524.0" layoutY="703.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="hongKongPane" layoutX="488.0" layoutY="667.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="manilaPane" layoutX="452.0" layoutY="631.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="jejuPane" layoutX="418.0" layoutY="595.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="singaporePane" layoutX="381.0" layoutY="560.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane2" layoutX="346.0" layoutY="525.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="cairoPane" layoutX="310.0" layoutY="490.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="istanbulPane" layoutX="275.0" layoutY="453.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="islandPane" layoutX="214.0" layoutY="406.0" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="startPane" layoutX="591.0" layoutY="783.0" prefHeight="83.0" prefWidth="79.0" />
-      <AnchorPane fx:id="spacePane" layoutX="970.0" layoutY="404.0" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="socialMoneyGetPane" layoutX="592.0" layoutY="28.0" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="athenaePane" layoutX="275.0" layoutY="360.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane3" layoutX="310.0" layoutY="325.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane4" layoutX="488.0" layoutY="146.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane5" layoutX="688.0" layoutY="111.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane6" layoutX="796.0" layoutY="595.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="copenhagenPane" layoutX="345.0" layoutY="290.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="stockholmPane" layoutX="381.0" layoutY="254.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="concordePane" layoutX="416.0" layoutY="217.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="zurichPane" layoutX="452.0" layoutY="182.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="berlinPane" layoutX="524.0" layoutY="111.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="montrealPane" layoutX="560.0" layoutY="75.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="buenosAiresPane" layoutX="652.0" layoutY="76.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="saoPauloPane" layoutX="724.0" layoutY="146.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="sydneyPane" layoutX="760.0" layoutY="181.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="busanPane" layoutX="795.0" layoutY="217.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="hawaiiPane" layoutX="830.0" layoutY="254.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="lisbonPane" layoutX="866.0" layoutY="290.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="queenElizabethPane" layoutX="902.0" layoutY="326.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="madridPane" layoutX="938.0" layoutY="361.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="tokyoPane" layoutX="938.0" layoutY="453.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="colombiaPane" layoutX="902.0" layoutY="488.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="parisPane" layoutX="867.0" layoutY="525.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="romaPane" layoutX="831.0" layoutY="560.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="londonPane" layoutX="760.0" layoutY="630.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="newYorkPane" layoutX="725.0" layoutY="666.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="seoulPane" layoutX="652.0" layoutY="739.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
-      <AnchorPane fx:id="socialMoneyPayPane" layoutX="688.0" layoutY="703.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="taibeiPane" layoutX="560.0" layoutY="739.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="goldCardPane1" layoutX="524.0" layoutY="703.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="hongKongPane" layoutX="488.0" layoutY="667.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="manilaPane" layoutX="452.0" layoutY="631.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="jejuPane" layoutX="418.0" layoutY="595.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="singaporePane" layoutX="381.0" layoutY="560.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="goldCardPane2" layoutX="346.0" layoutY="525.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="cairoPane" layoutX="310.0" layoutY="490.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="istanbulPane" layoutX="275.0" layoutY="453.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="islandPane" layoutX="214.0" layoutY="406.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
+      <AnchorPane fx:id="startPane" layoutX="591.0" layoutY="783.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" />
+      <AnchorPane fx:id="spacePane" layoutX="970.0" layoutY="404.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
+      <AnchorPane fx:id="socialMoneyGetPane" layoutX="592.0" layoutY="28.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
+      <AnchorPane fx:id="athenaePane" layoutX="275.0" layoutY="360.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane3" layoutX="310.0" layoutY="325.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane4" layoutX="488.0" layoutY="146.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane5" layoutX="688.0" layoutY="111.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="goldCardPane6" layoutX="796.0" layoutY="595.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="copenhagenPane" layoutX="345.0" layoutY="290.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="stockholmPane" layoutX="381.0" layoutY="254.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="concordePane" layoutX="416.0" layoutY="217.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="zurichPane" layoutX="452.0" layoutY="182.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="berlinPane" layoutX="524.0" layoutY="111.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="montrealPane" layoutX="560.0" layoutY="75.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="buenosAiresPane" layoutX="652.0" layoutY="76.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="saoPauloPane" layoutX="724.0" layoutY="146.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="sydneyPane" layoutX="760.0" layoutY="181.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="busanPane" layoutX="795.0" layoutY="217.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="hawaiiPane" layoutX="830.0" layoutY="254.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="lisbonPane" layoutX="866.0" layoutY="290.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="queenElizabethPane" layoutX="902.0" layoutY="326.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="madridPane" layoutX="938.0" layoutY="361.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="tokyoPane" layoutX="938.0" layoutY="453.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="colombiaPane" layoutX="902.0" layoutY="488.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="parisPane" layoutX="867.0" layoutY="525.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="romaPane" layoutX="831.0" layoutY="560.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="londonPane" layoutX="760.0" layoutY="630.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="newYorkPane" layoutX="725.0" layoutY="666.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="seoulPane" layoutX="652.0" layoutY="739.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="socialMoneyPayPane" layoutX="688.0" layoutY="703.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
       <Button layoutX="55.0" layoutY="228.0" mnemonicParsing="false" onAction="#onClickFunc" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼" />
       <Button layoutX="55.0" layoutY="336.0" mnemonicParsing="false" onAction="#onClickFunc2" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼2" />
       <Button layoutX="55.0" layoutY="449.0" mnemonicParsing="false" onAction="#onClickFunc3" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼3" />
-      <AnchorPane id="createRoomModal" fx:id="apGroundDocumentModal" layoutX="286.0" layoutY="270.0" prefHeight="409.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;">
+      <AnchorPane id="createRoomModal" fx:id="apGroundDocumentModal" layoutX="286.0" layoutY="270.0" prefHeight="409.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;" visible="false">
          <children>
             <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
                <children>

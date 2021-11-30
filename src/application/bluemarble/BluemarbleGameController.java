@@ -139,6 +139,7 @@ public class BluemarbleGameController implements Initializable {
     Pane[] profileHighlight = new Pane[5];
     byte[] islandExitCount = new byte[5]; 	// 무인도 탈출까지 몇 턴 남았는지 저장하는 배열
     boolean isOneMoreTurn = false;			// 더블이 나와도 더블 효과를 설정할것인지 
+    boolean[] isArrivalSpaceTravel = new boolean[5]; // 플레이어별로 우주여행에 도착했는지 확인하는 배열
     // 주사위 이미지 저장
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
@@ -151,12 +152,100 @@ public class BluemarbleGameController implements Initializable {
             profileMoney[i].setText(String.valueOf(convertNumberToCurrency((player[i].money()))));
         }
     }
+    // 땅 클릭하면 작동하는 메소드
+    @FXML
+    void onClickLandPane(MouseEvent event) {
+    	if(isArrivalSpaceTravel[turnCount]) {
+	    	AnchorPane apTemp = (AnchorPane) event.getSource();
+	    	spaceTraval(apTemp);
+    	}
+    }
+    void spaceTraval(AnchorPane selectPane) {
+    	// 우주여행 상태인경우
+    	if(isArrivalSpaceTravel[turnCount]) {
+    		isArrivalSpaceTravel[turnCount] = false;
+    		byte selectLandNum = 0;
+    		final byte spaceLandNum = 30;
+	    	AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
+	                jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
+	                islandPane, athenaePane, goldCardPane3, copenhagenPane, stockholmPane,
+	                concordePane, zurichPane, goldCardPane4, berlinPane, montrealPane,
+	                socialMoneyGetPane, buenosAiresPane, goldCardPane5, saoPauloPane, sydneyPane,
+	                busanPane, hawaiiPane, lisbonPane, queenElizabethPane, madridPane,
+	                spacePane, tokyoPane, colombiaPane, parisPane, romaPane,
+	                goldCardPane6, londonPane, newYorkPane, socialMoneyPayPane, seoulPane, startPane};
+	    	int durationLine1= 400, durationLine2= 400, durationLine3 =400,durationLine4 =400;
+	    	// 유저가 선택한 땅 번호를 가져옴
+	    	for(int i = 0 ; i<LandPaneList.length ; i++) {
+	    		if(LandPaneList[i] == selectPane) {
+	    			selectLandNum = (byte)i;
+	    		}
+	    	}
+	    	
+	    	if(selectLandNum == spaceLandNum) {
+	    		return;	// 우주여행 땅을 고른경우 우주여행 취소
+	    	}
+	    	
+	    	byte paneNumDiff = (byte)(spaceLandNum-selectLandNum);
+	    	TranslateTransition line1 = new TranslateTransition(new Duration(durationLine1), playerHorseImg[turnCount]);
+	    	TranslateTransition line2 = new TranslateTransition(new Duration(durationLine2), playerHorseImg[turnCount]);
+	    	TranslateTransition line3 = new TranslateTransition(new Duration(durationLine3), playerHorseImg[turnCount]);
+	    	TranslateTransition tt = new TranslateTransition(new Duration(durationLine4), playerHorseImg[turnCount]);
+            tt.setToX(LandPaneList[selectLandNum].getLayoutX()-startPane.getLayoutX());
+            tt.setToY(LandPaneList[selectLandNum].getLayoutY()-startPane.getLayoutY());
+	    	SequentialTransition st = null;	
+	    	
+	    	if( (paneNumDiff<11)&&(paneNumDiff>0) ) {	// 3라인을 선택한 경우
+	    		// 3라인 ( 1(마드리드) ~ 10(사회복지기금)
+	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
+	    		  line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
+	    		  line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
+	    		  line3.setToX(socialMoneyGetPane.getLayoutX() - startPane.getLayoutX());
+	    		  line3.setToY(socialMoneyGetPane.getLayoutY() - startPane.getLayoutY());
+	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,line3,tt);
+	    		  st.play();
+	    	}
+	    	if( (paneNumDiff<21)&&(paneNumDiff>10) ) {	// 2라인을 선택한 경우
+	    		// 2라인 ( 11(몬트리올) ~ 20(무인도) )
+	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
+	    		  line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
+	    		  line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
+	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,tt);
+	    		  st.play();
+	    	}
+	    	if( (paneNumDiff<31)&&(paneNumDiff>20) ) {	// 1라인을 선택한 경우
+	    		// 1라인 ( 30(출발지) ~ 21(이스탄불) )
+	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());	
+	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,tt);
+	    		  st.play();
+	    	}
+	    	if( paneNumDiff<0) {	// 4라인을 선택한 경우
+		    	st = new SequentialTransition(playerHorseImg[turnCount],tt);
+		    	st.play();
+	    	}
+	    	turnCount++;	// 턴값 증가
+	    	if(turnCount>playerCnt) {
+	    		turnCount = 1;
+	    	}
+	    	if(isArrivalSpaceTravel[turnCount]) System.out.println(turnCount+"번 플레이어는 우주여행이 가능합니다. 원하는 땅을 선택하세요.");
+	    	playerPosition[turnCount] = selectLandNum;			// 플레이어 절대위치
+	    	playerTotalPosition[turnCount] += selectLandNum+10;	// 플레이어 누적위치
+	    	st.setOnFinished(e -> {
+	    		playerMove(0, turnCount);
+	        });
+    	}
+    }
 
+    
+    
     // ==================================================
     //                    Test Code
     // ==================================================
     @FXML void onClickFunc3(ActionEvent e) { goldcard.choiceRandomGoldCard(); }
-    @FXML void onClickFunc2(ActionEvent e) {}
+    @FXML void onClickFunc2(ActionEvent e) {playerMove(10, turnCount);}
     @FXML void onClickFunc(ActionEvent e) {}
 
     // 반복문으로 사용할 수 있게 배열에 관련 자료를 저장
@@ -261,6 +350,7 @@ public class BluemarbleGameController implements Initializable {
     }
 
     @FXML private Button btnRunDice;
+    
     @FXML	// 주사위를 던지는 메소드
     void onClickRunDice(ActionEvent e) {
     	// 더블이 나와도 특수팬(우주여행, 무인도) 의 경우 턴이 한번 더 진행되지 않게 설정
@@ -270,7 +360,8 @@ public class BluemarbleGameController implements Initializable {
         int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
         ImageView[] diceIV = { dice1, dice2 };	// 주사위 이미지
         for(int i = 0 ; i < 2 ; i++) {
-            diceResult[i] = (int)(Math.random()*6)+1;
+//            diceResult[i] = (int)(Math.random()*6)+1;
+            diceResult[i] = 5;
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
         System.out.println(diceResult[0]+diceResult[1]);
@@ -291,6 +382,7 @@ public class BluemarbleGameController implements Initializable {
             turnCount++;
             if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         }else {
+
         	if(isOneMoreTurn) {
         		showDiceNumber(diceResult[0]+diceResult[1], true);
             	System.out.println("더블 입니다 "+turnCount+"플레이어가 한 번 더 주사위를 돌립니다.");
@@ -298,6 +390,7 @@ public class BluemarbleGameController implements Initializable {
         		System.out.println("무인도, 우주여행에서 더블 시 한턴 더 진행이 불가능합니다. 턴이 넘어갑니다.");
 	    		turnCount++;
 	            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
+	            if(isArrivalSpaceTravel[turnCount]) System.out.println(turnCount+"번 플레이어는 우주여행이 가능합니다. 원하는 땅을 선택하세요.");
         	}
         }
     }
@@ -344,12 +437,6 @@ public class BluemarbleGameController implements Initializable {
 
         System.out.println("playerTotalPosition = " + playerTotalPosition[turn]);
         setBuildingPrice(LandPaneList[movePosition].getId().toString());
-        /*
-         * <<<<수정해야할 사항>>>>
-         * Duratuion을 이동하는 칸에 비례해서 계산하는 식을 하나 짜야할듯함.
-         * 지금 돌려보면 판은 제대로 돌아도 커브를 돌때 이동속도가 제각각이됨.
-         * ++ 바라보는 각도 변경
-         */
         // 목적지 까지 가는 이동 애니매이션
         TranslateTransition tt = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turn]);
         tt.setToX(endX);
@@ -368,7 +455,13 @@ public class BluemarbleGameController implements Initializable {
 
         playerTotalPosition[turn] += diceNum;	// 플레이어 위치 누적 기록
         playerPosition[turn] = movePosition;    // 플레이어 절대 위치 기록
-
+        if((LandPaneList[playerPosition[turn]] == islandPane)){
+        	islandExitCount[turn] = 3;
+        	isOneMoreTurn = false;
+        }else if(LandPaneList[playerPosition[turn]] == spacePane){
+        	isArrivalSpaceTravel[turn] = true;
+        	isOneMoreTurn = false;
+        }
         //이동 종료
         st.setOnFinished(e -> {
             boolean isGoldCardPane = false;
@@ -377,11 +470,8 @@ public class BluemarbleGameController implements Initializable {
                 // 도착한곳이 출발지 인 경우
             }else if(LandPaneList[playerPosition[turn]] == islandPane){
                 // 도착한 곳이 무인도 인 경우
-            	islandExitCount[turn] = 3;
-            	isOneMoreTurn = false;
-            }else if (LandPaneList[playerPosition[turn]] == spacePane) {
+            }else if (LandPaneList[playerPosition[turn]] == spacePane) {	
                 // 도착한 곳이 우주여행 인 경우
-            	isOneMoreTurn = false;
             }else {
                 for(int i = 0 ; i< goldCardPaneNum.length ; i++) {
                     if( playerPosition[turn] == goldCardPaneNum[i]) {
@@ -417,7 +507,6 @@ public class BluemarbleGameController implements Initializable {
         Node source = (Node) e.getSource();
         source.setStyle("-fx-cursor:default;");
     }
-
     // ==================================================
     //              Ground #Document Modal
     // ==================================================
