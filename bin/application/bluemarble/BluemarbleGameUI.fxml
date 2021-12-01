@@ -592,6 +592,11 @@
                </image></ImageView>
          </children>
       </AnchorPane>
+      <ImageView fx:id="ivSocialMoney" fitHeight="45.0" fitWidth="45.0" layoutX="611.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../texture/money.png" />
+         </image>
+      </ImageView>
    </children>
    <effect>
       <DropShadow height="28.3275" radius="12.564375" width="23.93" />

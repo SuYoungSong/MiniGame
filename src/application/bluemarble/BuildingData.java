@@ -1,8 +1,8 @@
 package application.bluemarble;
 
-import java.util.ArrayList;
-
 public class BuildingData{
+	BluemarbleGameController bgc;
+
 	int buyLand, buyVilla, buyBuilding, buyHotel;		// 땅 구매 비용
 	int passLand, passVilla, passBuilding, passHotel;	// 땅 통행 비용
 
@@ -257,13 +257,6 @@ public class BuildingData{
 			SaoPauloOwner, SydneyOwner, BusanOwner, HawaiiOwner, LisbonOwner,
 			QueenElizabethOwner, MadridOwner, TokyoOwner, ColombiaOwner, ParisOwner,
 			RomaOwner, LondonOwner, NewYorkOwner, SeoulOwner;
-	
-//	String[] LandOwner = {TaibeiOwner, HongKongOwner, ManilaOwner, JejuOwner,	SingaporeOwner,
-//						CairoOwner, IstanbulOwner,	AthenaeOwner, CopenhagenOwner, StockholmOwner,
-//						ConcordeOwner,	ZurichOwner, BerlinOwner, MontrealOwner, BuenosAiresOwner,
-//						SaoPauloOwner, SydneyOwner, BusanOwner, HawaiiOwner, LisbonOwner,
-//						QueenElizabethOwner, MadridOwner, TokyoOwner, ColombiaOwner, ParisOwner,
-//						RomaOwner, LondonOwner, NewYorkOwner, SeoulOwner };
 				
 	/* 총 사용할 타입 종류 : 9가지(String)
 	* 0(1) 0(2) 0(3) >> (1)빌라 구매여부, (2)빌딩 구매여부, (3)호텔 구매여부 
@@ -283,17 +276,6 @@ public class BuildingData{
 			SaoPauloType, SydneyType, BusanType, HawaiiType, LisbonType,
 			QueenElizabethType, MadridType, TokyoType, ColombiaType, ParisType,
 			RomaType, LondonType, NewYorkType, SeoulType;
-	// Asset 계산용 소유중인 땅 전부 보내기
-//	public ArrayList<String> playerOwnerLand(String playerNick) {
-//		ArrayList<String> temp = new ArrayList<>();
-//		
-//		for(String nick : LandOwner) {
-//			 if(playerNick.equals(nick)) {
-//				 temp.add(nick);
-//			 }
-//		}
-//		return temp;
-//	}
 	
 	public String TaibeiOwner() {
 		return TaibeiOwner;

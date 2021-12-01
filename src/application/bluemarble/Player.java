@@ -12,7 +12,6 @@ public class Player {
     private int[] cityNum;
     private int turn;
     private Image profileImgURI;
-//    BluemarbleGameController bgc;
     
 
     Player(String nickaname, long money, Image profileImgURI){
@@ -21,7 +20,6 @@ public class Player {
         this.asset = money;
         this.money = money;
         this.profileImgURI = profileImgURI;
-//        this.bgc = bgc;
     }
 
 
@@ -66,8 +64,9 @@ public class Player {
     public void setMoney(long money) {
         this.money = money;
     }
-    public void refreshAsset() {
+    public long refreshAsset() {
         this.asset = money;	// 땅 가격 추가 해야함
+        return asset;
     }
 //    public int cityCnt() {
 //        return cityCnt;

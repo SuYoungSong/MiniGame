@@ -161,13 +161,16 @@ public class BluemarbleGameController implements Initializable {
     // 주사위 이미지 저장
     @FXML  private ImageView dice1;
     @FXML  private ImageView dice2;
+    @FXML  private ImageView ivSocialMoney;
     int turnCount = 1;	// 시작 플레이어 설정
     BuildingData building = new BuildingData();
     long socialMoneyStack = 0;		// 사회복지기금
     // 플레이어가 가진돈의 정보를 불러옴
+    
     void refreshMoney() {
         for(int i = 1 ; i <= playerCnt ; i++) {
             profileMoney[i].setText(String.valueOf(convertNumberToCurrency((player[i].money()))));
+            profileAsset[i].setText(String.valueOf(convertNumberToCurrency((player[i].refreshAsset()))));
         }
     }
     // 땅 클릭하면 작동하는 메소드
@@ -489,11 +492,13 @@ public class BluemarbleGameController implements Initializable {
         	socialMoneyStack += 150000;
         	refreshMoney();
         	player[turn].refreshAsset();
+        	ivSocialMoney.setVisible(true);
         }else if(LandPaneList[playerPosition[turn]] == socialMoneyGetPane ) {
         	player[turn].setMoney(player[turn].money()+socialMoneyStack);
         	socialMoneyStack = 0;
         	refreshMoney();
         	player[turn].refreshAsset();
+        	ivSocialMoney.setVisible(false);
         	// 도착한 곳이 사회복지기금 받는곳인 경우
         }
         //이동 종료
@@ -509,7 +514,7 @@ public class BluemarbleGameController implements Initializable {
                 goldcard.choiceRandomGoldCard();
             }else if( (LandPaneList[playerPosition[turn]] == socialMoneyGetPane) || (LandPaneList[playerPosition[turn]] == socialMoneyPayPane) || (LandPaneList[playerPosition[turn]] == spacePane) ||LandPaneList[playerPosition[turn]] == islandPane ){
             }else{
-            onShowGroundDocumentModal(LandListKor[movePosition], turn);
+            	onShowGroundDocumentModal(LandListKor[movePosition], turn);
             }
             btnRunDice.setDisable(false);
         });
