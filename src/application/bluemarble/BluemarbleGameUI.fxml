@@ -16,12 +16,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="927.0" prefWidth="1262.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
+<AnchorPane prefHeight="927.0" prefWidth="1262.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.bluemarble.BluemarbleGameController">
    <children>
       <ImageView fitHeight="904.0" fitWidth="906.0" layoutX="178.0" layoutY="12.0">
          <image>
             <Image url="@../texture/GameBoard.png" />
          </image>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.44736841320991516" green="0.44736841320991516" blue="0.44736841320991516" />
+               </color>
+            </DropShadow>
+         </effect>
       </ImageView>
       <AnchorPane fx:id="apPlayer1Container" prefHeight="150.0" prefWidth="350.0" style="-fx-background-radius: 0 0 32px 0; -fx-background-color: #F0F0F0; -fx-border-radius: 0 0 32px 0;">
          <children>
@@ -173,7 +180,238 @@
             </DropShadow>
          </effect>
       </AnchorPane>
-      <Button fx:id="btnRunDice" layoutX="55.0" layoutY="553.0" mnemonicParsing="false" onAction="#onClickRunDice" text="주사위굴리기" />
+      <ImageView fx:id="dice1" fitHeight="50.0" fitWidth="50.0" layoutX="573.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="dice2" fitHeight="50.0" fitWidth="50.0" layoutX="636.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane fx:id="taibeiPane" layoutX="560.0" layoutY="739.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="goldCardPane1" layoutX="524.0" layoutY="703.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="hongKongPane" layoutX="488.0" layoutY="667.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="manilaPane" layoutX="452.0" layoutY="631.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="jejuPane" layoutX="418.0" layoutY="595.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="singaporePane" layoutX="381.0" layoutY="560.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="goldCardPane2" layoutX="346.0" layoutY="525.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="cairoPane" layoutX="310.0" layoutY="490.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="istanbulPane" layoutX="275.0" layoutY="453.0" prefHeight="79.0" prefWidth="50.0" rotate="225.0" />
+      <AnchorPane fx:id="islandPane" layoutX="214.0" layoutY="406.0" prefHeight="83.0" prefWidth="79.0" rotate="225.0" />
+      <AnchorPane fx:id="spacePane" layoutX="970.0" layoutY="404.0" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
+      <AnchorPane fx:id="socialMoneyGetPane" layoutX="592.0" layoutY="28.0" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
+      <AnchorPane fx:id="athenaePane" layoutX="275.0" layoutY="360.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane3" layoutX="310.0" layoutY="325.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane4" layoutX="488.0" layoutY="146.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="goldCardPane5" layoutX="688.0" layoutY="111.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="goldCardPane6" layoutX="796.0" layoutY="595.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="copenhagenPane" layoutX="345.0" layoutY="290.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="stockholmPane" layoutX="381.0" layoutY="254.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="concordePane" layoutX="416.0" layoutY="217.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="zurichPane" layoutX="452.0" layoutY="182.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="berlinPane" layoutX="524.0" layoutY="111.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="montrealPane" layoutX="560.0" layoutY="75.0" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
+      <AnchorPane fx:id="buenosAiresPane" layoutX="652.0" layoutY="76.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="saoPauloPane" layoutX="724.0" layoutY="146.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="sydneyPane" layoutX="760.0" layoutY="181.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="busanPane" layoutX="795.0" layoutY="217.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="hawaiiPane" layoutX="830.0" layoutY="254.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="lisbonPane" layoutX="866.0" layoutY="290.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="queenElizabethPane" layoutX="902.0" layoutY="326.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="madridPane" layoutX="938.0" layoutY="361.0" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
+      <AnchorPane fx:id="tokyoPane" layoutX="938.0" layoutY="453.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="colombiaPane" layoutX="902.0" layoutY="488.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="parisPane" layoutX="867.0" layoutY="525.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="romaPane" layoutX="831.0" layoutY="560.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="londonPane" layoutX="760.0" layoutY="630.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="newYorkPane" layoutX="725.0" layoutY="666.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="seoulPane" layoutX="652.0" layoutY="739.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="socialMoneyPayPane" layoutX="688.0" layoutY="703.0" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
+      <AnchorPane fx:id="startPane" layoutX="591.0" layoutY="783.0" prefHeight="83.0" prefWidth="79.0" />
+      <Button layoutX="25.0" layoutY="181.0" mnemonicParsing="false" onAction="#onClickFunc" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼" />
+      <AnchorPane id="createRoomModal" fx:id="apGroundDocumentModal" layoutX="281.0" layoutY="270.0" prefHeight="409.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;" visible="false">
+         <children>
+            <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
+               <children>
+                  <AnchorPane id="create_room_close" layoutX="650.0" onMouseClicked="#onCancelBuy" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 0px 12px 0px 0px;" stylesheets="@../application.css">
+                     <children>
+                        <Text fill="#a5a6a6" layoutX="7.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="×" textAlignment="CENTER" wrappingWidth="35.572265625">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <Text fx:id="tDocumentTitle" layoutX="54.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="16.0" layoutY="12.0">
+                     <image>
+                        <Image url="@../texture/real-estate.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane id="createRoomModal_container" layoutX="15.0" layoutY="70.0" prefHeight="272.0" prefWidth="671.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;">
+               <children>
+                  <Pane fx:id="pLandPrice" layoutX="14.0" layoutY="14.0" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
+                     <children>
+                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
+                           <children>
+                              <Text fx:id="tLandPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
+                           <image>
+                              <Image url="@../texture/building_flag.png" />
+                           </image>
+                        </ImageView>
+                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
+                           <children>
+                              <CheckBox fx:id="cbLandPrice" disable="true" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" selected="true" text="땅값" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                     </children>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Pane fx:id="pVillaPrice" layoutX="183.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
+                     <children>
+                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
+                           <children>
+                              <Text fx:id="tVillaPrice" fill="WHITE" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
+                           <children>
+                              <CheckBox fx:id="cbVillaPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="빌라" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
+                           <image>
+                              <Image url="@../texture/building_100.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Pane fx:id="pBuildingPrice" layoutX="348.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
+                     <children>
+                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
+                           <children>
+                              <Text fx:id="tBuildingPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
+                           <children>
+                              <CheckBox fx:id="cbBuildingPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="빌딩" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
+                           <image>
+                              <Image url="@../texture/building_010.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Pane fx:id="pHotelPrice" layoutX="517.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
+                     <children>
+                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
+                           <children>
+                              <Text fx:id="tHotelPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
+                           <children>
+                              <CheckBox fx:id="cbHotelPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="호텔" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                           </children>
+                        </Pane>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
+                           <image>
+                              <Image url="@../texture/building_001.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <effect>
+                        <DropShadow>
+                           <color>
+                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Pane>
+                  <Text fx:id="tDocumentMessage" layoutX="15.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="641.515625">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <Button id="create_room_submit" layoutX="569.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#onSubmitBuy" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="구매">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button id="create_room_cancel" layoutX="441.0" layoutY="356.0" mnemonicParsing="false" onMouseClicked="#onCancelBuy" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="취소">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color opacity="0.38528138399124146" />
+               </color>
+            </DropShadow>
+         </effect>
+      </AnchorPane>
       <AnchorPane id="createRoomModal" fx:id="apStartBluemarbleModal" layoutX="281.0" layoutY="192.0" prefHeight="567.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;" visible="false">
          <children>
             <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
@@ -335,6 +573,12 @@
                   <Font size="16.0" />
                </font>
             </Button>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="24.0" layoutY="518.0">
+               <image>
+                  <Image url="@../texture/information.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="22.0" layoutY="516.0" onMouseEntered="#onShowInformationModal" onMouseExited="#onCloseInformationModal" prefHeight="30.0" prefWidth="30.0" />
          </children>
          <effect>
             <DropShadow>
@@ -344,56 +588,65 @@
             </DropShadow>
          </effect>
       </AnchorPane>
-      <ImageView fx:id="dice1" fitHeight="50.0" fitWidth="50.0" layoutX="573.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="dice2" fitHeight="50.0" fitWidth="50.0" layoutX="636.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane fx:id="taibeiPane" layoutX="560.0" layoutY="739.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane1" layoutX="524.0" layoutY="703.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="hongKongPane" layoutX="488.0" layoutY="667.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="manilaPane" layoutX="452.0" layoutY="631.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="jejuPane" layoutX="418.0" layoutY="595.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="singaporePane" layoutX="381.0" layoutY="560.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane2" layoutX="346.0" layoutY="525.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="cairoPane" layoutX="310.0" layoutY="490.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="istanbulPane" layoutX="275.0" layoutY="453.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="islandPane" layoutX="214.0" layoutY="406.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="startPane" layoutX="591.0" layoutY="783.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" />
-      <AnchorPane fx:id="spacePane" layoutX="970.0" layoutY="404.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="socialMoneyGetPane" layoutX="592.0" layoutY="28.0" onMouseClicked="#onClickLandPane" prefHeight="83.0" prefWidth="79.0" rotate="45.0" />
-      <AnchorPane fx:id="athenaePane" layoutX="275.0" layoutY="360.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane3" layoutX="310.0" layoutY="325.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane4" layoutX="488.0" layoutY="146.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="goldCardPane5" layoutX="688.0" layoutY="111.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="goldCardPane6" layoutX="796.0" layoutY="595.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="copenhagenPane" layoutX="345.0" layoutY="290.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="stockholmPane" layoutX="381.0" layoutY="254.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="concordePane" layoutX="416.0" layoutY="217.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="zurichPane" layoutX="452.0" layoutY="182.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="berlinPane" layoutX="524.0" layoutY="111.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="montrealPane" layoutX="560.0" layoutY="75.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="buenosAiresPane" layoutX="652.0" layoutY="76.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="saoPauloPane" layoutX="724.0" layoutY="146.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="sydneyPane" layoutX="760.0" layoutY="181.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="busanPane" layoutX="795.0" layoutY="217.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="hawaiiPane" layoutX="830.0" layoutY="254.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="lisbonPane" layoutX="866.0" layoutY="290.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="queenElizabethPane" layoutX="902.0" layoutY="326.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="madridPane" layoutX="938.0" layoutY="361.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="45.0" />
-      <AnchorPane fx:id="tokyoPane" layoutX="938.0" layoutY="453.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="colombiaPane" layoutX="902.0" layoutY="488.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="parisPane" layoutX="867.0" layoutY="525.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="romaPane" layoutX="831.0" layoutY="560.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="londonPane" layoutX="760.0" layoutY="630.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="newYorkPane" layoutX="725.0" layoutY="666.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <AnchorPane fx:id="seoulPane" layoutX="652.0" layoutY="739.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="135.0" />
-      <AnchorPane fx:id="socialMoneyPayPane" layoutX="688.0" layoutY="703.0" onMouseClicked="#onClickLandPane" prefHeight="79.0" prefWidth="50.0" rotate="-45.0" />
-      <Button layoutX="55.0" layoutY="228.0" mnemonicParsing="false" onAction="#onClickFunc" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼" />
-      <Button layoutX="55.0" layoutY="336.0" mnemonicParsing="false" onAction="#onClickFunc2" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼2" />
-      <Button layoutX="55.0" layoutY="449.0" mnemonicParsing="false" onAction="#onClickFunc3" prefHeight="79.0" prefWidth="150.0" text="임시 동작 버튼3" />
-      <AnchorPane id="createRoomModal" fx:id="apGroundDocumentModal" layoutX="286.0" layoutY="270.0" prefHeight="409.0" prefWidth="700.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;" visible="false">
+      <Label fx:id="lbDiceNumber" alignment="CENTER" contentDisplay="CENTER" layoutX="572.0" layoutY="136.0" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: #ffffff; -fx-background-radius: 64px; -fx-border-radius: 64px; -fx-border-color: #000000; -fx-border-width: 3px;" text="11" textAlignment="CENTER" visible="false">
+         <font>
+            <Font size="74.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbDiceDouble" alignment="CENTER" layoutX="575.0" layoutY="117.0" prefHeight="35.0" prefWidth="115.0" style="-fx-background-color: #F9A201; -fx-border-color: #000000; -fx-border-radius: 12px; -fx-border-width: 2px; -fx-background-radius: 12px;" text="더블" textAlignment="CENTER" textFill="WHITE" visible="false">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Pane fx:id="pInformationModal" layoutX="289.0" layoutY="514.0" prefHeight="192.0" prefWidth="471.0" style="-fx-background-color: transparent;" visible="false">
          <children>
-            <AnchorPane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
+            <Pane layoutX="2.0" prefHeight="179.0" prefWidth="467.0" style="-fx-background-color: #414C5D; -fx-background-radius: 12px;">
                <children>
-                  <AnchorPane id="create_room_close" layoutX="650.0" onMouseClicked="#onCancelBuy" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 0px 12px 0px 0px;" stylesheets="@../application.css">
+                  <Pane layoutX="15.0" layoutY="160.0" prefHeight="25.0" prefWidth="25.0" rotate="45.0" style="-fx-background-color: #414C5D;" />
+                  <Text fill="WHITE" layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="부루마블 승리 조건" textAlignment="CENTER" wrappingWidth="432.51953125">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="28.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="아래와 같은 상황이 발생했을 때  현금을 가장 많이 보유한 플레이어가 승리합니다." wrappingWidth="413.69140625">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="16.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 한 명 이상의 플레이의가 파산했을 때" wrappingWidth="522.51953125">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="16.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- 2인 기준 각각 50턴 이상을 던졌을 때 " wrappingWidth="522.51953125">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="28.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EX) 2인: 100턴 / 3인: 150턴 / 4인: 200턴" wrappingWidth="501.51953125">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="apGoldCardModal" layoutX="286.0" layoutY="314.0" prefHeight="300.0" prefWidth="700.0" visible="false">
+         <children>
+            <ImageView fx:id="ivGoldCardImage" fitHeight="300.0" fitWidth="700.0" onMouseClicked="#onClickGoldCardModalClose" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="636.0" layoutY="14.0" onMouseClicked="#onClickGoldCardModalClose" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../texture/exitModal.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="createRoomModal" fx:id="apGameOverModel" layoutX="349.0" layoutY="328.0" prefHeight="272.0" prefWidth="567.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 12;" visible="false">
+         <children>
+            <AnchorPane prefHeight="49.0" prefWidth="567.0" style="-fx-background-color: #ffffff; -fx-background-radius: 12px 12px 0px 0px;" stylesheets="@../application.css">
+               <children>
+                  <AnchorPane id="create_room_close" layoutX="517.0" onMouseClicked="#onCloseBluemarble" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 0px 12px 0px 0px;" stylesheets="@../application.css">
                      <children>
                         <Text fill="#a5a6a6" layoutX="7.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="×" textAlignment="CENTER" wrappingWidth="35.572265625">
                            <font>
@@ -402,168 +655,46 @@
                         </Text>
                      </children>
                   </AnchorPane>
-                  <Text fx:id="tDocumentTitle" layoutX="54.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font">
+                  <Text fx:id="tDocumentTitle1" layoutX="54.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nanum_font" text="게임 결과">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="16.0" layoutY="12.0">
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="14.0" layoutY="10.0">
                      <image>
-                        <Image url="@../texture/real-estate.png" />
+                        <Image url="@../texture/logo_bluemarble.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane id="createRoomModal_container" layoutX="15.0" layoutY="70.0" prefHeight="319.0" prefWidth="671.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;">
+            <AnchorPane id="createRoomModal_container" layoutX="15.0" layoutY="70.0" prefHeight="135.0" prefWidth="539.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8; -fx-border-radius: 8;">
                <children>
-                  <Pane fx:id="pLandPrice" layoutX="14.0" layoutY="14.0" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
-                     <children>
-                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
-                           <children>
-                              <Text fx:id="tLandPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
-                           <image>
-                              <Image url="@../texture/building_flag.png" />
-                           </image>
-                        </ImageView>
-                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
-                           <children>
-                              <CheckBox fx:id="cbLandPrice" disable="true" layoutX="35.0" layoutY="3.0" mnemonicParsing="false" selected="true" text="땅값" textFill="WHITE">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                           </children>
-                        </Pane>
-                     </children>
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Pane fx:id="pVillaPrice" layoutX="183.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
-                     <children>
-                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
-                           <children>
-                              <Text fx:id="tVillaPrice" fill="WHITE" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
-                           <children>
-                              <CheckBox fx:id="cbVillaPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="빌라" textFill="WHITE">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                           </children>
-                        </Pane>
-                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
-                           <image>
-                              <Image url="@../texture/building_100.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Pane fx:id="pBuildingPrice" layoutX="348.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
-                     <children>
-                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
-                           <children>
-                              <Text fx:id="tBuildingPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
-                           <children>
-                              <CheckBox fx:id="cbBuildingPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="빌딩" textFill="WHITE">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                           </children>
-                        </Pane>
-                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
-                           <image>
-                              <Image url="@../texture/building_010.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Pane fx:id="pHotelPrice" layoutX="517.0" layoutY="14.0" onMouseClicked="#onToggleBuildCard" prefHeight="206.0" prefWidth="140.0" style="-fx-background-color: #F0F0F0; -fx-background-radius: 16px; -fx-border-radius: 16px;">
-                     <children>
-                        <Pane layoutX="2.0" layoutY="3.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 16px 16px 0 0; -fx-border-radius: 16px 16px 0 0;">
-                           <children>
-                              <Text fx:id="tHotelPrice" fill="WHITE" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="120.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </Pane>
-                        <Pane layoutX="2.0" layoutY="171.0" prefHeight="32.0" prefWidth="135.0" style="-fx-background-color: #34495e; -fx-background-radius: 0 0 16px 16px; -fx-border-radius: 0 0 16px 16px;">
-                           <children>
-                              <CheckBox fx:id="cbHotelPrice" layoutX="37.0" layoutY="2.0" mnemonicParsing="false" text="호텔" textFill="WHITE">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </CheckBox>
-                           </children>
-                        </Pane>
-                        <ImageView fitHeight="130.0" fitWidth="130.0" layoutX="5.0" layoutY="38.0">
-                           <image>
-                              <Image url="@../texture/building_001.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <effect>
-                        <DropShadow>
-                           <color>
-                              <Color red="0.6039215922355652" green="0.6039215922355652" blue="0.6039215922355652" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Pane>
-                  <Button id="create_room_submit" layoutX="277.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#onSubmitBuy" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="구매">
+                  <Label fx:id="lbWinPlayer" alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="27.0" prefHeight="62.0" prefWidth="343.0" textAlignment="CENTER">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="42.0" />
                      </font>
-                  </Button>
-                  <Text fx:id="tDocumentMessage" layoutX="15.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="641.515625">
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="35.0" layoutY="18.0">
+                     <image>
+                        <Image url="@../texture/winner.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lbWinPlayerMoney" alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="89.0" prefHeight="32.0" prefWidth="343.0" textAlignment="CENTER">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="22.0" />
                      </font>
-                  </Text>
-               </children>
-            </AnchorPane>
+                  </Label>
+               </children></AnchorPane>
+            <Button id="create_room_submit" layoutX="437.0" layoutY="216.0" mnemonicParsing="false" onMouseClicked="#onRestartBluemarble" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="재대결">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button id="create_room_cancel" layoutX="309.0" layoutY="216.0" mnemonicParsing="false" onMouseClicked="#onCloseBluemarble" onMouseEntered="#onHoverEnter" onMouseExited="#onHoverExit" prefHeight="39.0" prefWidth="117.0" style="-fx-background-radius: 8;" stylesheets="@../application.css" text="종료">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <DropShadow>
@@ -573,30 +704,19 @@
             </DropShadow>
          </effect>
       </AnchorPane>
-      <Label fx:id="lbDiceNumber" alignment="CENTER" layoutX="592.0" layoutY="182.0" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #80D261; -fx-background-radius: 50px; -fx-border-radius: 50px; -fx-border-color: #000000; -fx-border-width: 3px;" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <Label fx:id="lbDiceDouble" alignment="CENTER" layoutX="586.0" layoutY="151.0" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #3399FF; -fx-border-color: #000000; -fx-border-radius: 24px; -fx-border-width: 3px; -fx-background-radius: 24px;" text="더블" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="29.0" />
-         </font>
-      </Label>
-      <AnchorPane fx:id="apGoldCardModal" layoutX="286.0" layoutY="299.0" prefHeight="300.0" prefWidth="700.0" visible="false">
-         <children>
-            <ImageView fx:id="ivGoldCardImage" fitHeight="300.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="636.0" layoutY="14.0" onMouseClicked="#onClickGoldCardModalClose" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../texture/exitModal.png" />
-               </image></ImageView>
-         </children>
-      </AnchorPane>
-      <ImageView fx:id="ivSocialMoney" fitHeight="45.0" fitWidth="45.0" layoutX="611.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="ivSocialMoney" fitHeight="45.0" fitWidth="45.0" layoutX="607.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../texture/money.png" />
-         </image>
-      </ImageView>
+         </image></ImageView>
+      <Pane fx:id="pDiceShadow" layoutX="581.0" layoutY="515.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-radius: 64px; -fx-background-color: transparent; -fx-border-radius: 64px; -fx-border-color: #E0FFC1;">
+         <effect>
+            <DropShadow spread="0.32" />
+         </effect>
+      </Pane>
+      <Button fx:id="btnRunDice" layoutX="581.0" layoutY="515.0" mnemonicParsing="false" onAction="#onClickRunDice" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #F27FE5; -fx-background-radius: 64px; -fx-border-color: #80D261; -fx-border-width: 5px; -fx-border-radius: 64px;" text="주사위굴리기" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
    </children>
    <effect>
       <DropShadow height="28.3275" radius="12.564375" width="23.93" />

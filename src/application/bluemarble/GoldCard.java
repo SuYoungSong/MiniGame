@@ -93,7 +93,7 @@ public class GoldCard {
 		    	bgc.playerTotalPosition[bgc.turnCount] = 10;	// 플레이어 누적위치
 		    	bgc.playerPosition[bgc.turnCount] = 10;			// 플레이어 절대위치
 		    	
-		    	bgc.playerMove(0, bgc.turnCount);
+		    	bgc.playerMove(0);
 		    	bgc.turnCount++;	// 턴값 증가
 		    	if(bgc.turnCount>bgc.playerCnt) {
 		    		bgc.turnCount = 1;
