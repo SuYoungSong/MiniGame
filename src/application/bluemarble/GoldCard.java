@@ -94,10 +94,7 @@ public class GoldCard {
 		    	bgc.playerPosition[bgc.turnCount] = 10;			// 플레이어 절대위치
 		    	
 		    	bgc.playerMove(0);
-		    	bgc.turnCount++;	// 턴값 증가
-		    	if(bgc.turnCount>bgc.playerCnt) {
-		    		bgc.turnCount = 1;
-		    	}
+		    	bgc.nextTurn();
 		    	bgc.showProfileHighlight();
 				break;
 		}

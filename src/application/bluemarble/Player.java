@@ -12,7 +12,6 @@ public class Player {
     private int[] cityNum;
     private int turn;
     private Image profileImgURI;
-    
 
     Player(String nickaname, long money, Image profileImgURI){
         //유저 생성 시 가지고 있는 자산은 현금밖에 없기 때문에 자산과 현금에 같은 값 삽입
@@ -64,9 +63,8 @@ public class Player {
     public void setMoney(long money) {
         this.money = money;
     }
-    public long refreshAsset() {
+    public void refreshAsset() {
         this.asset = money;	// 땅 가격 추가 해야함
-        return asset;
     }
 //    public int cityCnt() {
 //        return cityCnt;

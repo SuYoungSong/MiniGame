@@ -1,8 +1,5 @@
 package application.bluemarble;
-
 public class BuildingData{
-	BluemarbleGameController bgc;
-
 	int buyLand, buyVilla, buyBuilding, buyHotel;		// 땅 구매 비용
 	int passLand, passVilla, passBuilding, passHotel;	// 땅 통행 비용
 
@@ -39,8 +36,8 @@ public class BuildingData{
 	}
 
 	void startPoint() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;  buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;  passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 타이베이
 	void Taibei() {
@@ -50,8 +47,8 @@ public class BuildingData{
 	// 황금카드1번
 
 	void goldCard1() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 홍콩
 	void HongKong() {
@@ -65,8 +62,8 @@ public class BuildingData{
 	}
 	//제주도
 	void Jeju() {
-		buyLand = 100000;
-		passLand = 150000;
+		buyLand = 100000;  buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 150000; passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 싱가포르
 	void Singapore() {
@@ -76,8 +73,8 @@ public class BuildingData{
 
 	// 황금카드2번
 	void goldCard2() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 카이로
 	void Cairo() {
@@ -94,8 +91,8 @@ public class BuildingData{
 	 */
 	// 무인도
 	void isLand() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 아테네
 	void Athenae() {
@@ -104,8 +101,8 @@ public class BuildingData{
 	}
 	// 황금카드3번
 	void goldCard3() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 코펜하겐
 	void Copenhagen() {
@@ -129,8 +126,8 @@ public class BuildingData{
 	}
 	// 황금카드4번
 	void goldCard4() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 베를린
 	void Berlin() {
@@ -149,8 +146,8 @@ public class BuildingData{
 	 */
 	// 사회복지기금
 	void socialMoneyGet(){
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 부에노스아이레스
 	void BuenosAires() {
@@ -159,8 +156,8 @@ public class BuildingData{
 	}
 	// 황금카드5번
 	void goldCard5() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 상파울루
 	void SaoPaulo() {
@@ -202,8 +199,8 @@ public class BuildingData{
 	 */
 	// 우주여행
 	void spaceTraval() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 도쿄
 	void Tokyo() {
@@ -227,8 +224,8 @@ public class BuildingData{
 	}
 	// 황금카드6번
 	void goldCard6() {
-		buyLand = 0;
-		passLand = 0;
+		buyLand = 0;	buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 0;	passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 	// 런던
 	void London() {
@@ -242,8 +239,8 @@ public class BuildingData{
 	}
 	// 서울
 	void Seoul() {
-		buyLand = 700000;
-		passLand = 800000;
+		buyLand = 700000;  buyVilla = 0;	buyBuilding = 0;	buyHotel = 0;
+		passLand = 800000; passVilla = 0;	passBuilding = 0;	passHotel = 0;
 	}
 
 
@@ -257,7 +254,8 @@ public class BuildingData{
 			SaoPauloOwner, SydneyOwner, BusanOwner, HawaiiOwner, LisbonOwner,
 			QueenElizabethOwner, MadridOwner, TokyoOwner, ColombiaOwner, ParisOwner,
 			RomaOwner, LondonOwner, NewYorkOwner, SeoulOwner;
-				
+
+	
 	/* 총 사용할 타입 종류 : 9가지(String)
 	* 0(1) 0(2) 0(3) >> (1)빌라 구매여부, (2)빌딩 구매여부, (3)호텔 구매여부 
 	* 000: 건축물이 존재하지 않을 때(토지만 구매했을 때)
@@ -276,7 +274,7 @@ public class BuildingData{
 			SaoPauloType, SydneyType, BusanType, HawaiiType, LisbonType,
 			QueenElizabethType, MadridType, TokyoType, ColombiaType, ParisType,
 			RomaType, LondonType, NewYorkType, SeoulType;
-	
+
 	public String TaibeiOwner() {
 		return TaibeiOwner;
 	}
@@ -827,5 +825,5 @@ public class BuildingData{
 //	땅 구매비용 : 대지료 35만, 호텔 100만, 빌딩 60만, 별장 20만
 //	땅 통행비용 : 대지료 3만5천, 호텔 150만, 빌딩 110만, 별장 17만
 //서울
-//	땅 구매비용 : 대지료 70만, 
-//	땅 통행비용 : 대지료 80만, 
+//	땅 구매비용 : 대지료 50만, 호텔 150만, 빌딩 90만, 별장 50만
+//	땅 통행비용 : 대지료 10만, 호텔 200만, 빌딩 150만, 별장 40만
