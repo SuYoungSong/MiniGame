@@ -473,7 +473,8 @@ public class BluemarbleGameController implements Initializable {
         double endY = LandPaneList[movePosition].getLayoutY() - startPane.getLayoutY();
         int[] goldCardPaneNum = { 2, 7, 12, 17, 22, 35 };
         SequentialTransition st;	// 애니메이션을 차례대로 동작시키는 함수
-
+        int lineDiff = (originPosition/10)-(movePosition/10);
+        lineDiff = (lineDiff<0)?lineDiff*(-1):lineDiff;
         setBuildingPrice(LandPaneList[movePosition].getId().toString());
         // 목적지 까지 가는 이동 애니매이션
         TranslateTransition tt = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turnCount]);
@@ -481,12 +482,28 @@ public class BluemarbleGameController implements Initializable {
         tt.setToY(endY);
 
         // 목적지로 이동할때 보드를 횡단하지 않기위해 추가한 코드
-        if( (originPosition/10) != (movePosition/10) ) {
-            TranslateTransition tt2 = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turnCount]);
-            tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
-            tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
-            // 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행
-            st = new SequentialTransition(playerHorseImg[turnCount],tt2,tt);
+        if( lineDiff != 0 ) {
+        	if(lineDiff == 2) {
+        		int secondPane = ((movePosition/10)*10);
+        		int fisrtPane = (secondPane-10<0)?30:secondPane-10;
+        		System.out.println(fisrtPane);
+        		System.out.println(secondPane);
+        		// 2개 라인을 넘어가는 경우
+        		TranslateTransition tt2 = new TranslateTransition(new Duration(setDuration(diceNum/2)), playerHorseImg[turnCount]);
+        		TranslateTransition tt3 = new TranslateTransition(new Duration(setDuration(diceNum/2)), playerHorseImg[turnCount]);
+ 	            tt2.setToX(LandPaneList[secondPane].getLayoutX() - startPane.getLayoutX());
+ 	            tt2.setToY(LandPaneList[secondPane].getLayoutY() - startPane.getLayoutY());
+ 	            tt3.setToX(LandPaneList[fisrtPane].getLayoutX() - startPane.getLayoutX());
+ 	            tt3.setToY(LandPaneList[fisrtPane].getLayoutY() - startPane.getLayoutY());
+ 	            st = new SequentialTransition(playerHorseImg[turnCount],tt3,tt2,tt);
+        	}else {
+        		// 1개 라인을 넘어가는 경우
+	            TranslateTransition tt2 = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turnCount]);
+	            tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
+	            tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
+	            // 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행
+	            st = new SequentialTransition(playerHorseImg[turnCount],tt2,tt);
+        	}
         } else {
             st = new SequentialTransition(playerHorseImg[turnCount],tt);
         }
