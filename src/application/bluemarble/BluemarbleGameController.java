@@ -101,7 +101,8 @@ public class BluemarbleGameController implements Initializable {
     @FXML private Text tPlayer4Asset;
     @FXML private Text tPlayer4Money;
     @FXML private Text tPlayer4Nickname;
-
+    
+    final long salaryMoney = 200000;	// 출발지 지날경우 월급 설정
     final private byte goldCardNum = 5; // 황금카드 갯수
     GoldCard goldcard = new GoldCard(goldCardNum,this);
     Player[] player = new Player[5]; // 플레이어는 1 ~ 4번으로 0번 인덱스는 사용하지 않습니다.
@@ -162,8 +163,8 @@ public class BluemarbleGameController implements Initializable {
     AnchorPane getStartPane() {
     	return startPane;
     }
-    AnchorPane getSocialMoneyPayPane() {
-    	return socialMoneyPayPane;
+    AnchorPane getSocialMoneyGetPane() {
+    	return socialMoneyGetPane;
     }
     AnchorPane getSpacePane() {
     	return spacePane;
@@ -181,6 +182,7 @@ public class BluemarbleGameController implements Initializable {
     	if(isArrivalSpaceTravel[turnCount]) {
     		isArrivalSpaceTravel[turnCount] = false;
     		byte selectLandNum = 0;
+    		boolean passStartPane = false;
     		final byte spaceLandNum = 30;
 	    	AnchorPane[] LandPaneList = {startPane, taibeiPane, goldCardPane1, hongKongPane, manilaPane,
 	                jejuPane, singaporePane, goldCardPane2, cairoPane, istanbulPane,
@@ -213,34 +215,42 @@ public class BluemarbleGameController implements Initializable {
 	    	
 	    	if( (paneNumDiff<11)&&(paneNumDiff>0) ) {	// 3라인을 선택한 경우
 	    		// 3라인 ( 1(마드리드) ~ 10(사회복지기금)
-	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
-	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
-	    		  line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
-	    		  line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
-	    		  line3.setToX(socialMoneyGetPane.getLayoutX() - startPane.getLayoutX());
-	    		  line3.setToY(socialMoneyGetPane.getLayoutY() - startPane.getLayoutY());
-	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,line3,tt);
-	    		  st.play();
+	    		passStartPane = true; // 시작지 지나서 월급지급
+	    		line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
+	    		line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
+	    		line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
+	    		line3.setToX(socialMoneyGetPane.getLayoutX() - startPane.getLayoutX());
+	    		line3.setToY(socialMoneyGetPane.getLayoutY() - startPane.getLayoutY());
+	    		st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,line3,tt);
+	    		st.play();
 	    	}
 	    	if( (paneNumDiff<21)&&(paneNumDiff>10) ) {	// 2라인을 선택한 경우
 	    		// 2라인 ( 11(몬트리올) ~ 20(무인도) )
-	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
-	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
-	    		  line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
-	    		  line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
-	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,tt);
-	    		  st.play();
+	    		passStartPane = true; // 시작지 지나서 월급지급
+	    		line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());
+	    		line2.setToX(islandPane.getLayoutX() - startPane.getLayoutX());
+	    		line2.setToY(islandPane.getLayoutY() - startPane.getLayoutY());
+	    		st = new SequentialTransition(playerHorseImg[turnCount],line1,line2,tt);
+	    		st.play();
 	    	}
 	    	if( (paneNumDiff<31)&&(paneNumDiff>20) ) {	// 1라인을 선택한 경우
 	    		// 1라인 ( 30(출발지) ~ 21(이스탄불) )
-	    		  line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
-	    		  line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());	
-	    		  st = new SequentialTransition(playerHorseImg[turnCount],line1,tt);
-	    		  st.play();
+	    		passStartPane = true; // 시작지 지나서 월급지급
+	    		line1.setToX(startPane.getLayoutX() - startPane.getLayoutX());
+	    		line1.setToY(startPane.getLayoutY() - startPane.getLayoutY());	
+	    		st = new SequentialTransition(playerHorseImg[turnCount],line1,tt);
+	    		st.play();
 	    	}
 	    	if( paneNumDiff<0) {	// 4라인을 선택한 경우
-		    	st = new SequentialTransition(playerHorseImg[turnCount],tt);
+	    		st = new SequentialTransition(playerHorseImg[turnCount],tt);
 		    	st.play();
+	    	}
+	    	if(passStartPane) {
+	    		// 월급 20만원 지급
+	    		player[turnCount].setMoney(player[turnCount].money()+salaryMoney);
+	    		refreshMoney();
 	    	}
 	    	playerPosition[turnCount] = selectLandNum;			// 플레이어 절대위치
 	    	playerTotalPosition[turnCount] += selectLandNum+10;	// 플레이어 누적위치
@@ -339,6 +349,10 @@ public class BluemarbleGameController implements Initializable {
         if(!isDouble)turnCount++;
     	if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         showProfileHighlight();
+        showDiceButton();
+        // 우주여행을 가야하는 경우 주사위 숨기기
+        if(isArrivalSpaceTravel[turnCount])
+        	hideDiceButton();
     }
 
     //현재 턴인 유저 프로필에 하이라이트 추가
@@ -433,7 +447,7 @@ public class BluemarbleGameController implements Initializable {
     }
 
     int setDuration(int val) { return val * 100; }
-
+    int prePlayerPosition;	// 월급 주기위해 체크하려고 만든 변수
     // 주사위 굴렸을때 플레이어 이동에 관련된 메소드
     void playerMove(int diceNum) {
         int LandPaneTotalCnt = 40;
@@ -473,10 +487,14 @@ public class BluemarbleGameController implements Initializable {
             st = new SequentialTransition(playerHorseImg[turnCount],tt);
         }
 
-        System.out.println(turnCount+"  "+playerPosition[turnCount]);
+        prePlayerPosition = playerPosition[turnCount];
         playerTotalPosition[turnCount] += diceNum;	// 플레이어 위치 누적 기록
         playerPosition[turnCount] = movePosition;    // 플레이어 절대 위치 기록
-        System.out.println(turnCount+"  "+playerPosition[turnCount]);
+        if(prePlayerPosition>playerPosition[turnCount]) {
+        	// 출발지를 지난경우 월급 지급
+        	player[turnCount].setMoney(player[turnCount].money() +salaryMoney);
+        	refreshMoney();
+        }
         //이동 종료
         st.setOnFinished(e -> {
             boolean isGoldCardPane = false;

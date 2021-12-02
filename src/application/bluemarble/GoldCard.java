@@ -65,8 +65,8 @@ public class GoldCard {
 		    	}
 		    	if( bgc.playerPosition[bgc.turnCount]>9 && bgc.playerPosition[bgc.turnCount]<20 ) {
 		    		// 플레이어 캐릭 위치 2라인
-		    		line2.setToX(bgc.getSocialMoneyPayPane().getLayoutX() - bgc.getStartPane().getLayoutX());
-		    		line2.setToY(bgc.getSocialMoneyPayPane().getLayoutY() - bgc.getStartPane().getLayoutY());
+		    		line2.setToX(bgc.getSocialMoneyGetPane().getLayoutX() - bgc.getStartPane().getLayoutX());
+		    		line2.setToY(bgc.getSocialMoneyGetPane().getLayoutY() - bgc.getStartPane().getLayoutY());
 		    		line3.setToX(bgc.getSpacePane().getLayoutX() - bgc.getStartPane().getLayoutX());
 		    		line3.setToY(bgc.getSpacePane().getLayoutY() - bgc.getStartPane().getLayoutY());
 		    		line4.setToX(bgc.getStartPane().getLayoutX() - bgc.getStartPane().getLayoutX());
@@ -90,6 +90,9 @@ public class GoldCard {
 		    		st = new SequentialTransition(bgc.playerHorseImg[bgc.turnCount],line4,tt);
 		    		st.play();
 		    	}
+		    	// 출발지 지날경우 월급 20만원 지급 => 수정 황금카드로 무인도 가는경우 월급 미지급
+//		    	if(bgc.playerPosition[bgc.turnCount]>10) bgc.player[bgc.turnCount].setMoney(bgc.player[bgc.turnCount].money() +bgc.salaryMoney);
+		    	
 		    	bgc.playerTotalPosition[bgc.turnCount] = 10;	// 플레이어 누적위치
 		    	bgc.playerPosition[bgc.turnCount] = 10;			// 플레이어 절대위치
 		    	
