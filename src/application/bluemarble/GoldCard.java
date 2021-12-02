@@ -34,7 +34,7 @@ public class GoldCard {
 						bgc.player[i].setMoney(bgc.player[i].money()+tenPercent);
 						bgc.player[bgc.turnCount].setMoney(bgc.player[bgc.turnCount].money() - tenPercent);
 						bgc.refreshMoney();
-						bgc.player[i].refreshAsset();
+//						bgc.player[i].refreshAsset();
 					}
 				}
 				bgc.refreshMoney();

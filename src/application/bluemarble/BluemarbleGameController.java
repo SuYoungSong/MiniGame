@@ -351,8 +351,12 @@ public class BluemarbleGameController implements Initializable {
         showProfileHighlight();
         showDiceButton();
         // 우주여행을 가야하는 경우 주사위 숨기기
-        if(isArrivalSpaceTravel[turnCount])
+        if(isArrivalSpaceTravel[turnCount]) {
+        	System.out.println(turnCount+"플레이어 우주여행 시작");
         	hideDiceButton();
+        }
+        currentLandOwner = null;
+        currentLandType = null;
     }
 
     //현재 턴인 유저 프로필에 하이라이트 추가
@@ -515,6 +519,7 @@ public class BluemarbleGameController implements Initializable {
 
             //땅 주인이 없을 때
             if(currentLandOwner == null) {
+            	System.out.println(currentLandOwner);
                 System.out.println("NULL 땅 주인이 존재하지 않음");
 
                 if(LandPaneList[playerPosition[turnCount]] == startPane) {
@@ -560,9 +565,9 @@ public class BluemarbleGameController implements Initializable {
                         onShowGroundDocumentModal(LandListKor[movePosition]);
                     }
                 }
-
                 //땅 주인과 현재 플레이어가 같을 때
             } else if(currentLandOwner.equals(player[turnCount].nickname())){
+            	System.out.println(currentLandOwner);
                 System.out.println("O 땅 주인과 현재 플레이어가 동일함");
                 isTollFree[turnCount] = false; 
                 //모든 건물을 구매했으면 바로 다음 턴
@@ -592,6 +597,7 @@ public class BluemarbleGameController implements Initializable {
                 }
                 //땅 주인과 현재 플레이어가 다를 때
             } else {
+            	System.out.println(currentLandOwner);
                 System.out.println("X 땅 주인과 현재 플레이어가 동일하지 않음");
 
                 char[] payLandType = currentLandType.toCharArray();
