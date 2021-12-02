@@ -251,10 +251,7 @@ public class BluemarbleGameController implements Initializable {
 		    	st = new SequentialTransition(playerHorseImg[turnCount],tt);
 		    	st.play();
 	    	}
-	    	turnCount++;	// 턴값 증가
-	    	if(turnCount>playerCnt) {
-	    		turnCount = 1;
-	    	}
+	    	nextTurn();
 	    	if(isArrivalSpaceTravel[turnCount]) System.out.println(turnCount+"번 플레이어는 우주여행이 가능합니다. 원하는 땅을 선택하세요.");
 	    	playerPosition[turnCount] = selectLandNum;			// 플레이어 절대위치
 	    	playerTotalPosition[turnCount] += selectLandNum+10;	// 플레이어 누적위치
@@ -364,7 +361,8 @@ public class BluemarbleGameController implements Initializable {
             if(p == null) continue;
             p.setStyle("");
         }
-//        profileHighlight[turnCount].setStyle("-fx-border-color: red;-fx-border-width: 12px;-fx-border-radius: 8px");
+        if(profileHighlight[turnCount]!=null)
+        	profileHighlight[turnCount].setStyle("-fx-border-color: red;-fx-border-width: 12px;-fx-border-radius: 8px");
     }
 
     Timer timerDice;
@@ -420,6 +418,7 @@ public class BluemarbleGameController implements Initializable {
         if( !(diceResult[0] == diceResult[1]) ) {
         	isDouble = true;
             showDiceNumber(diceResult[0]+diceResult[1], false);
+            nextTurn();
 //            turnCount++;
 //            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
         }else {
@@ -429,7 +428,8 @@ public class BluemarbleGameController implements Initializable {
         	}else {
         		System.out.println("무인도, 우주여행에서 더블 시 한턴 더 진행이 불가능합니다. 턴이 넘어갑니다.");
 //	    		turnCount++;
-	            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
+        		nextTurn();
+//	            if(turnCount > playerCnt) turnCount = 1; // 플레이어 턴 재배정
 	            if(isArrivalSpaceTravel[turnCount]) System.out.println(turnCount+"번 플레이어는 우주여행이 가능합니다. 원하는 땅을 선택하세요.");
         	}
         }
@@ -942,8 +942,10 @@ public class BluemarbleGameController implements Initializable {
     @FXML
     void onClickGoldCardModalClose(MouseEvent event) {
     	apGoldCardModal.setVisible(false);
+    	 btnRunDice.setDisable(false);
     }
     void goldCardSetImage(Image image) {
+    	 btnRunDice.setDisable(true);
     	ivGoldCardImage.setImage(image);
     	apGoldCardModal.setVisible(true);
     }
@@ -1131,8 +1133,8 @@ public class BluemarbleGameController implements Initializable {
             }
             objectCnt++;
         }
-        apStartBluemarbleModal.setVisible(false);
         profileSettting();
+        apStartBluemarbleModal.setVisible(false);
         connectObjectToFX();
         assignPlayer();
         showProfileHighlight();
