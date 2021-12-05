@@ -997,7 +997,6 @@ public class BluemarbleGameController implements Initializable {
 
             //더블이 아니면 다음 턴
             nextTurn();
-            showDiceButton();
             // 플레이어가 구매할 금액이 모자랄 때
         } else {
             tDocumentMessage.setText("금액이 충분하지 않습니다.");
@@ -1013,7 +1012,6 @@ public class BluemarbleGameController implements Initializable {
 
     void onCloseGroundDocumentModal(){
         apGroundDocumentModal.setVisible(false);
-        showDiceButton();
         nextTurn();
     }
 
