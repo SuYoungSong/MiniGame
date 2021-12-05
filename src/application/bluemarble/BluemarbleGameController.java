@@ -612,6 +612,7 @@ public class BluemarbleGameController implements Initializable {
                 for(Pane p : justOneLand){
                     if(LandPaneList[playerPosition[turnCount]] == p){
                         nextTurn();
+                        btnRunDice.setDisable(false);
                     }
                 }
 
@@ -622,28 +623,29 @@ public class BluemarbleGameController implements Initializable {
                     nextTurn();
                 } else {
                 	try {
-               		char[] typeArr = currentLandType.toCharArray();
-               		System.out.println("currentLandType >> " + currentLandType);
-    //                구매된 토지 중복 선택 불가
-                    if(typeArr[0] == '1'){
-                        ignoreVilla = true;
-                        cbVillaPrice.setSelected(true);
-                        cbVillaPrice.setDisable(true);
-                    }
-                    if(typeArr[1] == '1'){
-                        ignoreBuilding = true;
-                        cbBuildingPrice.setSelected(true);
-                        cbBuildingPrice.setDisable(true);
-                    }
-                    if(typeArr[2] == '1'){
-                        ignoreHotel = true;
-                        cbHotelPrice.setSelected(true);
-                        cbHotelPrice.setDisable(true);
-                    }
-                    onShowGroundDocumentModal(LandListKor[playerPosition[turnCount]]);
-                }catch (Exception event) {
-                	return;
-                }
+	               		char[] typeArr = currentLandType.toCharArray();
+	               		System.out.println("currentLandType >> " + currentLandType);
+	    //                구매된 토지 중복 선택 불가
+	                    if(typeArr[0] == '1'){
+	                        ignoreVilla = true;
+	                        cbVillaPrice.setSelected(true);
+	                        cbVillaPrice.setDisable(true);
+	                    }
+	                    if(typeArr[1] == '1'){
+	                        ignoreBuilding = true;
+	                        cbBuildingPrice.setSelected(true);
+	                        cbBuildingPrice.setDisable(true);
+	                    }
+	                    if(typeArr[2] == '1'){
+	                        ignoreHotel = true;
+	                        cbHotelPrice.setSelected(true);
+	                        cbHotelPrice.setDisable(true);
+	                    }
+	                    onShowGroundDocumentModal(LandListKor[playerPosition[turnCount]]);
+	                }catch (Exception event) {
+	                	btnRunDice.setDisable(false);
+	                	return;
+	                }	
               }
                 //땅 주인과 현재 플레이어가 다를 때
             } else {
