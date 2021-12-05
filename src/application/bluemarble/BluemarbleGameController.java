@@ -204,6 +204,8 @@ public class BluemarbleGameController implements Initializable {
 	    	}
 	    	
 	    	if(selectLandNum == spaceLandNum) {
+	    		System.out.println("[우주여행] 우주여행 땅 클릭시 이동 취소처리");
+	    		nextTurn();
 	    		return;	// 우주여행 땅을 고른경우 우주여행 취소
 	    	}
 	    	
@@ -258,9 +260,9 @@ public class BluemarbleGameController implements Initializable {
 	    	playerPosition[turnCount] = selectLandNum;			// 플레이어 절대위치
 	    	playerTotalPosition[turnCount] += selectLandNum+10;	// 플레이어 누적위치
 	    	st.setOnFinished(e -> {
-//	    		playerMove(0);
+	    		playerMove(0);
 	    		System.out.println(LandPaneList[playerPosition[turnCount]]+"땅 숫자> "+playerPosition[turnCount]);
-	    		nextTurn();
+//	    		nextTurn();
 	        });
     	}
     }
@@ -410,7 +412,8 @@ public class BluemarbleGameController implements Initializable {
         int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
         ImageView[] diceIV = { dice1, dice2 };	// 주사위 이미지
         for(int i = 0 ; i < 2 ; i++) {
-            diceResult[i] = (int)(Math.random()*6)+1;
+//            diceResult[i] = (int)(Math.random()*6)+1;
+            diceResult[i] = 5;
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
         // 무인도 체크하는 조건
@@ -505,10 +508,13 @@ public class BluemarbleGameController implements Initializable {
  	            tt3.setToY(LandPaneList[fisrtPane].getLayoutY() - startPane.getLayoutY());
  	            st = new SequentialTransition(playerHorseImg[turnCount],tt3,tt2,tt);
         	}else {
+        		System.out.println(((movePosition/10)*10));
         		// 1개 라인을 넘어가는 경우
 	            TranslateTransition tt2 = new TranslateTransition(new Duration(setDuration(diceNum)), playerHorseImg[turnCount]);
-	            tt2.setToX(LandPaneList[((movePosition/10)*10)].getLayoutX() - startPane.getLayoutX());
-	            tt2.setToY(LandPaneList[((movePosition/10)*10)].getLayoutY() - startPane.getLayoutY());
+	            int firstPane = (((movePosition/10)*10)==0)?40:((movePosition/10)*10);
+	             
+	            tt2.setToX(LandPaneList[firstPane].getLayoutX() - startPane.getLayoutX());
+	            tt2.setToY(LandPaneList[firstPane].getLayoutY() - startPane.getLayoutY());
 	            // 매개변수 (움직일것, 애니메이션1, 애니메이션2, ... , 애니메이션N)  -> 앞에서 순차적으로 실행
 	            st = new SequentialTransition(playerHorseImg[turnCount],tt2,tt);
         	}
