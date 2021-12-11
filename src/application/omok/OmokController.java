@@ -244,7 +244,7 @@ public class OmokController implements Initializable{
 			}
 			if(checkNum>0)countNum++;
 		}
-		if((countNum>=2)||(boCheckNum>=4)||((countNum>=1)&&(boCheckNum>=2))) {
+		if((countNum>=2)||(boCheckNum>=4)||(boCheckNum<-3)||((countNum>=1)&&(boCheckNum>=2))) {
 			return true;
 		}else{
 			return false;

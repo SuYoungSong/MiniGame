@@ -398,15 +398,15 @@ public class Play2048Controller {
 	// 더이상 타일을 움직일 수 없는지 체크
 	void gameOVerCheck() {
 		// 게임판이 꽉찬 상태인지 확인
-		for(int i=0 ; i<boardSize-1 ; i++) {
-			for(int k=0 ; k<boardSize-1 ; k++) {
+		for(int i=0 ; i<boardSize ; i++) {
+			for(int k=0 ; k<boardSize ; k++) {
 				if(board[i][k] == 0) {
 					return;			// 게임판이 가득 차지 않으면 return
 				}
 			}
 		}
 		// 게임판이 꽉 찼을 경우 더이상 게임 진행이 가능한지 체크 << 가로 >>
-		for(int i=0 ; i<boardSize-1 ; i++ ) {
+		for(int i=0 ; i<boardSize ; i++ ) {
 			for(int k=0 ; k<boardSize-1 ; k++ ) {
 				if( board[k][i]==board[k+1][i]) {
 					return;
@@ -414,7 +414,7 @@ public class Play2048Controller {
 			}
 		}
 		// 게임판이 꽉 찼을 경우 더이상 게임 진행이 가능한지 체크 << 세로 >>
-		for(int i=0 ; i<boardSize-1 ; i++ ) {
+		for(int i=0 ; i<boardSize ; i++ ) {
 			for(int k=0 ; k<boardSize-1 ; k++ ) {
 				if( board[i][k]==board[i][k+1]) {
 					return;
