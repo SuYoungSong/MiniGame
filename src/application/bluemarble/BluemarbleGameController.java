@@ -412,8 +412,7 @@ public class BluemarbleGameController implements Initializable {
         int[] diceResult = new int[2];			// 주사위 결과 저장 -> 더블 체크용도
         ImageView[] diceIV = { dice1, dice2 };	// 주사위 이미지
         for(int i = 0 ; i < 2 ; i++) {
-//            diceResult[i] = (int)(Math.random()*6)+1;
-            diceResult[i] = 5;
+            diceResult[i] = (int)(Math.random()*6)+1;
             diceIV[i].setImage(new Image(Main.class.getResourceAsStream("texture/"+diceResult[i]+".png")));
         }
         // 무인도 체크하는 조건
