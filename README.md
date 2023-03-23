@@ -4,10 +4,20 @@
 
 ●개발<br>
  - 소프트웨어학과 2학년 송수영 <br>
- - 소프트웨어학과 2학년 <a href="https://github.com/nogoduck ">이유진</a>  <br>
+ - 소프트웨어학과 2학년 이유진</a>  <br>
 <br>  
 
-# ■ 개발 목록
+# ■ 실행 사진 일부
+<img src="https://i.postimg.cc/tC9cXsQn/image.jpg" width="150" heigth="250"><br>
+<img src="https://i.postimg.cc/1tPtWG23/1.jpg" width="250" heigth="250">   
+<img src="https://i.postimg.cc/zX9qtwRY/2.jpg" width="250" heigth="250"><br>
+<img src="https://i.postimg.cc/BZPSxwXB/image.jpg" width="250" heigth="250"><br>
+<img src="https://i.postimg.cc/sXQr4vDg/2048.jpg" width="150" heigth="250"><br>
+
+
+<br>
+ 
+# ■ 개발 목록 ( 일부 이미지파일 기간 만료로 손실 )
 ## 21/11/7
 - 메인페이지 UI 변경<br>
 - 부루마블 버튼 추가<br>
