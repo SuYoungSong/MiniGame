@@ -7,47 +7,24 @@
  - 소프트웨어학과 2학년 이유진</a>  <br>
 <br>  
 
-# ■ 실행 사진 일부
-<img src="https://i.postimg.cc/tC9cXsQn/image.jpg" width="150" heigth="250"><br>
-<img src="https://i.postimg.cc/1tPtWG23/1.jpg" width="250" heigth="250">   
-<img src="https://i.postimg.cc/zX9qtwRY/2.jpg" width="250" heigth="250"><br>
-<img src="https://i.postimg.cc/BZPSxwXB/image.jpg" width="250" heigth="250"><br>
-<img src="https://i.postimg.cc/sXQr4vDg/2048.jpg" width="150" heigth="250"><br>
+# ■ 설계
+## 오목
+![오목 순서도](https://github.com/SuYoungSong/MiniGame/assets/80526924/1ea8e3d9-a171-4595-a647-316fe9bbd006)
+
+## 2048
+![2048 tns](https://github.com/SuYoungSong/MiniGame/assets/80526924/c926d00f-c744-4227-a030-e388a4c5b855)
+
+## 끝말잇기
+![끝말잇기 순서도](https://github.com/SuYoungSong/MiniGame/assets/80526924/40b8b911-ea53-4c78-af93-e5b6545d7b69)
+
+
+
+# ■ 실행 사진
+![시연0](https://github.com/SuYoungSong/MiniGame/assets/80526924/aca1f83e-3b60-49ff-bdc0-4d12b16832bc)
+![시연1](https://github.com/SuYoungSong/MiniGame/assets/80526924/476358d2-462b-4440-812a-dfed45ca86f7)
+![부루마블](https://github.com/SuYoungSong/MiniGame/assets/80526924/061ef0db-9c9f-4496-ab16-ad4a5cab32e5)
+
 
 
 <br>
- 
-# ■ 개발 목록 ( 일부 이미지파일 기간 만료로 손실 )
-## 21/11/7
-- 메인페이지 UI 변경<br>
-- 부루마블 버튼 추가<br>
-- 아이콘 추가<br>
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/906209963926503434/5e8e19d4feef651c.JPG" width="100" heigth="250"><br>
 
-## ~21/11/6
-- 메인페이지 끝말잇기 컴퓨터대전 추가<br>
-- 2048 구현 완료<br>
-- 끝말잇기 컴퓨터대전 구현 완료<br>
-- 오목 남은시간을 bar형태로 볼 수 있게 추가<br>
-<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992440782131210/1576318a8c286b53.PNG" width="100" height="250">
-<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992451657957386/f91d1362e4d04e53.PNG" width="200" height="250">
-<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992452077408286/961089bc4ee3c6cb.PNG" width="100" height="250">
-<img src="https://cdn.discordapp.com/attachments/814771922880823297/905992453461520434/2048.PNG" width="100" height="250">
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/906157320625594419/unknown.png" width="250" height="250"><br>
-
-## ~21/11/2
-- 2048 페이지 제작<br>
-- 2048 처음 시작 할 경우 랜덤한 위치에 [2|4]오게 구현 ( 2가 나올 확률 70% 설정 )<br>
-- 2048 내부 로직 구현(GUI이미지 연동X)<br>
-<img src="https://media.discordapp.net/attachments/349833160592457728/905099975883620423/1111111.JPG" width="100" height="250">
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/905099986193231942/12121.JPG" width="100" height="150"><br>
-
-## ~21/11/1
-- 임시 메인페이지 제작<br>
-- 오목게임 제작<br>
-- 끝말잇기 게임 제작중<br> 
-＊UI 구현<br> 
-＊표준국어대사전을 통해 표준단어 확인 시스템 구현<br>
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/904318226245255179/bb8c6f1a253c20c6.JPG" width="100" heigth="250">
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/904318227994271764/e401c65d33be880e.JPG" width="250" height="250">
-<img src="https://cdn.discordapp.com/attachments/349833160592457728/904318228237520967/0d4d8be90f6a1dba.JPG" width="250" height="250"><br>
